@@ -11,10 +11,10 @@ import UIKit
 enum ImageLiterals {
 
     //MARK: - tabBarIcon
-    static var homeFill: UIImage { .load(name: "homeFill")}
-    static var pool: UIImage { .load(name: "plus")}
-    static var calendar: UIImage { .load(name: "calendar")}
-    static var myPage: UIImage { .load(name: "person")}
+    static var homeFill: UIImage { .load(name: "Home")}
+    static var pool: UIImage { .load(name: "Plus")}
+    static var calendar: UIImage { .load(name: "Calendar")}
+    static var myPage: UIImage { .load(name: "Person")}
 
     //MARK: - LoginIcon
     static var logInPerson: UIImage { .load(name: "LoginPerson")}
