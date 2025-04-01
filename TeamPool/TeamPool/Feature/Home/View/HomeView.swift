@@ -13,12 +13,13 @@ class HomeView: BaseUIView {
 
     // MARK: - UI Components
 
-    lazy var exampleButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("example", for: .normal)
-        button.backgroundColor = .red
-        return button
-    }()
+    let tableView: UITableView = {
+            let tableView = UITableView()
+            tableView.separatorStyle = .none
+            tableView.showsVerticalScrollIndicator = false
+            tableView.register(PoolCell.self, forCellReuseIdentifier: "poolCell")
+            return tableView
+        }()
 
     // MARK: - Life Cycle
 
@@ -33,16 +34,15 @@ class HomeView: BaseUIView {
     // MARK: - Custom Method
 
     override func setUI() {
-        self.addSubview(exampleButton)
+        self.addSubview(tableView)
 
     }
 
     override func setLayout() {
-        exampleButton.snp.makeConstraints {
-            $0.horizontalEdges.equalToSuperview().inset(25)
-            $0.center.equalToSuperview()
-            $0.height.equalTo(50)
+        tableView.snp.makeConstraints { make in
+            make.edges.equalTo(safeAreaLayoutGuide)
         }
+
     }
 
 }
