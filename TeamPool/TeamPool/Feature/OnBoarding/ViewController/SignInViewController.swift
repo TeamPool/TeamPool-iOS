@@ -37,6 +37,7 @@ final class SignInViewController: BaseUIViewController {
 
     override func addTarget() {
         signInView.signInButton.addTarget(self, action: #selector(didTappedSignInButton), for: .touchUpInside)
+        signInView.signUpButton.addTarget(self, action: #selector(didTappedSignUpButton), for: .touchUpInside)
 
     }
 
@@ -45,6 +46,15 @@ final class SignInViewController: BaseUIViewController {
         print("로그인")
         let tabBarController = BaseTabBarController()
         UIApplication.shared.keyWindow?.replaceRootViewController(tabBarController, animated: true, completion: nil)
+
+    }
+
+    @objc
+    func didTappedSignUpButton() {
+        print("회원가입")
+        print(self.navigationController)
+        let signUpVC = SignUpViewController()
+        self.navigationController?.pushViewController(signUpVC, animated: true)
 
     }
 
