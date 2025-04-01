@@ -24,7 +24,7 @@ final class AddPoolNameView: BaseUIView {
     private let teamNameLabel: UILabel = {
         let label = UILabel()
         label.text = "팀명을 입력해주세요"
-        label.font = .systemFont(ofSize: 16, weight: .semibold)
+        label.font = .systemFont(ofSize: 20, weight: .semibold)
         return label
     }()
 

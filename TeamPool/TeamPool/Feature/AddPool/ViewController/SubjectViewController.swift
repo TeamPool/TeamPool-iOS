@@ -1,5 +1,5 @@
 //
-//  DeadlineViewController.swift
+//  SubjectViewController.swift
 //  TeamPool
 //
 //  Created by 성현주 on 4/2/25.
@@ -7,12 +7,12 @@
 
 import Foundation
 
-final class DeadlineViewController: BaseUIViewController {
+final class SubjectViewController: BaseUIViewController {
 
     // MARK: - Data
 
     // MARK: - UI Components
-    private let deadlineView = DeadlineView()
+    private let subjectView = SubjectView()
 
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -23,11 +23,11 @@ final class DeadlineViewController: BaseUIViewController {
 
     // MARK: - Custom Method
     override func setUI() {
-        view.addSubview(deadlineView)
+        view.addSubview(subjectView)
     }
 
     override func setLayout() {
-        deadlineView.snp.makeConstraints { make in
+        subjectView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
     }
@@ -35,14 +35,15 @@ final class DeadlineViewController: BaseUIViewController {
     // MARK: - Action Method
 
     override func addTarget() {
-        deadlineView.nextButton.addTarget(self, action: #selector(didTappedNextButton), for: .touchUpInside)
+        subjectView.nextButton.addTarget(self, action: #selector(didTappedNextButton), for: .touchUpInside)
 
     }
 
     @objc
     func didTappedNextButton() {
-        let subjectVC = SubjectViewController()
-        self.navigationController?.pushViewController(subjectVC, animated: true)
+        let createPoolVC = CreatPoolViewController()
+        self.navigationController?.pushViewController(createPoolVC, animated: true)
     }
 }
+
 
