@@ -13,8 +13,6 @@ class SignInView: BaseUIView {
 
     // MARK: - UI Components
 
-    
-
     lazy var idTextField: BaseTextField = {
         let textField = BaseTextField()
         textField.placeholder = "학번"
