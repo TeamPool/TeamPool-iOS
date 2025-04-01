@@ -48,8 +48,8 @@ final class HomeViewController: BaseUIViewController {
     @objc
     func didTappedExampleButton() {
         print("홈버튼 클릭")
-//        let addpoolVC = AddPoolViewController()
-//        self.navigationController?.pushViewController(addpoolVC, animated: true)
+        let signUpVC = SignUpViewController()
+        self.navigationController?.pushViewController(signUpVC, animated: true)
     }
 }
 
