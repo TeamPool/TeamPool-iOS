@@ -21,8 +21,8 @@ final class BaseTextField: UITextField {
     func setupUI() {
         let placeholderText = "이곳에 입력하세요"
         let attributes: [NSAttributedString.Key: Any] = [
-            .foregroundColor: UIColor.systemGray6, // 원하는 색상
-            .font: UIFont.systemFont(ofSize: 17) // 원하는 폰트
+            .foregroundColor: UIColor.systemGray, // 원하는 색상
+            .font: UIFont(name: "AppleSDGothicNeo-Bold", size: 18)! // 원하는 폰트
         ]
         self.attributedPlaceholder = NSAttributedString(string: placeholderText, attributes: attributes)
 

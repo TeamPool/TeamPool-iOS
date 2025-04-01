@@ -16,6 +16,10 @@ enum ImageLiterals {
     static var calendar: UIImage { .load(name: "calendar")}
     static var myPage: UIImage { .load(name: "person")}
 
+    //MARK: - LoginIcon
+    static var logInPerson: UIImage { .load(name: "LoginPerson")}
+    static var logInLock: UIImage { .load(name: "LoginLock")}
+
 }
 
 extension UIImage {

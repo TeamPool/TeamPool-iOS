@@ -13,19 +13,34 @@ class SignInView: BaseUIView {
 
     // MARK: - UI Components
 
-    // TODO:-아이콘 변경
+    
+
     lazy var idTextField: BaseTextField = {
         let textField = BaseTextField()
         textField.placeholder = "학번"
-        textField.addLeftImage(image: ImageLiterals.myPage)
+        textField.addLeftImage(image: ImageLiterals.logInPerson)
         return textField
     }()
 
     lazy var passwordTextField: BaseTextField = {
         let textField = BaseTextField()
         textField.placeholder = "비밀번호"
-        textField.addLeftImage(image: ImageLiterals.myPage)
+        textField.addLeftImage(image: ImageLiterals.logInLock)
         return textField
+    }()
+
+    lazy var signInButton: BaseFillButton = {
+        let button = BaseFillButton()
+        button.setTitle("Log In", for: .normal)
+        button.isEnabled = true
+        return button
+    }()
+
+    lazy var signUpButton: BaseFillButton = {
+        let button = BaseFillButton()
+        button.setTitle("Sign Up", for: .normal)
+        button.isEnabled = true
+        return button
     }()
 
     // MARK: - Life Cycle
@@ -41,20 +56,35 @@ class SignInView: BaseUIView {
     // MARK: - Custom Method
 
     override func setUI() {
-        self.addSubviews(idTextField,passwordTextField)
+        self.addSubviews(idTextField,
+                         passwordTextField,
+                         signInButton,
+                         signUpButton)
 
     }
 
     override func setLayout() {
         idTextField.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.leading.trailing.equalToSuperview().inset(29)
             $0.center.equalToSuperview()
             $0.height.equalTo(50)
         }
 
         passwordTextField.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview().inset(20)
-            $0.top.equalTo(idTextField.snp.bottom).offset(12)
+            $0.leading.trailing.equalToSuperview().inset(29)
+            $0.top.equalTo(idTextField.snp.bottom).offset(20)
+            $0.height.equalTo(50)
+        }
+
+        signInButton.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview().inset(29)
+            $0.top.equalTo(passwordTextField.snp.bottom).offset(20)
+            $0.height.equalTo(50)
+        }
+
+        signUpButton.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview().inset(29)
+            $0.top.equalTo(signInButton.snp.bottom).offset(20)
             $0.height.equalTo(50)
         }
     }
