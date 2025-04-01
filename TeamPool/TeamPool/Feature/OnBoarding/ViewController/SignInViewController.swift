@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 final class SignInViewController: BaseUIViewController {
 
@@ -32,6 +33,21 @@ final class SignInViewController: BaseUIViewController {
             make.edges.equalToSuperview()
         }
     }
+    // MARK: - Action Method
+
+    override func addTarget() {
+        signInView.signInButton.addTarget(self, action: #selector(didTappedSignInButton), for: .touchUpInside)
+
+    }
+
+    @objc
+    func didTappedSignInButton() {
+        print("로그인")
+        let tabBarController = BaseTabBarController()
+        UIApplication.shared.keyWindow?.replaceRootViewController(tabBarController, animated: true, completion: nil)
+
+    }
+
 }
 
 
