@@ -52,10 +52,8 @@ final class SignInViewController: BaseUIViewController {
     @objc
     func didTappedSignUpButton() {
         print("회원가입")
-        print(self.navigationController)
         let signUpVC = SignUpViewController()
         self.navigationController?.pushViewController(signUpVC, animated: true)
-
     }
 
 }

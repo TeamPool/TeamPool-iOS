@@ -96,7 +96,10 @@ final class SignUpView: BaseUIView {
         idTextField.placeholder = "Ex ) 20XXXXXXX"
         nicknameTextField.placeholder = "닉네임 최소 2자 - 최대 8자"
         pwTextField.placeholder = "비밀번호를 입력하세요."
+        pwTextField.addLeftImage(image: ImageLiterals.logInLock)
         checkPwTextField.placeholder = "비밀번호를 입력하세요."
+        checkPwTextField.addLeftImage(image: ImageLiterals.logInLock)
+
 
         //버튼
         signUpButton.setTitle("Sign Up", for: .normal)

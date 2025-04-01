@@ -57,3 +57,11 @@ final class LectureModel {
         return colors.randomElement() ?? .systemGray
     }
 }
+
+extension LectureModel {
+    func getLectureNames() -> [String] {
+        let names = lectures.map { $0.name }
+        let uniqueNames = Array(Set(names))
+        return uniqueNames.sorted()        
+    }
+}
