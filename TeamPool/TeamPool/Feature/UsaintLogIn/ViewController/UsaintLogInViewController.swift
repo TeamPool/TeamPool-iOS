@@ -59,6 +59,7 @@ final class UsaintLogInViewController: BaseUIViewController {
 extension UsaintLogInViewController {
     // MARK: 학생정보 로드
     func fetchStudentInfo(id: String, pw: String) {
+       // showLoading()
         Task {
             do {
                 let session = try await USaintSessionBuilder().withPassword(id: id, password: pw)
@@ -106,7 +107,7 @@ extension UsaintLogInViewController {
                         )
                     }
                 }
-
+               // self.hideLoading()
                 print("✅ 시간표 저장완료")
                 print(LectureModel.shared.lectures)
 
