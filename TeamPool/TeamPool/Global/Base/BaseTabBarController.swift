@@ -12,15 +12,15 @@ class BaseTabBarController: UITabBarController {
     // MARK: - UI Components
 
     let homeViewController = HomeViewController()
+    let addPoolViewController = AddPoolViewController()
     let calendarViewController = CalendarViewController()
     let myPageViewController = MyPageViewController()
-    let addPoolViewController = AddPoolViewController()
     let apperance = UITabBarAppearance()
 
     lazy var homeNavigationViewController = UINavigationController(rootViewController: homeViewController)
+    lazy var addPoolNavigationController = UINavigationController(rootViewController: addPoolViewController)
     lazy var calendarNavigationViewController = UINavigationController(rootViewController: calendarViewController)
     lazy var myPageNavigationController = UINavigationController(rootViewController: myPageViewController)
-    lazy var addPoolNavigationController = UINavigationController(rootViewController: addPoolViewController)
 
     // MARK: - Life Cycle
 
@@ -38,7 +38,7 @@ class BaseTabBarController: UITabBarController {
         tabBar.tintColor = .black
         tabBar.itemPositioning = .automatic
         let viewControllers: [UIViewController] = [homeNavigationViewController,
-                                                   addPoolViewController,
+                                                   addPoolNavigationController,
                                                    calendarNavigationViewController,
                                                    myPageNavigationController]
         self.setViewControllers(viewControllers, animated: false)

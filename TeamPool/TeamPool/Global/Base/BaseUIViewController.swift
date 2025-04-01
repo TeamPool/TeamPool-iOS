@@ -38,9 +38,11 @@ class BaseUIViewController: UIViewController {
 
     func setupNavigationBar() {
         navigationController?.navigationBar.tintColor = .black
-        //navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.head1]
-        let backButton: UIBarButtonItem = UIBarButtonItem()
-        navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "AppleSDGothicNeo-Bold", size: 24)!]
+        navigationController?.navigationBar.prefersLargeTitles = true
+
+//        let backButton: UIBarButtonItem = UIBarButtonItem()
+//        navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
     }
 
     // MARK: - Action Method
