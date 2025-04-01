@@ -13,15 +13,26 @@ final class MyPageViewController: BaseUIViewController {
 
     // MARK: - UI Components
 
+    private let myPageView = MyPageView()
+
     // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .yellow
+        navigationItem.title = "MyPage"
     }
 
     // MARK: - Custom Method
 
+    override func setUI() {
+        view.addSubview(myPageView)
+    }
+
+    override func setLayout() {
+        myPageView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+    }
 }
 
 

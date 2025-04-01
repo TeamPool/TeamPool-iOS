@@ -25,7 +25,7 @@ final class HomeViewController: BaseUIViewController {
 
     override func setupNavigationBar() {
         super.setupNavigationBar()
-        navigationItem.title = "Home"
+        navigationItem.title = "Pool"
     }
 
     override func setUI() {
@@ -48,6 +48,8 @@ final class HomeViewController: BaseUIViewController {
     @objc
     func didTappedExampleButton() {
         print("홈버튼 클릭")
+//        let addpoolVC = AddPoolViewController()
+//        self.navigationController?.pushViewController(addpoolVC, animated: true)
     }
 }
 

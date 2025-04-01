@@ -13,16 +13,25 @@ final class AddPoolViewController: BaseUIViewController {
 
     // MARK: - UI Components
 
+    private let addPoolView = AddPoolView()
+
     // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .green
+        navigationItem.title = "AddPool"
     }
 
     // MARK: - Custom Method
+    override func setUI() {
+        view.addSubview(addPoolView)
+    }
 
+    override func setLayout() {
+        addPoolView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+    }
 }
-
 
 

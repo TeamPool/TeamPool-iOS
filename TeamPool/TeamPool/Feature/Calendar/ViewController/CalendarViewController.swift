@@ -13,14 +13,26 @@ final class CalendarViewController: BaseUIViewController {
 
     // MARK: - UI Components
 
+    private let calendarView = CalendarView()
+
     // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .blue
+        navigationItem.title = "Calendar"
     }
 
     // MARK: - Custom Method
+
+    override func setUI() {
+        view.addSubview(calendarView)
+    }
+
+    override func setLayout() {
+        calendarView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+    }
 
 }
 
