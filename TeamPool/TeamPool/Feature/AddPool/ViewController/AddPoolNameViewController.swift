@@ -37,4 +37,18 @@ final class AddPoolNameViewController: BaseUIViewController {
         let lectureNames = LectureModel.shared.getLectureNames()
         addPoolNameView.configureSubjectList(lectureNames)
     }
+
+    // MARK: - Action Method
+
+    override func addTarget() {
+        addPoolNameView.nextButton.addTarget(self, action: #selector(didTappedNextButton), for: .touchUpInside)
+
+    }
+
+    @objc
+    func didTappedNextButton() {
+        let findPeopleVC = FindPeopleViewController()
+        self.navigationController?.pushViewController(findPeopleVC, animated: true)
+    }
+
 }
