@@ -1,5 +1,5 @@
 //
-//  FindPeopleView.swift
+//  SubjectView.swift
 //  TeamPool
 //
 //  Created by 성현주 on 4/2/25.
@@ -8,26 +8,26 @@
 import UIKit
 import SnapKit
 
-final class FindPeopleView: BaseUIView {
+final class SubjectView: BaseUIView {
 
     // MARK: - UI Components
 
     private let stepIndicatorImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = ImageLiterals.step2
+        imageView.image = ImageLiterals.step3
         return imageView
     }()
 
-    private let personNameLabel: UILabel = {
+    private let subjectNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "팀원을 선택해주세요"
+        label.text = "프로젝트 주제를 입력해주세요."
         label.font = .systemFont(ofSize: 20, weight: .semibold)
         return label
     }()
 
-    let personNameTextField: BaseTextField = {
+    let subjectTextField: BaseTextField = {
         let textField = BaseTextField()
-        textField.placeholder = "이름, 학번 검색"
+        textField.placeholder = "주제"
         textField.addLeftPadding(width: 15)
         textField.setRoundBorder()
         return textField
@@ -44,10 +44,12 @@ final class FindPeopleView: BaseUIView {
 
     // MARK: - Setup
     override func setUI() {
-        self.addSubviews(stepIndicatorImageView,
-                         personNameLabel,
-                         personNameTextField,
-                         nextButton)
+        self.addSubviews(
+            stepIndicatorImageView,
+            subjectNameLabel,
+            subjectTextField,
+            nextButton
+        )
     }
 
     override func setLayout() {
@@ -57,18 +59,16 @@ final class FindPeopleView: BaseUIView {
             $0.height.equalTo(30)
         }
 
-        personNameLabel.snp.makeConstraints {
+        subjectNameLabel.snp.makeConstraints {
             $0.top.equalTo(stepIndicatorImageView.snp.bottom).offset(40)
             $0.leading.equalToSuperview().offset(24)
         }
 
-        personNameTextField.snp.makeConstraints {
-            $0.top.equalTo(personNameLabel.snp.bottom).offset(8)
+        subjectTextField.snp.makeConstraints {
+            $0.top.equalTo(subjectNameLabel.snp.bottom).offset(8)
             $0.leading.trailing.equalToSuperview().inset(24)
             $0.height.equalTo(44)
         }
-
-
 
         nextButton.snp.makeConstraints {
             $0.bottom.equalToSuperview().inset(50)
@@ -77,3 +77,4 @@ final class FindPeopleView: BaseUIView {
         }
     }
 }
+

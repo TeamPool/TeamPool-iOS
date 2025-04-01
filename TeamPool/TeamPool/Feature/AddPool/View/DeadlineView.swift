@@ -20,20 +20,29 @@ final class DeadlineView: BaseUIView {
 
     private let subjectNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "프로젝트 주제를 입력해주세요."
-        label.font = .systemFont(ofSize: 16, weight: .semibold)
+        label.text = "프로젝트 마감일을 선택해주세요."
+        label.font = .systemFont(ofSize: 20, weight: .semibold)
         return label
     }()
 
-    let subjectTextField: BaseTextField = {
-        let textField = BaseTextField()
-        textField.placeholder = "주제"
-        textField.addLeftPadding(width: 15)
-        textField.setRoundBorder()
-        return textField
+
+    // hex 익스텐션 추가해놓기
+    private let calendarBackgroundView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(named: "#F8FAFC")
+        view.layer.masksToBounds = true
+        return view
     }()
 
-
+    let calendarPicker: UIDatePicker = {
+        let picker = UIDatePicker()
+        picker.datePickerMode = .date
+        picker.preferredDatePickerStyle = .inline
+        picker.locale = Locale(identifier: "ko_KR")
+        picker.backgroundColor = .white
+        picker.layer.cornerRadius = 9
+        return picker
+    }()
 
     let nextButton: BaseFillButton = {
         let button = BaseFillButton()
@@ -44,10 +53,13 @@ final class DeadlineView: BaseUIView {
 
     // MARK: - Setup
     override func setUI() {
-        self.addSubviews(stepIndicatorImageView,
-                         subjectNameLabel,
-                         subjectTextField,
-                         nextButton)
+        addSubviews(
+            stepIndicatorImageView,
+            subjectNameLabel,
+            calendarBackgroundView,
+            nextButton
+        )
+        calendarBackgroundView.addSubview(calendarPicker)
     }
 
     override func setLayout() {
@@ -62,13 +74,15 @@ final class DeadlineView: BaseUIView {
             $0.leading.equalToSuperview().offset(24)
         }
 
-        subjectTextField.snp.makeConstraints {
-            $0.top.equalTo(subjectNameLabel.snp.bottom).offset(8)
-            $0.leading.trailing.equalToSuperview().inset(24)
-            $0.height.equalTo(44)
+        calendarBackgroundView.snp.makeConstraints {
+            $0.top.equalTo(subjectNameLabel.snp.bottom).offset(20)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(395)
         }
 
-
+        calendarPicker.snp.makeConstraints {
+            $0.edges.equalToSuperview().inset(16)
+        }
 
         nextButton.snp.makeConstraints {
             $0.bottom.equalToSuperview().inset(50)
@@ -77,4 +91,3 @@ final class DeadlineView: BaseUIView {
         }
     }
 }
-
