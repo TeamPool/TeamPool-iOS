@@ -56,7 +56,7 @@ class UsaintLogInView: BaseUIView {
     override func setLayout() {
         idTextField.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(29)
-            $0.center.equalToSuperview()
+            $0.top.equalTo(safeAreaLayoutGuide).offset(40)
             $0.height.equalTo(50)
         }
 

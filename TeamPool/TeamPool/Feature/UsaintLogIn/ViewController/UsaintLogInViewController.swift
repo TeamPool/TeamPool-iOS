@@ -112,6 +112,32 @@ extension UsaintLogInViewController {
 
                 // TODO: 이후 화면 이동 처리
 
+                // 시간표 저장여부 확인 => 백앤드에서 처리할지 프론트에서 처리할지 고민,, 
+                UserDefaultHandler.lecturesSaved = true
+
+
+                // TODO: 논의이후 변경=> 모달로 구현된 로그임
+                DispatchQueue.main.async { [weak self] in
+                    guard let self = self else { return }
+                    let studentID = StudentModel.shared.studentID ?? "학번 없음"
+
+                    BaseAlertViewController.showAlert(
+                        on: self,
+                        title: "정보 확인",
+                        message: "학번 \(studentID)이 맞으신가요?",
+                        confirmTitle: "네, 맞아요",
+                        cancelTitle: "아니오",
+                        confirmHandler: {
+                            self.dismiss(animated: true)
+                        },
+                        cancelHandler: {
+                            // 필요하면 추가 동작 가능
+                            print("❌ 유저가 이름 확인 거부")
+                        }
+                    )
+                }
+
+
             } catch {
                 print("❌ 시간표 불러오기 실패: \(error.localizedDescription)")
             }
