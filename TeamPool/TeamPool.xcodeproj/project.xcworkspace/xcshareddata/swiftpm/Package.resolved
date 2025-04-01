@@ -1,6 +1,15 @@
 {
-  "originHash" : "4cdad746817ac9ed37e44dbe90a2ff25fc018954899b7d513e41a4bfc70f065a",
+  "originHash" : "d1c9249344c6f7e63c7360a61dfb93230bc8f2a0bc118c8ea7710bb424cc8426",
   "pins" : [
+    {
+      "identity" : "rusaint-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/EATSTEAK/rusaint-ios",
+      "state" : {
+        "branch" : "main",
+        "revision" : "0b1e89dd2a2aec39879df03dea5db709937dde6d"
+      }
+    },
     {
       "identity" : "snapkit",
       "kind" : "remoteSourceControl",

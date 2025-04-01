@@ -12,13 +12,11 @@ class BaseTabBarController: UITabBarController {
     // MARK: - UI Components
 
     let homeViewController = HomeViewController()
-    let addPoolViewController = AddPoolViewController()
     let calendarViewController = CalendarViewController()
     let myPageViewController = MyPageViewController()
     let apperance = UITabBarAppearance()
 
     lazy var homeNavigationViewController = UINavigationController(rootViewController: homeViewController)
-    lazy var addPoolNavigationController = UINavigationController(rootViewController: addPoolViewController)
     lazy var calendarNavigationViewController = UINavigationController(rootViewController: calendarViewController)
     lazy var myPageNavigationController = UINavigationController(rootViewController: myPageViewController)
 
@@ -38,7 +36,6 @@ class BaseTabBarController: UITabBarController {
         tabBar.tintColor = .black
         tabBar.itemPositioning = .automatic
         let viewControllers: [UIViewController] = [homeNavigationViewController,
-                                                   addPoolNavigationController,
                                                    calendarNavigationViewController,
                                                    myPageNavigationController]
         self.setViewControllers(viewControllers, animated: false)
@@ -47,7 +44,6 @@ class BaseTabBarController: UITabBarController {
     //TODO: - icon fill empty 반영
     private func setViewController() {
         homeViewController.tabBarItem = setTabbarItem(image: ImageLiterals.homeFill, selectedImage: ImageLiterals.homeFill)
-        addPoolViewController.tabBarItem = setTabbarItem(image: ImageLiterals.pool, selectedImage: ImageLiterals.pool)
         calendarViewController.tabBarItem = setTabbarItem(image: ImageLiterals.calendar, selectedImage: ImageLiterals.calendar)
         myPageViewController.tabBarItem = setTabbarItem(image: ImageLiterals.myPage, selectedImage: ImageLiterals.myPage)
     }
