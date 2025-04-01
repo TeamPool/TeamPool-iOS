@@ -60,6 +60,7 @@ class ViewController: UIViewController {
         friendButton.setTitle("친구 관리", for: .normal)
         friendButton.tintColor = .white
         friendButton.backgroundColor = .systemGreen
+        friendButton.addTarget(self, action: #selector(showFriendViewController), for : .touchUpInside)
         
         
         // 뷰에 추가
@@ -104,6 +105,11 @@ class ViewController: UIViewController {
             make.centerX.equalTo(circleView)
             make.width.equalTo(150)
         }
+    }
+    
+    @objc func showFriendViewController() {
+        let friendViewController = FriendViewController()
+        navigationController?.pushViewController(friendViewController, animated: true)
     }
 }
 
