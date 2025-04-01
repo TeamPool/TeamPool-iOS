@@ -91,13 +91,13 @@ final class HomeViewController: BaseUIViewController {
     // MARK: - Action Method
 
     override func addTarget() {
+        homeView.floatingButton.addTarget(self, action: #selector(didTappedFloatingButton), for: .touchUpInside)
+
     }
 
     @objc
-    func didTappedExampleButton() {
-        print("홈버튼 클릭")
-        let signUpVC = SignUpViewController()
-        self.navigationController?.pushViewController(signUpVC, animated: true)
+    func didTappedFloatingButton() {
+        print("플로팅 버튼 클릭")
     }
 }
 
