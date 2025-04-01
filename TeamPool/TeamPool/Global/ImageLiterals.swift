@@ -24,6 +24,14 @@ enum ImageLiterals {
     static var teamIcon: UIImage { .load(name: "TeamIcon")}
     static var bookMark: UIImage { .load(name: "BookMark")}
     static var check: UIImage { .load(name: "Check")}
+
+    //MARK: - StepImage
+    static var step1: UIImage { .load(name: "Step1")}
+    static var step2: UIImage { .load(name: "Step2")}
+    static var step3: UIImage { .load(name: "Step3")}
+    static var step4: UIImage { .load(name: "Step4")}
+
+
 }
 
 extension UIImage {

@@ -20,6 +20,12 @@ final class HomeViewController: BaseUIViewController {
 
     // MARK: - Life Cycle
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tabBarController?.tabBar.isHidden = false
+        navigationController?.navigationBar.prefersLargeTitles = true
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -98,6 +104,9 @@ final class HomeViewController: BaseUIViewController {
     @objc
     func didTappedFloatingButton() {
         print("플로팅 버튼 클릭")
+        let addPoolVC = AddPoolNameViewController()
+        self.navigationController?.pushViewController(addPoolVC, animated: true)
+
     }
 }
 
