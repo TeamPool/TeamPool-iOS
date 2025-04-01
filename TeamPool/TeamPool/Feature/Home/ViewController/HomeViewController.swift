@@ -13,15 +13,42 @@ final class HomeViewController: BaseUIViewController {
 
     // MARK: - UI Components
 
+    private let homeView = HomeView()
+
     // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .red
     }
 
     // MARK: - Custom Method
 
+    override func setupNavigationBar() {
+        super.setupNavigationBar()
+        navigationItem.title = "Home"
+    }
+
+    override func setUI() {
+        view.addSubview(homeView)
+    }
+
+    override func setLayout() {
+        homeView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+    }
+
+    // MARK: - Action Method
+
+    override func addTarget() {
+        homeView.exampleButton.addTarget(self, action: #selector(didTappedExampleButton), for: .touchUpInside)
+
+    }
+
+    @objc
+    func didTappedExampleButton() {
+        print("홈버튼 클릭")
+    }
 }
 
 
