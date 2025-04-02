@@ -100,6 +100,10 @@ final class SignUpView: BaseUIView {
         checkPwTextField.placeholder = "비밀번호를 입력하세요."
         checkPwTextField.addLeftImage(image: ImageLiterals.logInLock)
 
+        checkPwTextField.isSecureTextEntry = true
+        pwTextField.isSecureTextEntry = true
+
+
 
         //버튼
         signUpButton.setTitle("Sign Up", for: .normal)

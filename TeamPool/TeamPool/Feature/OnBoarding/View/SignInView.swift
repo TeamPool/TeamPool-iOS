@@ -23,6 +23,7 @@ class SignInView: BaseUIView {
     lazy var passwordTextField: BaseTextField = {
         let textField = BaseTextField()
         textField.placeholder = "비밀번호"
+        textField.isSecureTextEntry = true
         textField.addLeftImage(image: ImageLiterals.logInLock)
         return textField
     }()
@@ -64,7 +65,7 @@ class SignInView: BaseUIView {
     override func setLayout() {
         idTextField.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(29)
-            $0.center.equalToSuperview()
+            $0.top.equalToSuperview().offset(350)
             $0.height.equalTo(50)
         }
 
