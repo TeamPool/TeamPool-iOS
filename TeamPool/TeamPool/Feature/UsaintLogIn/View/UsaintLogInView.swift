@@ -23,6 +23,7 @@ class UsaintLogInView: BaseUIView {
     lazy var pwTextField: BaseTextField = {
         let textField = BaseTextField()
         textField.placeholder = "비밀번호"
+        textField.isSecureTextEntry = true
         textField.addLeftImage(image: ImageLiterals.logInLock)
         return textField
     }()

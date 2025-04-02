@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		E5DFEFF42D9B92CF00EEE36A /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = E5DFEFF32D9B92CF00EEE36A /* SnapKit */; };
 		E5DFF2B92D9C45E400EEE36A /* Rusaint in Frameworks */ = {isa = PBXBuildFile; productRef = E5DFF2B82D9C45E400EEE36A /* Rusaint */; };
+		E5DFF3792D9C866100EEE36A /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = E5DFF3782D9C866100EEE36A /* FSCalendar */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E5DFEFF42D9B92CF00EEE36A /* SnapKit in Frameworks */,
+				E5DFF3792D9C866100EEE36A /* FSCalendar in Frameworks */,
 				E5DFF2B92D9C45E400EEE36A /* Rusaint in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -87,6 +89,7 @@
 			packageProductDependencies = (
 				E5DFEFF32D9B92CF00EEE36A /* SnapKit */,
 				E5DFF2B82D9C45E400EEE36A /* Rusaint */,
+				E5DFF3782D9C866100EEE36A /* FSCalendar */,
 			);
 			productName = TeamPool;
 			productReference = E52A16C42D93186100ABD739 /* TeamPool.app */;
@@ -119,6 +122,7 @@
 			packageReferences = (
 				E5DFEFF22D9B92CF00EEE36A /* XCRemoteSwiftPackageReference "SnapKit" */,
 				E5DFF2B72D9C45E400EEE36A /* XCRemoteSwiftPackageReference "rusaint-ios" */,
+				E5DFF3772D9C866100EEE36A /* XCRemoteSwiftPackageReference "FSCalendar" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = E52A16C52D93186100ABD739 /* Products */;
@@ -364,6 +368,14 @@
 				kind = branch;
 			};
 		};
+		E5DFF3772D9C866100EEE36A /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/WenchaoD/FSCalendar";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.8.4;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -376,6 +388,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E5DFF2B72D9C45E400EEE36A /* XCRemoteSwiftPackageReference "rusaint-ios" */;
 			productName = Rusaint;
+		};
+		E5DFF3782D9C866100EEE36A /* FSCalendar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E5DFF3772D9C866100EEE36A /* XCRemoteSwiftPackageReference "FSCalendar" */;
+			productName = FSCalendar;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -25,7 +25,7 @@ final class CreatPoolView: BaseUIView {
         let button = BaseFillButton()
         button.addTitleAttribute(title: "확인", titleColor: .white, fontName: .systemFont(ofSize: 16, weight: .bold))
         button.alpha = 0
-        
+        button.isEnabled = true
         return button
     }()
 

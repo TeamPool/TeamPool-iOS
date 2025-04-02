@@ -54,7 +54,7 @@ class HomeView: BaseUIView {
 
     override func setLayout() {
         tableView.snp.makeConstraints { make in
-            make.edges.equalTo(safeAreaLayoutGuide)
+            make.edges.equalTo(safeAreaLayoutGuide).inset(15)
         }
 
         floatingButton.snp.makeConstraints { make in
