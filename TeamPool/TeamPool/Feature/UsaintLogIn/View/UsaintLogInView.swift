@@ -31,6 +31,7 @@ class UsaintLogInView: BaseUIView {
     lazy var signInButton: BaseFillButton = {
         let button = BaseFillButton()
         button.setTitle("Log In", for: .normal)
+        button.backgroundColor = .poolBlue2
         button.isEnabled = true
         return button
     }()

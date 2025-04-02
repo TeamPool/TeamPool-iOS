@@ -51,11 +51,7 @@ final class LectureModel {
 
     // ✅ 색상 랜덤 선택
     func randomColor() -> UIColor {
-        let colors: [UIColor] = [
-            .systemRed, .systemBlue, .systemGreen, .systemOrange,
-            .systemPurple, .systemYellow, .systemTeal, .systemPink
-        ]
-        return colors.randomElement() ?? .systemGray
+        return UIColor.timetableColors.randomElement() ?? .systemGray
     }
 }
 

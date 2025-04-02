@@ -31,12 +31,13 @@ class SignInView: BaseUIView {
     lazy var signInButton: BaseFillButton = {
         let button = BaseFillButton()
         button.setTitle("Log In", for: .normal)
+        button.backgroundColor = .poolBlue2
         button.isEnabled = true
         return button
     }()
 
-    lazy var signUpButton: BaseFillButton = {
-        let button = BaseFillButton()
+    lazy var signUpButton: BaseEmptyButton = {
+        let button = BaseEmptyButton()
         button.setTitle("Sign Up", for: .normal)
         button.isEnabled = true
         return button
@@ -77,7 +78,7 @@ class SignInView: BaseUIView {
 
         signInButton.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(29)
-            $0.top.equalTo(passwordTextField.snp.bottom).offset(20)
+            $0.top.equalTo(passwordTextField.snp.bottom).offset(100)
             $0.height.equalTo(50)
         }
 
