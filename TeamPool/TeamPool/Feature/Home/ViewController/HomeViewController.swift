@@ -93,17 +93,6 @@ final class HomeViewController: BaseUIViewController {
             )
     }
 
-    private func showTimeTableViewController() {
-        let TimeTableVC = TimeTableViewController()
-        TimeTableVC.modalPresentationStyle = .pageSheet
-        if let sheet = TimeTableVC.sheetPresentationController {
-            sheet.detents = [.medium(), .large()] // 하프, 풀 두단계
-            sheet.prefersGrabberVisible = true    // 위에 그립바 표시 여부
-            sheet.preferredCornerRadius = 20
-        }
-        self.present(TimeTableVC, animated: true)
-    }
-
 
     // MARK: - Action Method
 
@@ -115,12 +104,8 @@ final class HomeViewController: BaseUIViewController {
     @objc
     func didTappedFloatingButton() {
         print("플로팅 버튼 클릭")
-//        let addPoolVC = AddPoolNameViewController()
-//        self.navigationController?.pushViewController(addPoolVC, animated: true)
-
-        // TODO: 테스트용
-        showTimeTableViewController()
-
+        let addPoolVC = AddPoolNameViewController()
+        self.navigationController?.pushViewController(addPoolVC, animated: true)
     }
 }
 

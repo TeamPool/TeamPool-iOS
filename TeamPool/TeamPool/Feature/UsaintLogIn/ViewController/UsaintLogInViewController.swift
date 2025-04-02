@@ -122,6 +122,9 @@ extension UsaintLogInViewController {
                     guard let self = self else { return }
                     let studentID = StudentModel.shared.studentID ?? "학번 없음"
 
+                    guard let presentingVC = self.presentingViewController else { return }
+
+
                     BaseAlertViewController.showAlert(
                         on: self,
                         title: "정보 확인",
@@ -129,10 +132,19 @@ extension UsaintLogInViewController {
                         confirmTitle: "네, 맞아요",
                         cancelTitle: "아니오",
                         confirmHandler: {
-                            self.dismiss(animated: true)
+                            self.dismiss(animated: true) {
+                                let timetableVC = TimeTableViewController()
+                                timetableVC.modalPresentationStyle = .pageSheet
+                                if let sheet = timetableVC.sheetPresentationController {
+                                    sheet.detents = [.medium(), .large()]
+                                    sheet.prefersGrabberVisible = true
+                                    sheet.preferredCornerRadius = 20
+                                }
+                                presentingVC.present(timetableVC, animated: true)
+                            }
+
                         },
                         cancelHandler: {
-                            // 필요하면 추가 동작 가능
                             print("❌ 유저가 이름 확인 거부")
                         }
                     )

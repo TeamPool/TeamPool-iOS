@@ -32,6 +32,13 @@ class TimeTableView: BaseUIView {
         return table
     }()
 
+    lazy var callTimeTableButton: BaseFillButton = {
+        let button = BaseFillButton()
+        button.setTitle("확인", for: .normal)
+        button.isEnabled = true
+        return button
+    }()
+
     // MARK: - Life Cycle
 
     override init(frame: CGRect) {
@@ -48,7 +55,8 @@ class TimeTableView: BaseUIView {
     // MARK: - Custom Method
 
     override func setUI() {
-        self.addSubview(timeTable)
+        self.addSubviews(timeTable,
+                         callTimeTableButton)
     }
 
     override func setLayout() {
@@ -56,6 +64,12 @@ class TimeTableView: BaseUIView {
             make.horizontalEdges.equalToSuperview().inset(10)
             make.top.equalToSuperview().offset(40)
             make.bottom.equalToSuperview()
+        }
+
+        callTimeTableButton.snp.makeConstraints { make in
+            make.horizontalEdges.equalToSuperview().inset(20)
+            make.height.equalTo(50)
+            make.bottom.equalToSuperview().inset(20)
         }
     }
 }
