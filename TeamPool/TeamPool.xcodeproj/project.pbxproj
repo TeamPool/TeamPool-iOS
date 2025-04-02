@@ -10,6 +10,7 @@
 		E5DFEFF42D9B92CF00EEE36A /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = E5DFEFF32D9B92CF00EEE36A /* SnapKit */; };
 		E5DFF2B92D9C45E400EEE36A /* Rusaint in Frameworks */ = {isa = PBXBuildFile; productRef = E5DFF2B82D9C45E400EEE36A /* Rusaint */; };
 		E5DFF3792D9C866100EEE36A /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = E5DFF3782D9C866100EEE36A /* FSCalendar */; };
+		E5DFF3962D9D18AF00EEE36A /* Univ_TimeTable in Frameworks */ = {isa = PBXBuildFile; productRef = E5DFF3952D9D18AF00EEE36A /* Univ_TimeTable */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 			files = (
 				E5DFEFF42D9B92CF00EEE36A /* SnapKit in Frameworks */,
 				E5DFF3792D9C866100EEE36A /* FSCalendar in Frameworks */,
+				E5DFF3962D9D18AF00EEE36A /* Univ_TimeTable in Frameworks */,
 				E5DFF2B92D9C45E400EEE36A /* Rusaint in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -90,6 +92,7 @@
 				E5DFEFF32D9B92CF00EEE36A /* SnapKit */,
 				E5DFF2B82D9C45E400EEE36A /* Rusaint */,
 				E5DFF3782D9C866100EEE36A /* FSCalendar */,
+				E5DFF3952D9D18AF00EEE36A /* Univ_TimeTable */,
 			);
 			productName = TeamPool;
 			productReference = E52A16C42D93186100ABD739 /* TeamPool.app */;
@@ -123,6 +126,7 @@
 				E5DFEFF22D9B92CF00EEE36A /* XCRemoteSwiftPackageReference "SnapKit" */,
 				E5DFF2B72D9C45E400EEE36A /* XCRemoteSwiftPackageReference "rusaint-ios" */,
 				E5DFF3772D9C866100EEE36A /* XCRemoteSwiftPackageReference "FSCalendar" */,
+				E5DFF3942D9D18AF00EEE36A /* XCRemoteSwiftPackageReference "Univ_TimeTable" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = E52A16C52D93186100ABD739 /* Products */;
@@ -376,6 +380,14 @@
 				minimumVersion = 2.8.4;
 			};
 		};
+		E5DFF3942D9D18AF00EEE36A /* XCRemoteSwiftPackageReference "Univ_TimeTable" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hye0njuoo/Univ_TimeTable";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -393,6 +405,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E5DFF3772D9C866100EEE36A /* XCRemoteSwiftPackageReference "FSCalendar" */;
 			productName = FSCalendar;
+		};
+		E5DFF3952D9D18AF00EEE36A /* Univ_TimeTable */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E5DFF3942D9D18AF00EEE36A /* XCRemoteSwiftPackageReference "Univ_TimeTable" */;
+			productName = Univ_TimeTable;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

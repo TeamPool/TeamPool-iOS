@@ -8,9 +8,10 @@
 import Foundation
 import UIKit
 import Rusaint
+import Univ_TimeTable
 
 enum CourseDay: Int {
-    case monday = 0, tuesday, wednesday, thursday, friday, saturday, sunday
+    case monday = 1, tuesday, wednesday, thursday, friday, saturday, sunday
 }
 
 struct Lecture {
@@ -63,5 +64,21 @@ extension LectureModel {
         let names = lectures.map { $0.name }
         let uniqueNames = Array(Set(names))
         return uniqueNames.sorted()        
+    }
+}
+
+
+extension TeamPool.Lecture {
+    func toUnivLecture() -> Univ_TimeTable.Lecture {
+        return Univ_TimeTable.Lecture(
+            classroomID: self.classroomID,
+            name: self.name,
+            classroom: self.classroom,
+            professor: self.professor,
+            courseDay: Univ_TimeTable.Day(rawValue: self.courseDay.rawValue) ?? .monday,
+            startTime: self.startTime,
+            endTime: self.endTime,
+            backgroundColor: self.backgroundColor
+        )
     }
 }

@@ -1,5 +1,5 @@
 {
-  "originHash" : "33a62f5909cc4437a8e266b4833d8b712bae0617b732eb6b0eeb418303837a2a",
+  "originHash" : "ec6990081d29108840221fd8f1a8495e418fab7878b2ed6f0173e9d5bb483d92",
   "pins" : [
     {
       "identity" : "fscalendar",
@@ -26,6 +26,15 @@
       "state" : {
         "revision" : "2842e6e84e82eb9a8dac0100ca90d9444b0307f4",
         "version" : "5.7.1"
+      }
+    },
+    {
+      "identity" : "univ_timetable",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/hye0njuoo/Univ_TimeTable",
+      "state" : {
+        "branch" : "main",
+        "revision" : "cf505fcc1d2d76aa85629cbde5ef4f27cfb67068"
       }
     }
   ],
