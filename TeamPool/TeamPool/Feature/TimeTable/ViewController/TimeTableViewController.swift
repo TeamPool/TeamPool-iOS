@@ -42,8 +42,14 @@ final class TimeTableViewController: BaseUIViewController {
     // MARK: - Action Method
 
     override func addTarget() {
+        timeTableView.callTimeTableButton.addTarget(self, action: #selector(didTappedCallTimeTableButton), for: .touchUpInside)
 
+    }
 
+    @objc
+    func didTappedCallTimeTableButton() {
+        print("dddddd")
+        self.dismiss(animated: true)
     }
 
 }
