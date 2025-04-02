@@ -37,8 +37,36 @@ final class MyPageViewController: BaseUIViewController {
             make.edges.equalToSuperview()
         }
     }
+    @objc func showAccountManagementViewController() {
+        let accountManegement = AccountManagementViewController()
+        navigationController?.pushViewController(accountManegement, animated: true)
+        }
+    @objc func showFrinedManagementViewController() {
+        let friendManagement = FriendManagementViewController()
+        navigationController?.pushViewController(friendManagement, animated: true)
+        }
+    
+    @objc func showScheduleManagementViewController() {
+        let scheduleManagement = ScheduleManagementViewController()
+        navigationController?.pushViewController(scheduleManagement, animated: true)
+        }
+    
+    @objc func showUserAgreementViewController() {
+        let userAgreement = UserAgreementViewController()
+        navigationController?.pushViewController(userAgreement, animated: true)
+        }
+
 }
 
+//MARK: - 곧 없어질 예정
+extension UIColor {
+    convenience init(hex: Int, alpha: CGFloat = 1.0) {
+        let red = CGFloat((hex >> 16) & 0xFF) / 255.0
+        let green = CGFloat((hex >> 8) & 0xFF) / 255.0
+        let blue = CGFloat(hex & 0xFF) / 255.0
+        self.init(red: red, green: green, blue: blue, alpha: alpha)
+    }
+}
 
 //MARK: - 테이블 뷰 수정
 extension MyPageViewController: UITableViewDelegate, UITableViewDataSource {
