@@ -21,8 +21,8 @@ final class BaseTextField: UITextField {
     func setupUI() {
         let placeholderText = "이곳에 입력하세요"
         let attributes: [NSAttributedString.Key: Any] = [
-            .foregroundColor: UIColor.systemGray, // 원하는 색상
-            .font: UIFont(name: "AppleSDGothicNeo-Bold", size: 18)! // 원하는 폰트
+            .foregroundColor: UIColor.systemGray,
+            .font: UIFont(name: "AppleSDGothicNeo-Bold", size: 18)! 
         ]
         self.attributedPlaceholder = NSAttributedString(string: placeholderText, attributes: attributes)
 
@@ -82,4 +82,29 @@ extension UITextField {
         self.leftView = leftView
         self.leftViewMode = .always
     }
+
+
+        /// 텍스트필드 위에 어퍼 텍스트 라벨 추가
+        func upperText(_ text: String, font: UIFont = .systemFont(ofSize: 16, weight: .medium), textColor: UIColor = .darkGray) -> UILabel {
+            let label = UILabel()
+            label.text = text
+            label.font = font
+            label.textColor = textColor
+
+            // 텍스트필드가 superview에 올라온 후에 붙여야 정상
+            DispatchQueue.main.async {
+                guard let superview = self.superview else {
+                    print("⚠️ superview가 없습니다.")
+                    return
+                }
+
+                superview.addSubview(label)
+                label.snp.makeConstraints { make in
+                    make.leading.equalTo(self).offset(4)
+                    make.bottom.equalTo(self.snp.top).offset(-8)
+                }
+            }
+            return label
+        }
+
 }
