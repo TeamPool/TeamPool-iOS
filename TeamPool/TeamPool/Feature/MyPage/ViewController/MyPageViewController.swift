@@ -37,25 +37,6 @@ final class MyPageViewController: BaseUIViewController {
             make.edges.equalToSuperview()
         }
     }
-    @objc func showAccountManagementViewController() {
-        let accountManegement = AccountManagementViewController()
-        navigationController?.pushViewController(accountManegement, animated: true)
-        }
-    @objc func showFrinedManagementViewController() {
-        let friendManagement = FriendManagementViewController()
-        navigationController?.pushViewController(friendManagement, animated: true)
-        }
-    
-    @objc func showScheduleManagementViewController() {
-        let scheduleManagement = ScheduleManagementViewController()
-        navigationController?.pushViewController(scheduleManagement, animated: true)
-        }
-    
-    @objc func showUserAgreementViewController() {
-        let userAgreement = UserAgreementViewController()
-        navigationController?.pushViewController(userAgreement, animated: true)
-        }
-
 }
 
 //MARK: - 곧 없어질 예정
