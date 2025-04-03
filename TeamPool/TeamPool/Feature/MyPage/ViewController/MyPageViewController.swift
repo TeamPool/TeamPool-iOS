@@ -21,22 +21,8 @@ final class MyPageViewController: BaseUIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "MyPage"
-        
-        myPageView.accountButtonAction = { [weak self] in
-            self?.showAccountManagementViewController()
-        }
-        
-        myPageView.friendButtonAction = { [weak self] in
-            self?.showFrinedManagementViewController()
-        }
-        
-        myPageView.scheduleButtonAction = { [weak self] in
-            self?.showScheduleManagementViewController()
-        }
-        
-        myPageView.userButtonAction = { [weak self] in
-            self?.showUserAgreementViewController()
-        }
+        myPageView.tableView.delegate = self
+        myPageView.tableView.dataSource = self
     }
     
 
@@ -52,25 +38,6 @@ final class MyPageViewController: BaseUIViewController {
             make.edges.equalToSuperview()
         }
     }
-    @objc func showAccountManagementViewController() {
-        let accountManegement = AccountManagementViewController()
-        navigationController?.pushViewController(accountManegement, animated: true)
-        }
-    @objc func showFrinedManagementViewController() {
-        let friendManagement = FriendManagementViewController()
-        navigationController?.pushViewController(friendManagement, animated: true)
-        }
-    
-    @objc func showScheduleManagementViewController() {
-        let scheduleManagement = ScheduleManagementViewController()
-        navigationController?.pushViewController(scheduleManagement, animated: true)
-        }
-    
-    @objc func showUserAgreementViewController() {
-        let userAgreement = UserAgreementViewController()
-        navigationController?.pushViewController(userAgreement, animated: true)
-        }
-
 }
 
 //MARK: - 곧 없어질 예정
@@ -83,6 +50,18 @@ extension UIColor {
     }
 }
 
+
+extension MyPageViewController: UITableViewDelegate, UITableViewDataSource {
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 4  // <- Cell을 보여줄 갯수
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
+        return UITableViewCell()    // <- 보여줄 Cell
+    }
+}
 
 
 
