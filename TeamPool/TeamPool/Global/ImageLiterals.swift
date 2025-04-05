@@ -20,6 +20,15 @@ enum ImageLiterals {
     static var logInPerson: UIImage { .load(name: "LoginPerson")}
     static var logInLock: UIImage { .load(name: "LoginLock")}
 
+    //MARK: - ProfileIcon
+    static var mypageProfile: UIImage { .load(name: "Profile")}
+    
+    //MARK: -SettingIcon
+    static var settingProfile: UIImage { .load(name: "Setting_Profile")}
+    static var settingCalendar: UIImage { .load(name: "Setting_Calendar")}
+    static var settingFriend: UIImage { .load(name: "Setting_Friend")}
+    static var settingAgreement: UIImage { .load(name: "Setting_Agreement")}
+    static var settingArrow: UIImage { .load(name: "Arrow")}
 }
 
 extension UIImage {
