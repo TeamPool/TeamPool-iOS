@@ -79,4 +79,6 @@ class FriendManagementView: BaseUIView {
             $0.trailing.equalToSuperview().inset(15)
         }
     }
+    
+    
 }
