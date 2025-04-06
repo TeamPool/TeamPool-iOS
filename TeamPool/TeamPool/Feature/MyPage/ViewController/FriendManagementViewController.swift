@@ -56,9 +56,13 @@ extension FriendManagementViewController: UITableViewDelegate, UITableViewDataSo
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return friends.count
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let friend = friends[indexPath.row]
+        print("\(friend.name) 선택됨")
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FriendManagementCell.identifier, for: indexPath) as? FriendManagementCell else {
             return UITableViewCell()
@@ -68,6 +72,12 @@ extension FriendManagementViewController: UITableViewDelegate, UITableViewDataSo
         cell.configure(with: friend)
         
         return cell
+    }
+    
+    @objc private func deleteFriend(_ sender: UIButton) {
+        let row = sender.tag
+        friends.remove(at: row)
+        friendManagementView.tableView.reloadData()
     }
 }
 

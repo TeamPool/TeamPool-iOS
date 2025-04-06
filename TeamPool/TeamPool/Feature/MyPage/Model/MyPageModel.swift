@@ -20,6 +20,18 @@ struct MyPageModel {
             MyPageModel(
                 name : "다인",
                 studentNumber: "20231708"
+            ),
+            MyPageModel(
+                name : "지수",
+                studentNumber: "20231708"
+            ),
+            MyPageModel(
+                name : "진우",
+                studentNumber: "20231712"
+            ),
+            MyPageModel(
+                name : "현주",
+                studentNumber: "20231745"
             )
         ]
     }

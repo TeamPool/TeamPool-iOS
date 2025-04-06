@@ -46,5 +46,4 @@ class FriendManagementView: BaseUIView {
         }
     }
     
-    
 }
