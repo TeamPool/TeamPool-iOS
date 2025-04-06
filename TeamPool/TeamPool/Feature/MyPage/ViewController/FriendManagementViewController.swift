@@ -120,4 +120,6 @@ extension FriendManagementViewController: UITableViewDelegate, UITableViewDataSo
         present(alert, animated: true, completion: nil)
     }
 }
+    
+//MARK: - 테이블 뷰 수정
 
