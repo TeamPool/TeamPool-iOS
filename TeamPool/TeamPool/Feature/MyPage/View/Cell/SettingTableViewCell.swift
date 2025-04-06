@@ -24,10 +24,7 @@ class SettingTableViewCell: UITableViewCell {
     
     private let arrowImageView: UIImageView = {
             let imageView = UIImageView()
-            // 커스텀 이미지 설정 (이미지 파일 이름 또는 SF Symbols)
             imageView.image = ImageLiterals.settingArrow
-            // 또는 이미지 파일 사용
-            // imageView.image = UIImage(named: "arrow_right")
             imageView.tintColor = .gray
             return imageView
         }()
