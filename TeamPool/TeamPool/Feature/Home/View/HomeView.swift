@@ -13,10 +13,25 @@ class HomeView: BaseUIView {
 
     // MARK: - UI Components
 
-    lazy var exampleButton: UIButton = {
+    let tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.separatorStyle = .none
+        tableView.showsVerticalScrollIndicator = false
+        tableView.register(PoolCell.self, forCellReuseIdentifier: "poolCell")
+        return tableView
+    }()
+
+    let floatingButton: UIButton = {
         let button = UIButton()
-        button.setTitle("example", for: .normal)
-        button.backgroundColor = .red
+        button.setImage(UIImage(systemName: "plus"), for: .normal)
+        button.tintColor = .white
+        button.backgroundColor = .systemBlue
+        button.layer.cornerRadius = 28
+        button.layer.masksToBounds = false
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOpacity = 0.5
+        button.layer.shadowOffset = CGSize(width: 0, height: 4)
+        button.layer.shadowRadius = 8
         return button
     }()
 
@@ -33,16 +48,21 @@ class HomeView: BaseUIView {
     // MARK: - Custom Method
 
     override func setUI() {
-        self.addSubview(exampleButton)
+        self.addSubviews(tableView, floatingButton)
 
     }
 
     override func setLayout() {
-        exampleButton.snp.makeConstraints {
-            $0.horizontalEdges.equalToSuperview().inset(25)
-            $0.center.equalToSuperview()
-            $0.height.equalTo(50)
+        tableView.snp.makeConstraints { make in
+            make.edges.equalTo(safeAreaLayoutGuide).inset(15)
         }
+
+        floatingButton.snp.makeConstraints { make in
+            make.width.height.equalTo(56)
+            make.trailing.equalToSuperview().inset(24)
+            make.bottom.equalTo(safeAreaLayoutGuide).inset(40)
+        }
+
     }
 
 }

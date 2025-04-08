@@ -15,6 +15,8 @@ class BaseUIViewController: UIViewController {
 
     // MARK: - UI Components
 
+    private var loadingIndicator: UIActivityIndicatorView?
+
 
     // MARK: - Life Cycle
 
@@ -41,8 +43,29 @@ class BaseUIViewController: UIViewController {
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "AppleSDGothicNeo-Bold", size: 24)!]
         navigationController?.navigationBar.prefersLargeTitles = true
 
-//        let backButton: UIBarButtonItem = UIBarButtonItem()
-//        navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
+        //        let backButton: UIBarButtonItem = UIBarButtonItem()
+        //        navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
+    }
+
+    func showLoading() {
+        if loadingIndicator == nil {
+            let indicator = UIActivityIndicatorView(style: .medium)
+            indicator.color = .gray
+            indicator.hidesWhenStopped = true
+            view.addSubview(indicator)
+            indicator.snp.makeConstraints {
+                $0.center.equalToSuperview()
+            }
+            loadingIndicator = indicator
+        }
+
+        loadingIndicator?.startAnimating()
+        view.isUserInteractionEnabled = false
+    }
+
+    func hideLoading() {
+        loadingIndicator?.stopAnimating()
+        view.isUserInteractionEnabled = true
     }
 
     // MARK: - Action Method

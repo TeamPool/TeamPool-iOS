@@ -28,19 +28,18 @@ class BaseFillButton: UIButton {
 
     func setupFillButton() {
         self.addTitleAttribute(title: "", titleColor: .white, fontName: UIFont(name: "AppleSDGothicNeo-Bold", size: 16)!)
-        self.backgroundColor = .red
         self.layer.cornerRadius = 8
         self.isEnabled = false
     }
 
     func setEnableButton() {
         isUserInteractionEnabled = true
-        backgroundColor = .red
+        backgroundColor = .poolBlue1
     }
 
     func setDisableButton() {
         isUserInteractionEnabled = false
-        backgroundColor = .red
+        backgroundColor = .poolGray2
     }
 }
 
