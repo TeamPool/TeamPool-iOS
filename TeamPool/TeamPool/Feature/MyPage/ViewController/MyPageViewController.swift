@@ -39,7 +39,6 @@ final class MyPageViewController: BaseUIViewController {
     }
 }
 
-//MARK: - 곧 없어질 예정
 
 //MARK: - 테이블 뷰 수정
 extension MyPageViewController: UITableViewDelegate, UITableViewDataSource {
@@ -56,12 +55,16 @@ extension MyPageViewController: UITableViewDelegate, UITableViewDataSource {
         switch indexPath.row {
         case 0:
             viewController = AccountManagementViewController()
+            self.navigationItem.backButtonTitle = "계정 관리"
         case 1:
             viewController = ScheduleManagementViewController()
+            self.navigationItem.backButtonTitle = "시간표 관리"
         case 2:
             viewController = FriendManagementViewController()
+            self.navigationItem.backButtonTitle = "친구 관리"
         case 3:
             viewController = UserAgreementViewController()
+            self.navigationItem.backButtonTitle = "이용 약관"
         default:
             return
         }

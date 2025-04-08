@@ -23,7 +23,7 @@ struct MyPageModel {
             ),
             MyPageModel(
                 name : "지수",
-                studentNumber: "20231708"
+                studentNumber: "20231709"
             ),
             MyPageModel(
                 name : "진우",
@@ -36,3 +36,4 @@ struct MyPageModel {
         ]
     }
 }
+

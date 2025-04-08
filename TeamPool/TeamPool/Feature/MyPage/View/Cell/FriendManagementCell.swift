@@ -30,8 +30,8 @@ class FriendManagementCell: UITableViewCell {
     
     let numberLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14)
-        label.textColor = .gray
+        label.font = UIFont.systemFont(ofSize: 12)
+        label.textColor = UIColor(hex: 0x8B8B8B)
         return label
     }()
     
@@ -39,8 +39,8 @@ class FriendManagementCell: UITableViewCell {
         let button = UIButton(type: .system)
         button.setTitle("삭제", for: .normal)
         button.tintColor = .white
-        button.backgroundColor = UIColor.systemBlue
-        button.layer.cornerRadius = 10
+        button.backgroundColor = UIColor(hex: 0x89A4C7)
+        button.layer.cornerRadius = 8
         return button
     }()
     
@@ -63,14 +63,14 @@ class FriendManagementCell: UITableViewCell {
     
     private func setupLayout() {
         profileImageView.snp.makeConstraints {
-            $0.leading.equalToSuperview().offset(16)
+            $0.leading.equalToSuperview().offset(15)
             $0.centerY.equalToSuperview()
             $0.width.height.equalTo(40)
         }
         
         nameLabel.snp.makeConstraints {
-            $0.leading.equalTo(profileImageView.snp.trailing).offset(12)
-            $0.top.equalToSuperview().offset(8)
+            $0.leading.equalTo(profileImageView.snp.trailing).offset(20)
+            $0.top.equalTo(profileImageView.snp.top)
         }
         
         numberLabel.snp.makeConstraints {
@@ -79,7 +79,7 @@ class FriendManagementCell: UITableViewCell {
         }
         
         deleteButton.snp.makeConstraints {
-            $0.trailing.equalToSuperview().offset(-16)
+            $0.trailing.equalToSuperview().offset(-15)
             $0.centerY.equalToSuperview()
             $0.width.equalTo(50)
             $0.height.equalTo(20)

@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import UIKit
 
 final class UserAgreementViewController: BaseUIViewController {
 
@@ -20,12 +20,12 @@ final class UserAgreementViewController: BaseUIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "이용 약관"
     }
 
     // MARK: - Custom Method
 
     override func setUI() {
+        view.backgroundColor = UIColor(hex : 0xEFF5FF)
         view.addSubview(userAgreementView)
     }
 

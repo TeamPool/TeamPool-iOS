@@ -16,7 +16,7 @@ class MyPageView: BaseUIView {
     lazy var pageLabel: UILabel = {
         let label = UILabel()
         label.text = "My Page"
-        label.font = .systemFont(ofSize: 24)
+        label.font = .boldSystemFont(ofSize: 24)
         return label
     }()
     
@@ -30,18 +30,20 @@ class MyPageView: BaseUIView {
         profileImageView.contentMode = .scaleAspectFit
         
         let nameLabel = UILabel()
-        nameLabel.text = "다이나믹한삼고양이"
+        let name = MyInfoModel.dummyData()
+        nameLabel.text = name.myName
         nameLabel.font = UIFont.boldSystemFont(ofSize: 20)
         nameLabel.textColor = .black
         
-        let phoneLabel = UILabel()
-        phoneLabel.text = "20XXXXXX"
-        phoneLabel.font = UIFont.systemFont(ofSize: 16)
-        phoneLabel.textColor = .gray
+        let studentNumber = UILabel()
+        let number = MyInfoModel.dummyData()
+        studentNumber.text = number.myStudentNumber
+        studentNumber.font = UIFont.systemFont(ofSize: 16)
+        studentNumber.textColor = .gray
         
         view.addSubview(profileImageView)
         view.addSubview(nameLabel)
-        view.addSubview(phoneLabel)
+        view.addSubview(studentNumber)
         
         profileImageView.snp.makeConstraints {
                 $0.leading.equalToSuperview().offset(15)
@@ -50,11 +52,11 @@ class MyPageView: BaseUIView {
             }
             
             nameLabel.snp.makeConstraints {
-                $0.leading.equalTo(profileImageView.snp.trailing).offset(12)
+                $0.leading.equalTo(profileImageView.snp.trailing).offset(20)
                 $0.top.equalTo(profileImageView.snp.top)
             }
             
-            phoneLabel.snp.makeConstraints {
+        studentNumber.snp.makeConstraints {
                 $0.leading.equalTo(nameLabel)
                 $0.bottom.equalTo(profileImageView.snp.bottom)
             }
@@ -67,6 +69,7 @@ class MyPageView: BaseUIView {
         tableView.separatorStyle = .singleLine
         tableView.backgroundColor = UIColor(hex : 0xEFF5FF)
         tableView.rowHeight = 50
+         tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         return tableView
     }()
     
@@ -97,12 +100,12 @@ class MyPageView: BaseUIView {
             $0.top.equalToSuperview().offset(80)
         }
         profileContainerView.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(125)
+            $0.top.equalTo(pageLabel.snp.bottom).offset(15)
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(80)
+            $0.height.equalTo(90)
             }
         tableView.snp.makeConstraints {
-            $0.top.equalTo(profileContainerView.snp.bottom).offset(20)  // circleView 아래로 30 간격
+            $0.top.equalTo(profileContainerView.snp.bottom)
             $0.leading.trailing.bottom.equalToSuperview()
         }
     }

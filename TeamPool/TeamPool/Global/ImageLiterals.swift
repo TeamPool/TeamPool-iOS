@@ -23,12 +23,18 @@ enum ImageLiterals {
     //MARK: - ProfileIcon
     static var mypageProfile: UIImage { .load(name: "Profile")}
     
-    //MARK: -SettingIcon
+    //MARK: - SettingIcon
     static var settingProfile: UIImage { .load(name: "Setting_Profile")}
     static var settingCalendar: UIImage { .load(name: "Setting_Calendar")}
     static var settingFriend: UIImage { .load(name: "Setting_Friend")}
     static var settingAgreement: UIImage { .load(name: "Setting_Agreement")}
     static var settingArrow: UIImage { .load(name: "Arrow")}
+    
+    //MARK: - SercingIcon
+    static var SearchIcon: UIImage { .load(name: "Search")}
+    
+    //MARK: -Logout
+    static var LogoutIcon: UIImage { .load(name: "Logout")}
 }
 
 extension UIImage {

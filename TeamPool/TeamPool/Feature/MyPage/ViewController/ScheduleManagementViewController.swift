@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import UIKit
 
 final class ScheduleManagementViewController: BaseUIViewController {
 
@@ -20,12 +20,12 @@ final class ScheduleManagementViewController: BaseUIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "시간표 관리"
     }
 
     // MARK: - Custom Method
 
     override func setUI() {
+        view.backgroundColor = UIColor(hex : 0xEFF5FF)
         view.addSubview(scheduleManagementView)
     }
 
