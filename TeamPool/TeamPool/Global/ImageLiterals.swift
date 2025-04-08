@@ -20,6 +20,21 @@ enum ImageLiterals {
     static var logInPerson: UIImage { .load(name: "LoginPerson")}
     static var logInLock: UIImage { .load(name: "LoginLock")}
 
+    //MARK: - ProfileIcon
+    static var mypageProfile: UIImage { .load(name: "Profile")}
+    
+    //MARK: - SettingIcon
+    static var settingProfile: UIImage { .load(name: "Setting_Profile")}
+    static var settingCalendar: UIImage { .load(name: "Setting_Calendar")}
+    static var settingFriend: UIImage { .load(name: "Setting_Friend")}
+    static var settingAgreement: UIImage { .load(name: "Setting_Agreement")}
+    static var settingArrow: UIImage { .load(name: "Arrow")}
+    
+    //MARK: - SercingIcon
+    static var SearchIcon: UIImage { .load(name: "Search")}
+    
+    //MARK: -Logout
+    static var LogoutIcon: UIImage { .load(name: "Logout")}
     //MARK: - PoolIcon
     static var teamIcon: UIImage { .load(name: "TeamIcon")}
     static var bookMark: UIImage { .load(name: "BookMark")}
@@ -30,7 +45,6 @@ enum ImageLiterals {
     static var step2: UIImage { .load(name: "Step2")}
     static var step3: UIImage { .load(name: "Step3")}
     static var step4: UIImage { .load(name: "Step4")}
-
 
 }
 
