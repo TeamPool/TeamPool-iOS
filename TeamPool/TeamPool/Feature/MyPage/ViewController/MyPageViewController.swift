@@ -39,7 +39,6 @@ final class MyPageViewController: BaseUIViewController {
     }
 }
 
-//MARK: - 곧 없어질 예정
 
 //MARK: - 테이블 뷰 수정
 extension MyPageViewController: UITableViewDelegate, UITableViewDataSource {
