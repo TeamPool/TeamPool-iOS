@@ -62,7 +62,7 @@ class FriendManagementView: BaseUIView {
     override func setLayout() {
         searchBar.snp.makeConstraints {
             $0.top.equalToSuperview().offset(150)
-            $0.leading.equalToSuperview().offset(15)
+            $0.leading.equalToSuperview().inset(15)
             $0.width.equalTo(300)
             $0.height.equalTo(34)
         }
@@ -76,7 +76,7 @@ class FriendManagementView: BaseUIView {
             $0.top.equalTo(searchBar.snp.top)
             $0.height.equalTo(searchBar)
             $0.width.equalTo(60)
-            $0.trailing.equalToSuperview().offset(-15)
+            $0.trailing.equalToSuperview().inset(15)
         }
     }
 }
