@@ -5,6 +5,8 @@ final class FriendManagementViewController: BaseUIViewController, UISearchBarDel
     // MARK: - Properties
     private var friends: [MyPageModel] = [] // 전체 친구 목록
     private var filteredFriends: [MyPageModel] = [] // 필터링된 친구 목록
+    private var sectionedFriends: [String: [MyPageModel]] = [:]
+    private var sectionTitles: [String] = []
     
     // MARK: - UI Components
     private let friendManagementView = FriendManagementView()
@@ -40,6 +42,7 @@ final class FriendManagementViewController: BaseUIViewController, UISearchBarDel
         friends = MyPageModel.dummyData()
         filteredFriends = friends // 초기에는 모든 데이터를 보여줌
         friendManagementView.tableView.reloadData()
+        createSections(from: filteredFriends)
     }
     
     // MARK: - Action
@@ -63,61 +66,113 @@ final class FriendManagementViewController: BaseUIViewController, UISearchBarDel
             // 학번으로 필터링
             filteredFriends = friends.filter { $0.studentNumber.contains(searchText) }
         }
+        createSections(from: filteredFriends)
         friendManagementView.tableView.reloadData() // 테이블 뷰 새로 고침
     }
-    
+    private func getInitialConsonant(of name: String) -> String {
+        guard let first = name.first else { return "#" }
+        let scalar = first.unicodeScalars.first!.value
+        
+        let consonants = ["ㄱ","ㄲ","ㄴ","ㄷ","ㄸ","ㄹ","ㅁ","ㅂ","ㅃ","ㅅ","ㅆ","ㅇ","ㅈ","ㅉ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"]
+        
+        if scalar >= 0xAC00 && scalar <= 0xD7A3 {
+            let index = (scalar - 0xAC00) / 28 / 21
+            return consonants[Int(index)]
+        } else {
+            return "#"
+        }
+    }
+    private func createSections(from friends: [MyPageModel]) {
+        var sections: [String: [MyPageModel]] = [:]
+        
+        for friend in friends {
+            let key = getInitialConsonant(of: friend.name)
+            if sections[key] == nil {
+                sections[key] = []
+            }
+            sections[key]?.append(friend)
+        }
+        
+        sectionedFriends = sections
+        sectionTitles = sections.keys.sorted()
+    }
 }
 
 //MARK: - 테이블 뷰 수정
 
 extension FriendManagementViewController: UITableViewDelegate, UITableViewDataSource {
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return filteredFriends.count // 필터링된 친구 목록을 사용
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return sectionTitles.count
     }
-    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let key = sectionTitles[section]
+        return sectionedFriends[key]?.count ?? 0
+    }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let friend = filteredFriends[indexPath.row] // 필터링된 친구 목록 사용
-        print("\(friend.name) 선택됨")
+        let key = sectionTitles[indexPath.section]
+        if let friend = sectionedFriends[key]?[indexPath.row] {
+            print("\(friend.name) 선택됨")
+        }
     }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FriendManagementCell.identifier, for: indexPath) as? FriendManagementCell else {
             return UITableViewCell()
         }
         
-        let friend = filteredFriends[indexPath.row] // 필터링된 친구 목록 사용
-        cell.configure(with: friend)
-        cell.deleteButton.tag = indexPath.row
-        cell.deleteButton.addTarget(self, action: #selector(deleteFriend(_:)), for: .touchUpInside)
+        let key = sectionTitles[indexPath.section]
+        if let friend = sectionedFriends[key]?[indexPath.row] {
+            cell.configure(with: friend)
+            cell.deleteButton.accessibilityIdentifier = "\(indexPath.section)-\(indexPath.row)"
+            cell.deleteButton.addTarget(self, action: #selector(deleteFriend(_:)), for: .touchUpInside)
+        }
+        
         return cell
+    }
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return sectionTitles[section]
     }
     
     @objc private func deleteFriend(_ sender: UIButton) {
-        let row = sender.tag
-        let friend = filteredFriends[row] // 필터링된 친구 목록 사용
+        guard let id = sender.accessibilityIdentifier else { return }
+        let components = id.split(separator: "-")
+
+        guard components.count == 2,
+              let section = Int(components[0]),
+              let row = Int(components[1]),
+              section >= 0, section < sectionTitles.count else {
+            return
+        }
+
+        let key = sectionTitles[section]
+        guard let friendsInSection = sectionedFriends[key],
+              row >= 0, row < friendsInSection.count else {
+            return
+        }
+
+        let friend = friendsInSection[row]
+
         let alert = UIAlertController(
             title: "\"\(friend.name)\"님을 친구 목록에서 삭제하시겠습니까?",
             message: nil,
             preferredStyle: .alert
         )
-        
-        let cancelAction = UIAlertAction(title: "취소", style: .default, handler: nil)
-        
+
+        let cancelAction = UIAlertAction(title: "취소", style: .default)
+
         let deleteAction = UIAlertAction(title: "삭제", style: .default) { _ in
-            // 삭제 작업
-            self.friends.removeAll { $0.studentNumber == friend.studentNumber } // 원본 friends 배열에서 삭제
-            self.filteredFriends = self.friends // 필터링된 배열도 갱신
-            self.friendManagementView.tableView.reloadData() // 테이블 뷰 새로 고침
+            // 1. 원본 friends 배열에서 삭제
+            self.friends.removeAll { $0.studentNumber == friend.studentNumber }
+
+            // 2. 필터링 및 섹션 다시 구성
+            self.filterFriends()
         }
-        
-        // 알림에 버튼 추가
+
         alert.addAction(deleteAction)
         alert.addAction(cancelAction)
-        
-        // 알림 표시
-        present(alert, animated: true, completion: nil)
+
+        present(alert, animated: true)
     }
 }
     
