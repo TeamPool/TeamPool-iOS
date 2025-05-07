@@ -75,6 +75,7 @@
 		E5270B402DCB14EE000D12F2 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = E5270B3F2DCB14EE000D12F2 /* Then */; };
 		E5270B442DCB1EA0000D12F2 /* PoolTimeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5270B432DCB1EA0000D12F2 /* PoolTimeTableViewController.swift */; };
 		E5270B462DCB1EB9000D12F2 /* PoolTimeTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5270B452DCB1EB9000D12F2 /* PoolTimeTableView.swift */; };
+		E5270B6B2DCB208D000D12F2 /* PoolTimeTableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5270B6A2DCB208D000D12F2 /* PoolTimeTableModel.swift */; };
 		E5DFEFF42D9B92CF00EEE36A /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = E5DFEFF32D9B92CF00EEE36A /* SnapKit */; };
 		E5DFF2B92D9C45E400EEE36A /* Rusaint in Frameworks */ = {isa = PBXBuildFile; productRef = E5DFF2B82D9C45E400EEE36A /* Rusaint */; };
 		E5DFF3792D9C866100EEE36A /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = E5DFF3782D9C866100EEE36A /* FSCalendar */; };
@@ -150,6 +151,7 @@
 		E5270B3C2DCB14BD000D12F2 /* TopTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopTabBar.swift; sourceTree = "<group>"; };
 		E5270B432DCB1EA0000D12F2 /* PoolTimeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolTimeTableViewController.swift; sourceTree = "<group>"; };
 		E5270B452DCB1EB9000D12F2 /* PoolTimeTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolTimeTableView.swift; sourceTree = "<group>"; };
+		E5270B6A2DCB208D000D12F2 /* PoolTimeTableModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolTimeTableModel.swift; sourceTree = "<group>"; };
 		E52A16C42D93186100ABD739 /* TeamPool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TeamPool.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -440,6 +442,7 @@
 			children = (
 				E5270B412DCB1E74000D12F2 /* ViewController */,
 				E5270B422DCB1E82000D12F2 /* View */,
+				E5270B692DCB2078000D12F2 /* Model */,
 			);
 			path = PoolTimeTable;
 			sourceTree = "<group>";
@@ -604,6 +607,14 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		E5270B692DCB2078000D12F2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E5270B6A2DCB208D000D12F2 /* PoolTimeTableModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		E52A16BB2D93186100ABD739 = {
 			isa = PBXGroup;
 			children = (
@@ -716,6 +727,7 @@
 				E5270B032DCB147F000D12F2 /* SubjectView.swift in Sources */,
 				E5270B042DCB147F000D12F2 /* AddPoolNameViewController.swift in Sources */,
 				E5270B052DCB147F000D12F2 /* CreatPoolViewController.swift in Sources */,
+				E5270B6B2DCB208D000D12F2 /* PoolTimeTableModel.swift in Sources */,
 				E5270B062DCB147F000D12F2 /* DeadlineViewController.swift in Sources */,
 				E5270B072DCB147F000D12F2 /* FindPeopleViewController.swift in Sources */,
 				E5270B082DCB147F000D12F2 /* SubjectViewController.swift in Sources */,

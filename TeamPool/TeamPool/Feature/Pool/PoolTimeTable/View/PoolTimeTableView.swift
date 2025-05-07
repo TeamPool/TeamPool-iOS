@@ -56,7 +56,6 @@ class PoolTimeTableView: BaseUIView {
         timeTable.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview().inset(10)
             make.top.equalToSuperview().offset(40)
-            make.height.equalTo(460)
             make.bottom.equalToSuperview()
         }
 
