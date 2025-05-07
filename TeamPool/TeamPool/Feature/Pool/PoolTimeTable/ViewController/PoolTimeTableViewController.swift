@@ -22,6 +22,7 @@ final class PoolTimeTableViewController: BaseUIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        PoolTimeTableModel.shared.mockData()
         addDelegate()
     }
 
@@ -65,6 +66,6 @@ extension PoolTimeTableViewController: UnivTimeTableDataSource {
     }
 
     func courseItems(in univTimeTable: UnivTimeTable) -> [Univ_TimeTable.Lecture] {
-        return LectureModel.shared.lectures.map { $0.toUnivLecture() }
+        return PoolTimeTableModel.shared.pooledLectures.map { $0.toUnivLecture() }
     }
 }
