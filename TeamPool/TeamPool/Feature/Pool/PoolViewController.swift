@@ -10,7 +10,8 @@ import SnapKit
 
 final class PoolViewController: BaseUIViewController {
 
-    // MARK: - Constants
+    // MARK: - Properites
+    private let poolID: Int
 
     // MARK: - UI Components
     private let categoryTabBar = CategoryTabBarView()
@@ -28,15 +29,26 @@ final class PoolViewController: BaseUIViewController {
 
     // MARK: - View Controllers
     private lazy var viewControllers: [UIViewController] = [
-        HomeViewController(),
-        UsaintLogInViewController(),
-        MyPageViewController()
+        PoolTimeTableViewController(),
+        SignInViewController(),
+        SignUpViewController()
     ]
 
     // MARK: - Life Cycle
+
+    init(poolID: Int) {
+            self.poolID = poolID
+            super.init(nibName: nil, bundle: nil)
+        }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.isHidden = true
+        print("선택된 Pool ID: \(poolID)")
     }
 
     // MARK: - UI Setup
