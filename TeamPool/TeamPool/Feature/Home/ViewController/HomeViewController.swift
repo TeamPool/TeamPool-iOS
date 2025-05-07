@@ -12,7 +12,7 @@ final class HomeViewController: BaseUIViewController {
 
     // MARK: - Properties
 
-    private var poolList: [PoolModel] = []
+    private var poolList: [HomeModel] = []
 
     // MARK: - UI Components
 
@@ -30,7 +30,7 @@ final class HomeViewController: BaseUIViewController {
         super.viewDidLoad()
 
         //더미 데이터
-        poolList = PoolModel.dummyData()
+        poolList = HomeModel.dummyData()
 
         // 알람 테스트 => 지울 예정
         UserDefaultHandler.lecturesSaved = false
@@ -38,7 +38,7 @@ final class HomeViewController: BaseUIViewController {
 
         homeView.tableView.dataSource = self
         homeView.tableView.delegate = self
-        homeView.tableView.register(PoolCell.self, forCellReuseIdentifier: PoolCell.identifier)
+        homeView.tableView.register(HomeCell.self, forCellReuseIdentifier: HomeCell.identifier)
 
         checkLectureSaved()
     }
@@ -111,14 +111,14 @@ final class HomeViewController: BaseUIViewController {
 
 // MARK: - TableViewDatasource & Delegate
 
-extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
+extension HomeViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return poolList.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: PoolCell.identifier, for: indexPath) as? PoolCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: HomeCell.identifier, for: indexPath) as? HomeCell else {
             return UITableViewCell()
         }
         let pool = poolList[indexPath.row]
@@ -129,4 +129,15 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 175
     }
+}
+
+extension HomeViewController : UITableViewDelegate {
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let selectedPool = poolList[indexPath.row]
+        let poolVC = PoolViewController(poolID: selectedPool.poolId)
+        navigationController?.pushViewController(poolVC, animated: true)
+    }
+
 }

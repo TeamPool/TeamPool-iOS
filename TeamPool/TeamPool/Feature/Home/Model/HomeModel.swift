@@ -1,5 +1,5 @@
 //
-//  PoolModel.swift
+//  HomeModel.swift
 //  TeamPool
 //
 //  Created by 성현주 on 4/2/25.
@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct PoolModel {
+struct HomeModel {
+    let poolId: Int
     let name: String
     let subName: String
     let date: String
@@ -15,9 +16,10 @@ struct PoolModel {
     let participant: String
     let dDay: String
 
-    static func dummyData() -> [PoolModel] {
+    static func dummyData() -> [HomeModel] {
         return [
-            PoolModel(
+            HomeModel(
+                poolId: 1,
                 name: "전설의 시작",
                 subName: "소프트웨어 프로젝트",
                 date: "2025년 03월 18일 18:00 - 19:15",
@@ -25,7 +27,8 @@ struct PoolModel {
                 participant: "성현주 외 4명",
                 dDay: "D-72"
             ),
-            PoolModel(
+            HomeModel(
+                poolId: 2,
                 name: "알고리즘 스터디",
                 subName: "소프트웨어 프로젝트",
                 date: "2025년 03월 20일 13:00 - 15:00",
@@ -33,7 +36,8 @@ struct PoolModel {
                 participant: "김영희 외 3명",
                 dDay: "D-75"
             ),
-            PoolModel(
+            HomeModel(
+                poolId: 3,
                 name: "소프트웨어 프로젝트",
                 subName: "소프트웨어 프로젝트",
                 date: "2025년 03월 25일 17:00 - 18:30",
@@ -41,7 +45,8 @@ struct PoolModel {
                 participant: "박철수 외 5명",
                 dDay: "D-80"
             ),
-            PoolModel(
+            HomeModel(
+                poolId: 4,
                 name: "소프트웨어 프로젝트",
                 subName: "소프트웨어 프로젝트",
                 date: "2025년 03월 25일 17:00 - 18:30",
@@ -49,7 +54,8 @@ struct PoolModel {
                 participant: "박철수 외 5명",
                 dDay: "D-80"
             ),
-            PoolModel(
+            HomeModel(
+                poolId: 5,
                 name: "소프트웨어 프로젝트",
                 subName: "소프트웨어 프로젝트",
                 date: "2025년 03월 25일 17:00 - 18:30",

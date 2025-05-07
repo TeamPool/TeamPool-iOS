@@ -25,8 +25,8 @@
 		E5270B0A2DCB147F000D12F2 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5270AA32DCB147F000D12F2 /* CalendarView.swift */; };
 		E5270B0B2DCB147F000D12F2 /* CalendarDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5270AA52DCB147F000D12F2 /* CalendarDetailViewController.swift */; };
 		E5270B0C2DCB147F000D12F2 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5270AA62DCB147F000D12F2 /* CalendarViewController.swift */; };
-		E5270B0D2DCB147F000D12F2 /* PoolModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5270AA92DCB147F000D12F2 /* PoolModel.swift */; };
-		E5270B0E2DCB147F000D12F2 /* PoolCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5270AAB2DCB147F000D12F2 /* PoolCell.swift */; };
+		E5270B0D2DCB147F000D12F2 /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5270AA92DCB147F000D12F2 /* HomeModel.swift */; };
+		E5270B0E2DCB147F000D12F2 /* HomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5270AAB2DCB147F000D12F2 /* HomeCell.swift */; };
 		E5270B0F2DCB147F000D12F2 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5270AAD2DCB147F000D12F2 /* HomeView.swift */; };
 		E5270B102DCB147F000D12F2 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5270AAF2DCB147F000D12F2 /* HomeViewController.swift */; };
 		E5270B112DCB147F000D12F2 /* MyInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5270AB22DCB147F000D12F2 /* MyInfoModel.swift */; };
@@ -73,6 +73,8 @@
 		E5270B3B2DCB147F000D12F2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5270AF92DCB147F000D12F2 /* LaunchScreen.storyboard */; };
 		E5270B3D2DCB14BD000D12F2 /* TopTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5270B3C2DCB14BD000D12F2 /* TopTabBar.swift */; };
 		E5270B402DCB14EE000D12F2 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = E5270B3F2DCB14EE000D12F2 /* Then */; };
+		E5270B442DCB1EA0000D12F2 /* PoolTimeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5270B432DCB1EA0000D12F2 /* PoolTimeTableViewController.swift */; };
+		E5270B462DCB1EB9000D12F2 /* PoolTimeTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5270B452DCB1EB9000D12F2 /* PoolTimeTableView.swift */; };
 		E5DFEFF42D9B92CF00EEE36A /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = E5DFEFF32D9B92CF00EEE36A /* SnapKit */; };
 		E5DFF2B92D9C45E400EEE36A /* Rusaint in Frameworks */ = {isa = PBXBuildFile; productRef = E5DFF2B82D9C45E400EEE36A /* Rusaint */; };
 		E5DFF3792D9C866100EEE36A /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = E5DFF3782D9C866100EEE36A /* FSCalendar */; };
@@ -98,8 +100,8 @@
 		E5270AA32DCB147F000D12F2 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		E5270AA52DCB147F000D12F2 /* CalendarDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDetailViewController.swift; sourceTree = "<group>"; };
 		E5270AA62DCB147F000D12F2 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
-		E5270AA92DCB147F000D12F2 /* PoolModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolModel.swift; sourceTree = "<group>"; };
-		E5270AAB2DCB147F000D12F2 /* PoolCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolCell.swift; sourceTree = "<group>"; };
+		E5270AA92DCB147F000D12F2 /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
+		E5270AAB2DCB147F000D12F2 /* HomeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCell.swift; sourceTree = "<group>"; };
 		E5270AAD2DCB147F000D12F2 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		E5270AAF2DCB147F000D12F2 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		E5270AB22DCB147F000D12F2 /* MyInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoModel.swift; sourceTree = "<group>"; };
@@ -146,6 +148,8 @@
 		E5270AF72DCB147F000D12F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E5270AF82DCB147F000D12F2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E5270B3C2DCB14BD000D12F2 /* TopTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopTabBar.swift; sourceTree = "<group>"; };
+		E5270B432DCB1EA0000D12F2 /* PoolTimeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolTimeTableViewController.swift; sourceTree = "<group>"; };
+		E5270B452DCB1EB9000D12F2 /* PoolTimeTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolTimeTableView.swift; sourceTree = "<group>"; };
 		E52A16C42D93186100ABD739 /* TeamPool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TeamPool.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -262,7 +266,7 @@
 		E5270AAA2DCB147F000D12F2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				E5270AA92DCB147F000D12F2 /* PoolModel.swift */,
+				E5270AA92DCB147F000D12F2 /* HomeModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -270,7 +274,7 @@
 		E5270AAC2DCB147F000D12F2 /* TableViewCell */ = {
 			isa = PBXGroup;
 			children = (
-				E5270AAB2DCB147F000D12F2 /* PoolCell.swift */,
+				E5270AAB2DCB147F000D12F2 /* HomeCell.swift */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -384,18 +388,18 @@
 			path = OnBoarding;
 			sourceTree = "<group>";
 		};
-		E5270ACE2DCB147F000D12F2 /* Model */ = {
+		E5270ACE2DCB147F000D12F2 /* PoolAudioRecord */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = Model;
+			path = PoolAudioRecord;
 			sourceTree = "<group>";
 		};
-		E5270ACF2DCB147F000D12F2 /* View */ = {
+		E5270ACF2DCB147F000D12F2 /* PoolCalendar */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = View;
+			path = PoolCalendar;
 			sourceTree = "<group>";
 		};
 		E5270AD02DCB147F000D12F2 /* Model */ = {
@@ -421,31 +425,32 @@
 			path = ViewController;
 			sourceTree = "<group>";
 		};
-		E5270AD52DCB147F000D12F2 /* TimeTable */ = {
+		E5270AD52DCB147F000D12F2 /* TimeTableView */ = {
 			isa = PBXGroup;
 			children = (
-				E5270AD02DCB147F000D12F2 /* Model */,
-				E5270AD22DCB147F000D12F2 /* View */,
 				E5270AD42DCB147F000D12F2 /* ViewController */,
+				E5270AD22DCB147F000D12F2 /* View */,
+				E5270AD02DCB147F000D12F2 /* Model */,
 			);
-			path = TimeTable;
+			path = TimeTableView;
 			sourceTree = "<group>";
 		};
-		E5270AD62DCB147F000D12F2 /* ViewController */ = {
+		E5270AD62DCB147F000D12F2 /* PoolTimeTable */ = {
 			isa = PBXGroup;
 			children = (
-				E5270AD52DCB147F000D12F2 /* TimeTable */,
+				E5270B412DCB1E74000D12F2 /* ViewController */,
+				E5270B422DCB1E82000D12F2 /* View */,
 			);
-			path = ViewController;
+			path = PoolTimeTable;
 			sourceTree = "<group>";
 		};
 		E5270AD82DCB147F000D12F2 /* Pool */ = {
 			isa = PBXGroup;
 			children = (
 				E5270AD72DCB147F000D12F2 /* PoolViewController.swift */,
-				E5270AD62DCB147F000D12F2 /* ViewController */,
-				E5270ACF2DCB147F000D12F2 /* View */,
-				E5270ACE2DCB147F000D12F2 /* Model */,
+				E5270AD62DCB147F000D12F2 /* PoolTimeTable */,
+				E5270ACF2DCB147F000D12F2 /* PoolCalendar */,
+				E5270ACE2DCB147F000D12F2 /* PoolAudioRecord */,
 			);
 			path = Pool;
 			sourceTree = "<group>";
@@ -475,14 +480,14 @@
 			path = ViewController;
 			sourceTree = "<group>";
 		};
-		E5270AE02DCB147F000D12F2 /* UsaintLogIn */ = {
+		E5270AE02DCB147F000D12F2 /* UsaintLogInView */ = {
 			isa = PBXGroup;
 			children = (
 				E5270ADB2DCB147F000D12F2 /* Model */,
 				E5270ADD2DCB147F000D12F2 /* View */,
 				E5270ADF2DCB147F000D12F2 /* ViewController */,
 			);
-			path = UsaintLogIn;
+			path = UsaintLogInView;
 			sourceTree = "<group>";
 		};
 		E5270AE12DCB147F000D12F2 /* Feature */ = {
@@ -494,7 +499,8 @@
 				E5270AC62DCB147F000D12F2 /* MyPage */,
 				E5270ACD2DCB147F000D12F2 /* OnBoarding */,
 				E5270AD82DCB147F000D12F2 /* Pool */,
-				E5270AE02DCB147F000D12F2 /* UsaintLogIn */,
+				E5270AE02DCB147F000D12F2 /* UsaintLogInView */,
+				E5270AD52DCB147F000D12F2 /* TimeTableView */,
 			);
 			path = Feature;
 			sourceTree = "<group>";
@@ -580,6 +586,22 @@
 				E5270AF92DCB147F000D12F2 /* LaunchScreen.storyboard */,
 			);
 			path = TeamPool;
+			sourceTree = "<group>";
+		};
+		E5270B412DCB1E74000D12F2 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E5270B432DCB1EA0000D12F2 /* PoolTimeTableViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		E5270B422DCB1E82000D12F2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E5270B452DCB1EB9000D12F2 /* PoolTimeTableView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		E52A16BB2D93186100ABD739 = {
@@ -698,11 +720,12 @@
 				E5270B072DCB147F000D12F2 /* FindPeopleViewController.swift in Sources */,
 				E5270B082DCB147F000D12F2 /* SubjectViewController.swift in Sources */,
 				E5270B092DCB147F000D12F2 /* CalendarDetailView.swift in Sources */,
+				E5270B462DCB1EB9000D12F2 /* PoolTimeTableView.swift in Sources */,
 				E5270B0A2DCB147F000D12F2 /* CalendarView.swift in Sources */,
 				E5270B0B2DCB147F000D12F2 /* CalendarDetailViewController.swift in Sources */,
 				E5270B0C2DCB147F000D12F2 /* CalendarViewController.swift in Sources */,
-				E5270B0D2DCB147F000D12F2 /* PoolModel.swift in Sources */,
-				E5270B0E2DCB147F000D12F2 /* PoolCell.swift in Sources */,
+				E5270B0D2DCB147F000D12F2 /* HomeModel.swift in Sources */,
+				E5270B0E2DCB147F000D12F2 /* HomeCell.swift in Sources */,
 				E5270B0F2DCB147F000D12F2 /* HomeView.swift in Sources */,
 				E5270B102DCB147F000D12F2 /* HomeViewController.swift in Sources */,
 				E5270B112DCB147F000D12F2 /* MyInfoModel.swift in Sources */,
@@ -719,6 +742,7 @@
 				E5270B1C2DCB147F000D12F2 /* AccountManagementViewController.swift in Sources */,
 				E5270B1D2DCB147F000D12F2 /* FriendManagementViewController.swift in Sources */,
 				E5270B1E2DCB147F000D12F2 /* MyPageViewController.swift in Sources */,
+				E5270B442DCB1EA0000D12F2 /* PoolTimeTableViewController.swift in Sources */,
 				E5270B1F2DCB147F000D12F2 /* ScheduleManagementViewController.swift in Sources */,
 				E5270B202DCB147F000D12F2 /* UserAgreementViewController.swift in Sources */,
 				E5270B212DCB147F000D12F2 /* SignInView.swift in Sources */,
