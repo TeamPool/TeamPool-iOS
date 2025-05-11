@@ -36,7 +36,6 @@ final class LectureModel {
         lectures = []
     }
 
-    // ✅ Weekday -> CourseDay 변환
     func weekDayToCourseDay(_ weekday: Weekday) -> CourseDay {
         switch weekday {
         case .mon: return .monday
@@ -49,7 +48,6 @@ final class LectureModel {
         }
     }
 
-    // ✅ 색상 랜덤 선택
     func randomColor() -> UIColor {
         return UIColor.timetableColors.randomElement() ?? .systemGray
     }

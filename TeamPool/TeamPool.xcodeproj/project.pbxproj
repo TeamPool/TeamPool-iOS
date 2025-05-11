@@ -76,6 +76,8 @@
 		E5270B442DCB1EA0000D12F2 /* PoolTimeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5270B432DCB1EA0000D12F2 /* PoolTimeTableViewController.swift */; };
 		E5270B462DCB1EB9000D12F2 /* PoolTimeTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5270B452DCB1EB9000D12F2 /* PoolTimeTableView.swift */; };
 		E5270B6B2DCB208D000D12F2 /* PoolTimeTableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5270B6A2DCB208D000D12F2 /* PoolTimeTableModel.swift */; };
+		E5270B702DCB267E000D12F2 /* PoolAvailableTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5270B6F2DCB267E000D12F2 /* PoolAvailableTimeViewController.swift */; };
+		E5270B722DCB2694000D12F2 /* PoolAvailableTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5270B712DCB2694000D12F2 /* PoolAvailableTimeView.swift */; };
 		E5DFEFF42D9B92CF00EEE36A /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = E5DFEFF32D9B92CF00EEE36A /* SnapKit */; };
 		E5DFF2B92D9C45E400EEE36A /* Rusaint in Frameworks */ = {isa = PBXBuildFile; productRef = E5DFF2B82D9C45E400EEE36A /* Rusaint */; };
 		E5DFF3792D9C866100EEE36A /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = E5DFF3782D9C866100EEE36A /* FSCalendar */; };
@@ -152,6 +154,8 @@
 		E5270B432DCB1EA0000D12F2 /* PoolTimeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolTimeTableViewController.swift; sourceTree = "<group>"; };
 		E5270B452DCB1EB9000D12F2 /* PoolTimeTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolTimeTableView.swift; sourceTree = "<group>"; };
 		E5270B6A2DCB208D000D12F2 /* PoolTimeTableModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolTimeTableModel.swift; sourceTree = "<group>"; };
+		E5270B6F2DCB267E000D12F2 /* PoolAvailableTimeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolAvailableTimeViewController.swift; sourceTree = "<group>"; };
+		E5270B712DCB2694000D12F2 /* PoolAvailableTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolAvailableTimeView.swift; sourceTree = "<group>"; };
 		E52A16C42D93186100ABD739 /* TeamPool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TeamPool.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -390,25 +394,11 @@
 			path = OnBoarding;
 			sourceTree = "<group>";
 		};
-		E5270ACE2DCB147F000D12F2 /* PoolAudioRecord */ = {
+		E5270ACE2DCB147F000D12F2 /* PoolAudioRecordView */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = PoolAudioRecord;
-			sourceTree = "<group>";
-		};
-		E5270ACF2DCB147F000D12F2 /* PoolCalendar */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = PoolCalendar;
-			sourceTree = "<group>";
-		};
-		E5270AD02DCB147F000D12F2 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
+			path = PoolAudioRecordView;
 			sourceTree = "<group>";
 		};
 		E5270AD22DCB147F000D12F2 /* View */ = {
@@ -432,7 +422,6 @@
 			children = (
 				E5270AD42DCB147F000D12F2 /* ViewController */,
 				E5270AD22DCB147F000D12F2 /* View */,
-				E5270AD02DCB147F000D12F2 /* Model */,
 			);
 			path = TimeTableView;
 			sourceTree = "<group>";
@@ -452,8 +441,7 @@
 			children = (
 				E5270AD72DCB147F000D12F2 /* PoolViewController.swift */,
 				E5270AD62DCB147F000D12F2 /* PoolTimeTable */,
-				E5270ACF2DCB147F000D12F2 /* PoolCalendar */,
-				E5270ACE2DCB147F000D12F2 /* PoolAudioRecord */,
+				E5270ACE2DCB147F000D12F2 /* PoolAudioRecordView */,
 			);
 			path = Pool;
 			sourceTree = "<group>";
@@ -595,6 +583,7 @@
 			isa = PBXGroup;
 			children = (
 				E5270B432DCB1EA0000D12F2 /* PoolTimeTableViewController.swift */,
+				E5270B6F2DCB267E000D12F2 /* PoolAvailableTimeViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -603,6 +592,7 @@
 			isa = PBXGroup;
 			children = (
 				E5270B452DCB1EB9000D12F2 /* PoolTimeTableView.swift */,
+				E5270B712DCB2694000D12F2 /* PoolAvailableTimeView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -767,6 +757,7 @@
 				E5270B282DCB147F000D12F2 /* LectureModel.swift in Sources */,
 				E5270B292DCB147F000D12F2 /* StudentModel.swift in Sources */,
 				E5270B2A2DCB147F000D12F2 /* UsaintLogInView.swift in Sources */,
+				E5270B722DCB2694000D12F2 /* PoolAvailableTimeView.swift in Sources */,
 				E5270B2B2DCB147F000D12F2 /* UsaintLogInViewController.swift in Sources */,
 				E5270B2C2DCB147F000D12F2 /* UIColor+.swift in Sources */,
 				E5270B2D2DCB147F000D12F2 /* UIView+.swift in Sources */,
@@ -777,6 +768,7 @@
 				E5270B322DCB147F000D12F2 /* BaseTabBarController.swift in Sources */,
 				E5270B3D2DCB14BD000D12F2 /* TopTabBar.swift in Sources */,
 				E5270B332DCB147F000D12F2 /* BaseTableViewCell.swift in Sources */,
+				E5270B702DCB267E000D12F2 /* PoolAvailableTimeViewController.swift in Sources */,
 				E5270B342DCB147F000D12F2 /* BaseTextField.swift in Sources */,
 				E5270B352DCB147F000D12F2 /* BaseUIView.swift in Sources */,
 				E5270B362DCB147F000D12F2 /* BaseUIViewController.swift in Sources */,
