@@ -17,7 +17,7 @@ class HomeView: BaseUIView {
         let tableView = UITableView()
         tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = false
-        tableView.register(PoolCell.self, forCellReuseIdentifier: "poolCell")
+        tableView.register(HomeCell.self, forCellReuseIdentifier: "poolCell")
         return tableView
     }()
 

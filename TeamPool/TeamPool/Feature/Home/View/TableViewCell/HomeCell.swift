@@ -8,10 +8,10 @@
 import UIKit
 import SnapKit
 
-class PoolCell: BaseTableViewCell {
+class HomeCell: BaseTableViewCell {
 
     // MARK: - Properties
-    static let identifier = "PoolCell"
+    static let identifier = "HomeCell"
 
     // MARK: - UI Components
 
@@ -164,7 +164,7 @@ class PoolCell: BaseTableViewCell {
 
     // MARK: - Configure
 
-    func configure(with model: PoolModel) {
+    func configure(with model: HomeModel) {
         nameLabel.text = model.name
         subNameLabel.text = model.subName
         dateLabel.text = model.date
