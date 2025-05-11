@@ -1,12 +1,17 @@
 import UIKit
 
-final class CalendarDetailViewController: UIViewController {
+final class CalendarDetailViewController: BaseUIViewController {
 
     // MARK: - Properties
+
     private let date: Date
+
+    // MARK: - UI Components
+
     private let calendarDetailView = CalendarDetailView()
 
     // MARK: - Initializer
+
     init(date: Date) {
         self.date = date
         super.init(nibName: nil, bundle: nil)
@@ -16,19 +21,26 @@ final class CalendarDetailViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MARK: - View Lifecycle
+    // MARK: - Life Cycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-        view.addSubview(calendarDetailView)
-
-        calendarDetailView.snp.makeConstraints { $0.edges.equalToSuperview() }
-
-        // ✅ 핵심: 이벤트 데이터 전달
         loadEvents(for: date)
     }
 
-    // MARK: - Data Binding
+    // MARK: - Custom Method
+
+    override func setUI() {
+        view.addSubview(calendarDetailView)
+        view.backgroundColor = .white
+    }
+
+    override func setLayout() {
+        calendarDetailView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+    }
+
     private func loadEvents(for date: Date) {
         let allEvents = CalendarModel.dummyData()
         let filteredEvents = allEvents.filter {

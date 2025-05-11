@@ -1,19 +1,30 @@
 import UIKit
+import SnapKit
 
 final class CalendarDetailView: BaseUIView {
 
     // MARK: - UI Components
 
-    let dateLabel: UILabel = {
+    lazy var dayLabel: UILabel = {
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 24)
         label.textColor = .black
         return label
     }()
+    
+    lazy var weekLabel: UILabel = {
+        let label = UILabel()
+        label.font = .boldSystemFont(ofSize: 16)
+        label.textColor = .black
+        return label
+    }()
 
-    private let scrollView = UIScrollView()
+    lazy var scrollView: UIScrollView = {
+        let scroll = UIScrollView()
+        return scroll
+    }()
 
-    private let contentStackView: UIStackView = {
+    lazy var contentStackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
         stack.spacing = 16
@@ -34,39 +45,44 @@ final class CalendarDetailView: BaseUIView {
     // MARK: - Custom Method
 
     override func setUI() {
-        addSubview(dateLabel)
-        addSubview(scrollView)
+        self.addSubview(dayLabel)
+        self.addSubview(weekLabel)
+        self.addSubview(scrollView)
         scrollView.addSubview(contentStackView)
     }
 
     override func setLayout() {
-        dateLabel.snp.makeConstraints {
+        dayLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(20)
             $0.leading.equalToSuperview().offset(20)
         }
+        
+        weekLabel.snp.makeConstraints {
+            $0.bottom.equalTo(dayLabel.snp.bottom).inset(3)
+            $0.leading.equalTo(dayLabel.snp.trailing).offset(5)
+        }
 
         scrollView.snp.makeConstraints {
-            $0.top.equalTo(dateLabel.snp.bottom).offset(20)
+            $0.top.equalTo(dayLabel.snp.bottom).offset(20)
             $0.leading.trailing.bottom.equalToSuperview()
         }
 
         contentStackView.snp.makeConstraints {
-            $0.edges.equalToSuperview().inset(20)
-            $0.width.equalToSuperview().inset(20)
+            $0.edges.equalToSuperview()
+            $0.width.equalToSuperview()
         }
     }
 
     func update(date: Date, events: [CalendarModel]) {
-        // 날짜 라벨 갱신
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ko_KR")
-        formatter.dateFormat = "d EEEE"
-        dateLabel.text = formatter.string(from: date)
+        formatter.dateFormat = "d"
+        dayLabel.text = formatter.string(from: date)
+        formatter.dateFormat = "EEEE"
+        weekLabel.text = formatter.string(from: date)
 
-        // 기존 카드 제거
         contentStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 
-        // 카드 추가
         for event in events {
             let card = makeEventCard(for: event)
             contentStackView.addArrangedSubview(card)
@@ -83,7 +99,7 @@ final class CalendarDetailView: BaseUIView {
         icon.setContentHuggingPriority(.required, for: .horizontal)
 
         let titleLabel = UILabel()
-        titleLabel.text = "회의"
+        titleLabel.text = event.title
         titleLabel.font = .boldSystemFont(ofSize: 17)
 
         let subjectLabel = UILabel()
@@ -91,9 +107,9 @@ final class CalendarDetailView: BaseUIView {
         subjectLabel.font = .systemFont(ofSize: 15)
 
         let timeLabel = UILabel()
-        let timeFormatter = DateFormatter()
-        timeFormatter.dateFormat = "HH:mm"
-        timeLabel.text = "\(timeFormatter.string(from: event.startDate)) ~ \(timeFormatter.string(from: event.endDate))"
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
+        timeLabel.text = "\(formatter.string(from: event.startDate)) ~ \(formatter.string(from: event.endDate))"
         timeLabel.font = .systemFont(ofSize: 15)
 
         let placeLabel = UILabel()
@@ -110,12 +126,15 @@ final class CalendarDetailView: BaseUIView {
 
         card.addSubview(horizontalStack)
         horizontalStack.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            horizontalStack.topAnchor.constraint(equalTo: card.topAnchor, constant: 16),
-            horizontalStack.leadingAnchor.constraint(equalTo: card.leadingAnchor, constant: 16),
-            horizontalStack.trailingAnchor.constraint(equalTo: card.trailingAnchor, constant: -16),
-            horizontalStack.bottomAnchor.constraint(equalTo: card.bottomAnchor, constant: -16)
-        ])
+        
+        card.addSubview(horizontalStack)
+        
+        horizontalStack.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(16)
+            $0.leading.equalToSuperview().inset(16)
+            $0.trailing.equalToSuperview().inset(16)
+            $0.bottom.equalToSuperview().inset(16)
+        }
 
         return card
     }
