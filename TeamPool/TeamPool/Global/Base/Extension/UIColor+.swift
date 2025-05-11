@@ -52,6 +52,24 @@ extension UIColor {
             UIColor(red: 1.00, green: 0.60, blue: 0.00, alpha: 0.3), // 주황
         ]
     }
+    
+    //MARK: - Calendar Colors
+    static var CalendarColar1: UIColor {
+        return UIColor(hex: 0x00C7BE, alpha: 0.5)
+    }
+    static var CalendarColar2: UIColor {
+        return UIColor(hex: 0x30B0C7, alpha: 0.5)
+    }
+    static var CalendarColar3: UIColor {
+        return UIColor(hex: 0x007AFF, alpha: 0.5)
+    }
+    static var CalendarColar4: UIColor {
+        return UIColor(hex: 0x32ADE6, alpha: 0.5)
+    }
+    static var CalendarColar5: UIColor {
+        return UIColor(hex: 0x5856D6, alpha: 0.5)
+    }
+
 
 }
 
