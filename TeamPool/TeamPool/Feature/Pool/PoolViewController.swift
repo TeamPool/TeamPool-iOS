@@ -31,7 +31,7 @@ final class PoolViewController: BaseUIViewController {
     private lazy var viewControllers: [UIViewController] = [
         PoolTimeTableViewController(),
         CalendarViewController(),
-        SignUpViewController()
+        PoolAudioRecordViewController()
     ]
 
     // MARK: - Life Cycle

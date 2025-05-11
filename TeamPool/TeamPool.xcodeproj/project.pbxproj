@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E50C93572DD0A5E700CB1753 /* PoolAudioRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50C93562DD0A5E700CB1753 /* PoolAudioRecordViewController.swift */; };
+		E50C93592DD0A5FC00CB1753 /* PoolAudioRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50C93582DD0A5FC00CB1753 /* PoolAudioRecordView.swift */; };
+		E50C935B2DD0A76600CB1753 /* PoolProceedingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50C935A2DD0A76600CB1753 /* PoolProceedingListViewController.swift */; };
+		E50C935D2DD0A77E00CB1753 /* PoolProceedingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50C935C2DD0A77E00CB1753 /* PoolProceedingListView.swift */; };
 		E5270AFB2DCB147F000D12F2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5270A8D2DCB147F000D12F2 /* AppDelegate.swift */; };
 		E5270AFC2DCB147F000D12F2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5270A8E2DCB147F000D12F2 /* SceneDelegate.swift */; };
 		E5270AFD2DCB147F000D12F2 /* UserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5270A902DCB147F000D12F2 /* UserDefault.swift */; };
@@ -85,6 +89,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E50C93562DD0A5E700CB1753 /* PoolAudioRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolAudioRecordViewController.swift; sourceTree = "<group>"; };
+		E50C93582DD0A5FC00CB1753 /* PoolAudioRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolAudioRecordView.swift; sourceTree = "<group>"; };
+		E50C935A2DD0A76600CB1753 /* PoolProceedingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolProceedingListViewController.swift; sourceTree = "<group>"; };
+		E50C935C2DD0A77E00CB1753 /* PoolProceedingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolProceedingListView.swift; sourceTree = "<group>"; };
 		E5270A8D2DCB147F000D12F2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E5270A8E2DCB147F000D12F2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		E5270A902DCB147F000D12F2 /* UserDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefault.swift; sourceTree = "<group>"; };
@@ -175,6 +183,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E50C93512DD0A59100CB1753 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E50C935C2DD0A77E00CB1753 /* PoolProceedingListView.swift */,
+				E50C93582DD0A5FC00CB1753 /* PoolAudioRecordView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E50C93522DD0A59500CB1753 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E50C935A2DD0A76600CB1753 /* PoolProceedingListViewController.swift */,
+				E50C93562DD0A5E700CB1753 /* PoolAudioRecordViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		E50C93532DD0A59D00CB1753 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		E5270A8F2DCB147F000D12F2 /* Application */ = {
 			isa = PBXGroup;
 			children = (
@@ -394,11 +427,14 @@
 			path = OnBoarding;
 			sourceTree = "<group>";
 		};
-		E5270ACE2DCB147F000D12F2 /* PoolAudioRecordView */ = {
+		E5270ACE2DCB147F000D12F2 /* PoolProceedingView */ = {
 			isa = PBXGroup;
 			children = (
+				E50C93522DD0A59500CB1753 /* ViewController */,
+				E50C93512DD0A59100CB1753 /* View */,
+				E50C93532DD0A59D00CB1753 /* Model */,
 			);
-			path = PoolAudioRecordView;
+			path = PoolProceedingView;
 			sourceTree = "<group>";
 		};
 		E5270AD22DCB147F000D12F2 /* View */ = {
@@ -441,7 +477,7 @@
 			children = (
 				E5270AD72DCB147F000D12F2 /* PoolViewController.swift */,
 				E5270AD62DCB147F000D12F2 /* PoolTimeTable */,
-				E5270ACE2DCB147F000D12F2 /* PoolAudioRecordView */,
+				E5270ACE2DCB147F000D12F2 /* PoolProceedingView */,
 			);
 			path = Pool;
 			sourceTree = "<group>";
@@ -708,6 +744,7 @@
 			files = (
 				E5270AFB2DCB147F000D12F2 /* AppDelegate.swift in Sources */,
 				E5270AFC2DCB147F000D12F2 /* SceneDelegate.swift in Sources */,
+				E50C93592DD0A5FC00CB1753 /* PoolAudioRecordView.swift in Sources */,
 				E5270AFD2DCB147F000D12F2 /* UserDefault.swift in Sources */,
 				E5270AFE2DCB147F000D12F2 /* UserDefaultHandler.swift in Sources */,
 				E5270AFF2DCB147F000D12F2 /* AddPoolNameView.swift in Sources */,
@@ -725,6 +762,7 @@
 				E5270B462DCB1EB9000D12F2 /* PoolTimeTableView.swift in Sources */,
 				E5270B0A2DCB147F000D12F2 /* CalendarView.swift in Sources */,
 				E5270B0B2DCB147F000D12F2 /* CalendarDetailViewController.swift in Sources */,
+				E50C935B2DD0A76600CB1753 /* PoolProceedingListViewController.swift in Sources */,
 				E5270B0C2DCB147F000D12F2 /* CalendarViewController.swift in Sources */,
 				E5270B0D2DCB147F000D12F2 /* HomeModel.swift in Sources */,
 				E5270B0E2DCB147F000D12F2 /* HomeCell.swift in Sources */,
@@ -744,6 +782,7 @@
 				E5270B1C2DCB147F000D12F2 /* AccountManagementViewController.swift in Sources */,
 				E5270B1D2DCB147F000D12F2 /* FriendManagementViewController.swift in Sources */,
 				E5270B1E2DCB147F000D12F2 /* MyPageViewController.swift in Sources */,
+				E50C93572DD0A5E700CB1753 /* PoolAudioRecordViewController.swift in Sources */,
 				E5270B442DCB1EA0000D12F2 /* PoolTimeTableViewController.swift in Sources */,
 				E5270B1F2DCB147F000D12F2 /* ScheduleManagementViewController.swift in Sources */,
 				E5270B202DCB147F000D12F2 /* UserAgreementViewController.swift in Sources */,
@@ -759,6 +798,7 @@
 				E5270B2A2DCB147F000D12F2 /* UsaintLogInView.swift in Sources */,
 				E5270B722DCB2694000D12F2 /* PoolAvailableTimeView.swift in Sources */,
 				E5270B2B2DCB147F000D12F2 /* UsaintLogInViewController.swift in Sources */,
+				E50C935D2DD0A77E00CB1753 /* PoolProceedingListView.swift in Sources */,
 				E5270B2C2DCB147F000D12F2 /* UIColor+.swift in Sources */,
 				E5270B2D2DCB147F000D12F2 /* UIView+.swift in Sources */,
 				E5270B2E2DCB147F000D12F2 /* UIWindow+.swift in Sources */,
