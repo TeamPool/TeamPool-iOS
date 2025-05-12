@@ -78,6 +78,8 @@
 		E5270B6B2DCB208D000D12F2 /* PoolTimeTableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5270B6A2DCB208D000D12F2 /* PoolTimeTableModel.swift */; };
 		E5270B702DCB267E000D12F2 /* PoolAvailableTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5270B6F2DCB267E000D12F2 /* PoolAvailableTimeViewController.swift */; };
 		E5270B722DCB2694000D12F2 /* PoolAvailableTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5270B712DCB2694000D12F2 /* PoolAvailableTimeView.swift */; };
+		E554C9912DD1A554002CF37B /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E554C98F2DD1A554002CF37B /* CalendarCell.swift */; };
+		E554C9942DD1A566002CF37B /* CalendarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E554C9922DD1A566002CF37B /* CalendarModel.swift */; };
 		E5DFEFF42D9B92CF00EEE36A /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = E5DFEFF32D9B92CF00EEE36A /* SnapKit */; };
 		E5DFF2B92D9C45E400EEE36A /* Rusaint in Frameworks */ = {isa = PBXBuildFile; productRef = E5DFF2B82D9C45E400EEE36A /* Rusaint */; };
 		E5DFF3792D9C866100EEE36A /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = E5DFF3782D9C866100EEE36A /* FSCalendar */; };
@@ -157,6 +159,8 @@
 		E5270B6F2DCB267E000D12F2 /* PoolAvailableTimeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolAvailableTimeViewController.swift; sourceTree = "<group>"; };
 		E5270B712DCB2694000D12F2 /* PoolAvailableTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolAvailableTimeView.swift; sourceTree = "<group>"; };
 		E52A16C42D93186100ABD739 /* TeamPool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TeamPool.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E554C98F2DD1A554002CF37B /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
+		E554C9922DD1A566002CF37B /* CalendarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -263,6 +267,8 @@
 		E5270AA82DCB147F000D12F2 /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
+				E554C9932DD1A566002CF37B /* Model */,
+				E554C9902DD1A554002CF37B /* Cell */,
 				E5270AA42DCB147F000D12F2 /* View */,
 				E5270AA72DCB147F000D12F2 /* ViewController */,
 			);
@@ -522,17 +528,9 @@
 			path = Base;
 			sourceTree = "<group>";
 		};
-		E5270AEF2DCB147F000D12F2 /* Calendar */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Calendar;
-			sourceTree = "<group>";
-		};
 		E5270AF02DCB147F000D12F2 /* Component */ = {
 			isa = PBXGroup;
 			children = (
-				E5270AEF2DCB147F000D12F2 /* Calendar */,
 				E5270B3C2DCB14BD000D12F2 /* TopTabBar.swift */,
 			);
 			path = Component;
@@ -621,6 +619,22 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		E554C9902DD1A554002CF37B /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				E554C98F2DD1A554002CF37B /* CalendarCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		E554C9932DD1A566002CF37B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E554C9922DD1A566002CF37B /* CalendarModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -707,6 +721,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E5270AFB2DCB147F000D12F2 /* AppDelegate.swift in Sources */,
+				E554C9912DD1A554002CF37B /* CalendarCell.swift in Sources */,
 				E5270AFC2DCB147F000D12F2 /* SceneDelegate.swift in Sources */,
 				E5270AFD2DCB147F000D12F2 /* UserDefault.swift in Sources */,
 				E5270AFE2DCB147F000D12F2 /* UserDefaultHandler.swift in Sources */,
@@ -726,6 +741,7 @@
 				E5270B0A2DCB147F000D12F2 /* CalendarView.swift in Sources */,
 				E5270B0B2DCB147F000D12F2 /* CalendarDetailViewController.swift in Sources */,
 				E5270B0C2DCB147F000D12F2 /* CalendarViewController.swift in Sources */,
+				E554C9942DD1A566002CF37B /* CalendarModel.swift in Sources */,
 				E5270B0D2DCB147F000D12F2 /* HomeModel.swift in Sources */,
 				E5270B0E2DCB147F000D12F2 /* HomeCell.swift in Sources */,
 				E5270B0F2DCB147F000D12F2 /* HomeView.swift in Sources */,
