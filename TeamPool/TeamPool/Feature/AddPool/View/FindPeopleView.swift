@@ -25,14 +25,33 @@ final class FindPeopleView: BaseUIView {
         return label
     }()
 
-    let personNameTextField: BaseTextField = {
-        let textField = BaseTextField()
-        textField.placeholder = "이름, 학번 검색"
-        textField.addLeftPadding(width: 15)
-        textField.setRoundBorder()
-        return textField
+    lazy var tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.register(FriendManagementCell.self, forCellReuseIdentifier: FriendManagementCell.identifier)
+        tableView.separatorStyle = .singleLine
+        tableView.backgroundColor = UIColor(hex: 0xEFF5FF)
+        tableView.rowHeight = 50
+        return tableView
     }()
-
+    
+    lazy var searchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        searchBar.placeholder = "이름, 학번 검색"
+        searchBar.setImage(ImageLiterals.SearchIcon, for: .search, state: .normal)
+        searchBar.backgroundImage = UIImage()
+        searchBar.layer.cornerRadius = 8
+        return searchBar
+    }()
+    
+    lazy var searchButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("검색", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
+        button.layer.cornerRadius = 8
+        button.backgroundColor = UIColor(hex: 0x89A4C7)
+        button.setTitleColor(.white, for: .normal)
+        return button
+    }()
 
 
     let nextButton: BaseFillButton = {
@@ -46,7 +65,9 @@ final class FindPeopleView: BaseUIView {
     override func setUI() {
         self.addSubviews(stepIndicatorImageView,
                          personNameLabel,
-                         personNameTextField,
+                         tableView,
+                         searchBar,
+                         searchButton,
                          nextButton)
     }
 
@@ -62,13 +83,24 @@ final class FindPeopleView: BaseUIView {
             $0.leading.equalToSuperview().offset(24)
         }
 
-        personNameTextField.snp.makeConstraints {
+        searchBar.snp.makeConstraints {
             $0.top.equalTo(personNameLabel.snp.bottom).offset(8)
             $0.leading.trailing.equalToSuperview().inset(24)
             $0.height.equalTo(44)
         }
 
-
+        searchButton.snp.makeConstraints {
+            $0.top.equalTo(searchBar.snp.top)
+            $0.height.equalTo(searchBar)
+            $0.width.equalTo(60)
+            $0.trailing.equalToSuperview().inset(15)
+        }
+        
+        tableView.snp.makeConstraints {
+            $0.top.equalTo(searchBar.snp.bottom).offset(1)
+            $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalToSuperview()
+        }
 
         nextButton.snp.makeConstraints {
             $0.bottom.equalToSuperview().inset(50)

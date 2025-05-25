@@ -96,6 +96,7 @@
 		E5DFF2B92D9C45E400EEE36A /* Rusaint in Frameworks */ = {isa = PBXBuildFile; productRef = E5DFF2B82D9C45E400EEE36A /* Rusaint */; };
 		E5DFF3792D9C866100EEE36A /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = E5DFF3782D9C866100EEE36A /* FSCalendar */; };
 		E5DFF3962D9D18AF00EEE36A /* Univ_TimeTable in Frameworks */ = {isa = PBXBuildFile; productRef = E5DFF3952D9D18AF00EEE36A /* Univ_TimeTable */; };
+		F998A92E2DE3132500DB13D6 /* FindPeopleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F998A92D2DE3132500DB13D6 /* FindPeopleModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -184,7 +185,16 @@
 		E55D9C222DE10815000FD099 /* IslandInfoDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IslandInfoDTO.swift; sourceTree = "<group>"; };
 		E55D9C232DE10815000FD099 /* CommentsDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsDTO.swift; sourceTree = "<group>"; };
 		E55D9C242DE10815000FD099 /* CommentsPostDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsPostDTO.swift; sourceTree = "<group>"; };
+		F998A92D2DE3132500DB13D6 /* FindPeopleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FindPeopleModel.swift; path = TeamPool/Feature/AddPool/FindPeopleModel.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		F998A92A2DE311E400DB13D6 /* Cell */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Cell;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		E52A16C12D93186100ABD739 /* Frameworks */ = {
@@ -232,6 +242,7 @@
 		E5270A942DCB147F000D12F2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				F998A92D2DE3132500DB13D6 /* FindPeopleModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -244,6 +255,7 @@
 				E5270A972DCB147F000D12F2 /* DeadlineView.swift */,
 				E5270A982DCB147F000D12F2 /* FindPeopleView.swift */,
 				E5270A992DCB147F000D12F2 /* SubjectView.swift */,
+				F998A92A2DE311E400DB13D6 /* Cell */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -717,6 +729,9 @@
 			);
 			dependencies = (
 			);
+			fileSystemSynchronizedGroups = (
+				F998A92A2DE311E400DB13D6 /* Cell */,
+			);
 			name = TeamPool;
 			packageProductDependencies = (
 				E5DFEFF32D9B92CF00EEE36A /* SnapKit */,
@@ -840,6 +855,7 @@
 				E5270B1B2DCB147F000D12F2 /* UserAgreementView.swift in Sources */,
 				E5270B1C2DCB147F000D12F2 /* AccountManagementViewController.swift in Sources */,
 				E5270B1D2DCB147F000D12F2 /* FriendManagementViewController.swift in Sources */,
+				F998A92E2DE3132500DB13D6 /* FindPeopleModel.swift in Sources */,
 				E5270B1E2DCB147F000D12F2 /* MyPageViewController.swift in Sources */,
 				E5270B442DCB1EA0000D12F2 /* PoolTimeTableViewController.swift in Sources */,
 				E5270B1F2DCB147F000D12F2 /* ScheduleManagementViewController.swift in Sources */,

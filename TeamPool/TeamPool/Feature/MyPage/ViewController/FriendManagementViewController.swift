@@ -3,9 +3,9 @@ import UIKit
 final class FriendManagementViewController: BaseUIViewController, UISearchBarDelegate {
     
     // MARK: - Properties
-    private var friends: [MyPageModel] = [] // 전체 친구 목록
-    private var filteredFriends: [MyPageModel] = [] // 필터링된 친구 목록
-    private var sectionedFriends: [String: [MyPageModel]] = [:]
+    private var friends: [FindPeopleModel] = [] // 전체 친구 목록
+    private var filteredFriends: [FindPeopleModel] = [] // 필터링된 친구 목록
+    private var sectionedFriends: [String: [FindPeopleModel]] = [:]
     private var sectionTitles: [String] = []
     
     // MARK: - UI Components
@@ -39,7 +39,7 @@ final class FriendManagementViewController: BaseUIViewController, UISearchBarDel
     }
     
     private func loadDummyData() {
-        friends = MyPageModel.dummyData()
+        friends = FindPeopleModel.dummyData()
         filteredFriends = friends // 초기에는 모든 데이터를 보여줌
         friendManagementView.tableView.reloadData()
         createSections(from: filteredFriends)
@@ -82,8 +82,8 @@ final class FriendManagementViewController: BaseUIViewController, UISearchBarDel
             return "#"
         }
     }
-    private func createSections(from friends: [MyPageModel]) {
-        var sections: [String: [MyPageModel]] = [:]
+    private func createSections(from friends: [FindPeopleModel]) {
+        var sections: [String: [FindPeopleModel]] = [:]
         
         for friend in friends {
             let key = getInitialConsonant(of: friend.name)

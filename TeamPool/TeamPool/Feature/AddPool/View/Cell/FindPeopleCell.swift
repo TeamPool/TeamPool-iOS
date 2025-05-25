@@ -1,17 +1,9 @@
-//
-//  FriendManagementCell.swift
-//  TeamPool
-//
-//  Created by Mac on 4/6/25.
-//
-
-import Foundation
 import UIKit
 import SnapKit
 
-class FriendManagementCell: UITableViewCell {
+class FindPeopleCell: UITableViewCell {
     
-    static let identifier = "FriendManagementCell"
+    static let identifier = "FindPeopleCell"
     
     let profileImageView: UIImageView = {
         let imageView = UIImageView()
@@ -35,12 +27,10 @@ class FriendManagementCell: UITableViewCell {
         return label
     }()
     
-    let deleteButton: UIButton = {
+    let checkBoxButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("삭제", for: .normal)
-        button.tintColor = .white
-        button.backgroundColor = UIColor(hex: 0x89A4C7)
-        button.layer.cornerRadius = 8
+        button.setImage(UIImage(systemName: "circle"), for: .normal)
+        button.tintColor = .gray
         return button
     }()
     
@@ -58,7 +48,7 @@ class FriendManagementCell: UITableViewCell {
         contentView.addSubview(profileImageView)
         contentView.addSubview(nameLabel)
         contentView.addSubview(numberLabel)
-        contentView.addSubview(deleteButton)
+        contentView.addSubview(checkBoxButton)
     }
     
     private func setupLayout() {
@@ -78,17 +68,18 @@ class FriendManagementCell: UITableViewCell {
             $0.top.equalTo(nameLabel.snp.bottom).offset(4)
         }
         
-        deleteButton.snp.makeConstraints {
+        checkBoxButton.snp.makeConstraints {
             $0.trailing.equalToSuperview().offset(-15)
             $0.centerY.equalToSuperview()
-            $0.width.equalTo(50)
-            $0.height.equalTo(20)
+            $0.width.height.equalTo(24)
         }
     }
     
-    func configure(with model : FindPeopleModel) {
+    func configure(with model : FindPeopleModel, isSelected: Bool) {
         nameLabel.text = model.name
         numberLabel.text = model.studentNumber
+        let imageName = isSelected ? "checkmark.circle.fill" : "circle"
+        checkBoxButton.setImage(UIImage(systemName: imageName), for: .normal)
     }
 }
 
