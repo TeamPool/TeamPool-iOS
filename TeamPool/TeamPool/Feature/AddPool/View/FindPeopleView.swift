@@ -29,17 +29,20 @@ final class FindPeopleView: BaseUIView {
         let tableView = UITableView()
         tableView.register(FindPeopleCell.self, forCellReuseIdentifier: FindPeopleCell.identifier)
         tableView.separatorStyle = .singleLine
-        tableView.backgroundColor = UIColor(hex: 0xEFF5FF)
+        tableView.backgroundColor = .white
         tableView.rowHeight = 50 // 사람 셀 높이 기준
         return tableView
     }()
     
     lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
-        searchBar.placeholder = "이름, 학번 검색"
+        searchBar.placeholder = "학번 검색"
         searchBar.setImage(ImageLiterals.SearchIcon, for: .search, state: .normal)
         searchBar.backgroundImage = UIImage()
-        searchBar.layer.cornerRadius = 8
+        searchBar.searchTextField.backgroundColor = UIColor(hex: 0xEFF5FF)
+        searchBar.searchTextField.layer.cornerRadius = 8
+        searchBar.searchTextField.clipsToBounds = true
+
         return searchBar
     }()
     
@@ -60,6 +63,21 @@ final class FindPeopleView: BaseUIView {
         button.isEnabled = true
         return button
     }()
+    
+    private let friendListHeaderView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(hex: 0xEFF5FF) // 연한 파란색
+        return view
+    }()
+
+    private let friendListLabel: UILabel = {
+        let label = UILabel()
+        label.text = "친구목록"
+        label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.textColor = .black
+        return label
+    }()
+
 
     // MARK: - Setup
     override func setUI() {
@@ -69,6 +87,8 @@ final class FindPeopleView: BaseUIView {
                          searchBar,
                          searchButton,
                          nextButton)
+        self.addSubview(friendListHeaderView)
+        friendListHeaderView.addSubview(friendListLabel)
     }
 
     override func setLayout() {
@@ -79,26 +99,38 @@ final class FindPeopleView: BaseUIView {
         }
 
         personNameLabel.snp.makeConstraints {
-            $0.top.equalTo(stepIndicatorImageView.snp.bottom).offset(40)
+            $0.top.equalTo(stepIndicatorImageView.snp.bottom).offset(20)
             $0.leading.equalToSuperview().offset(24)
         }
 
         searchBar.snp.makeConstraints {
             $0.top.equalTo(personNameLabel.snp.bottom).offset(8)
-            $0.leading.trailing.equalToSuperview().inset(24)
-            $0.height.equalTo(44)
+            $0.leading.equalToSuperview().inset(15)
+            $0.width.equalTo(300)
+            $0.height.equalTo(34)
         }
 
         searchButton.snp.makeConstraints {
             $0.top.equalTo(searchBar.snp.top)
             $0.height.equalTo(searchBar)
             $0.width.equalTo(60)
-            $0.trailing.equalToSuperview().inset(15)
+            $0.leading.equalTo(searchBar.snp.trailing).offset(10)
+        }
+        
+        friendListHeaderView.snp.makeConstraints {
+            $0.top.equalTo(searchBar.snp.bottom).offset(8)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(20) // 원하는 높이 조절
+        }
+
+        friendListLabel.snp.makeConstraints {
+            $0.leading.equalToSuperview().inset(20)
+            $0.centerY.equalToSuperview().offset(2)
         }
         
         tableView.snp.makeConstraints {
-            $0.top.equalTo(searchBar.snp.bottom).offset(1)
-            $0.leading.trailing.equalToSuperview()
+            $0.top.equalTo(friendListHeaderView.snp.bottom)
+            $0.leading.trailing.bottom.equalToSuperview()
             $0.bottom.equalToSuperview()
         }
 

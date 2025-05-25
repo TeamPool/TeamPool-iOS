@@ -1,7 +1,7 @@
 import UIKit
 
-final class FriendManagementViewController: BaseUIViewController, UISearchBarDelegate {
-    
+final class FriendManagementViewController: BaseUIViewController {
+
     // MARK: - 데이터 구조
     private enum FriendRow {
         case sectionHeader(String)
@@ -25,7 +25,7 @@ final class FriendManagementViewController: BaseUIViewController, UISearchBarDel
 
     override func setUI() {
         view.addSubview(friendManagementView)
-        view.backgroundColor = UIColor(hex: 0xEFF5FF)
+        view.backgroundColor = .white
     }
 
     override func setLayout() {
@@ -39,6 +39,7 @@ final class FriendManagementViewController: BaseUIViewController, UISearchBarDel
         let tableView = friendManagementView.tableView
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.separatorStyle = .none
         tableView.register(FriendManagementCell.self, forCellReuseIdentifier: FriendManagementCell.identifier)
         tableView.register(SectionHeaderCell.self, forCellReuseIdentifier: SectionHeaderCell.identifier)
         friendManagementView.searchBar.delegate = self
@@ -52,7 +53,7 @@ final class FriendManagementViewController: BaseUIViewController, UISearchBarDel
     }
 
     private func filterFriends() {
-        guard let searchText = friendManagementView.searchBar.text else { return }
+        let searchText = friendManagementView.searchBar.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
 
         filteredFriends = searchText.isEmpty
             ? friends
@@ -88,7 +89,6 @@ final class FriendManagementViewController: BaseUIViewController, UISearchBarDel
         filterFriends()
     }
 }
-
 // MARK: - UITableView
 extension FriendManagementViewController: UITableViewDelegate, UITableViewDataSource {
 
@@ -149,6 +149,19 @@ extension FriendManagementViewController: UITableViewDelegate, UITableViewDataSo
         alert.addAction(cancelAction)
 
         present(alert, animated: true)
+    }
+}
+
+// MARK: - UISearchBarDelegate
+extension FriendManagementViewController: UISearchBarDelegate {
+
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        filterFriends()
+    }
+
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        filterFriends()
     }
 }
 

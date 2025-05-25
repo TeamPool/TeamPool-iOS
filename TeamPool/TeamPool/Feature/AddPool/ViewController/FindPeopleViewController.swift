@@ -38,6 +38,7 @@ final class FindPeopleViewController: BaseUIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(FindPeopleCell.self, forCellReuseIdentifier: FindPeopleCell.identifier)
+        findPeopleView.tableView.separatorStyle = .none
         tableView.register(SectionHeaderCell.self, forCellReuseIdentifier: SectionHeaderCell.identifier)
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 50
