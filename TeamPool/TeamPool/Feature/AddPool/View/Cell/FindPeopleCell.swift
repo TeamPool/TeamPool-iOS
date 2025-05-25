@@ -75,7 +75,7 @@ class FindPeopleCell: UITableViewCell {
         }
     }
     
-    func configure(with model : FindPeopleModel, isSelected: Bool) {
+    func configure(with model: FindPeopleModel, isSelected: Bool) {
         nameLabel.text = model.name
         numberLabel.text = model.studentNumber
         let imageName = isSelected ? "checkmark.circle.fill" : "circle"

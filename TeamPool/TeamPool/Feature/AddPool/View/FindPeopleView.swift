@@ -27,10 +27,10 @@ final class FindPeopleView: BaseUIView {
 
     lazy var tableView: UITableView = {
         let tableView = UITableView()
-        tableView.register(FriendManagementCell.self, forCellReuseIdentifier: FriendManagementCell.identifier)
+        tableView.register(FindPeopleCell.self, forCellReuseIdentifier: FindPeopleCell.identifier)
         tableView.separatorStyle = .singleLine
         tableView.backgroundColor = UIColor(hex: 0xEFF5FF)
-        tableView.rowHeight = 50
+        tableView.rowHeight = 50 // 사람 셀 높이 기준
         return tableView
     }()
     
