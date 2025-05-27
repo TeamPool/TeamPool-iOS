@@ -97,6 +97,18 @@
 		E5DFF3792D9C866100EEE36A /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = E5DFF3782D9C866100EEE36A /* FSCalendar */; };
 		E5DFF3962D9D18AF00EEE36A /* Univ_TimeTable in Frameworks */ = {isa = PBXBuildFile; productRef = E5DFF3952D9D18AF00EEE36A /* Univ_TimeTable */; };
 		F998A92E2DE3132500DB13D6 /* FindPeopleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F998A92D2DE3132500DB13D6 /* FindPeopleModel.swift */; };
+		F9D044522DE5A1A100FC34DC /* PoolCalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D044512DE5A1A100FC34DC /* PoolCalendarCell.swift */; };
+		F9D044542DE5A1A600FC34DC /* PoolCalendarDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D044532DE5A1A600FC34DC /* PoolCalendarDetailView.swift */; };
+		F9D044562DE5A1BF00FC34DC /* PoolCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D044552DE5A1BF00FC34DC /* PoolCalendarView.swift */; };
+		F9D044582DE5A1C300FC34DC /* PoolCalendarDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D044572DE5A1C300FC34DC /* PoolCalendarDetailViewController.swift */; };
+		F9D0445A2DE5A1C800FC34DC /* PoolCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D044592DE5A1C800FC34DC /* PoolCalendarViewController.swift */; };
+		F9D0445D2DE5A2B400FC34DC /* PoolCalendarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D0445B2DE5A2B400FC34DC /* PoolCalendarModel.swift */; };
+		F9D0446C2DE5A7A500FC34DC /* PoolProceedingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D044672DE5A7A500FC34DC /* PoolProceedingView.swift */; };
+		F9D0446D2DE5A7A500FC34DC /* PoolProceedingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D044692DE5A7A500FC34DC /* PoolProceedingViewController.swift */; };
+		F9D044782DE5A99C00FC34DC /* PoolProceedingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D044762DE5A99C00FC34DC /* PoolProceedingModel.swift */; };
+		F9D0447B2DE5A99F00FC34DC /* PoolProceedingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D044792DE5A99F00FC34DC /* PoolProceedingCell.swift */; };
+		F9D0447D2DE5AAEC00FC34DC /* PoolProceedingDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D0447C2DE5AAEC00FC34DC /* PoolProceedingDetailView.swift */; };
+		F9D0447F2DE5AAF900FC34DC /* PoolProceedingDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D0447E2DE5AAF900FC34DC /* PoolProceedingDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -186,6 +198,18 @@
 		E55D9C232DE10815000FD099 /* CommentsDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsDTO.swift; sourceTree = "<group>"; };
 		E55D9C242DE10815000FD099 /* CommentsPostDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsPostDTO.swift; sourceTree = "<group>"; };
 		F998A92D2DE3132500DB13D6 /* FindPeopleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FindPeopleModel.swift; path = TeamPool/Feature/AddPool/FindPeopleModel.swift; sourceTree = SOURCE_ROOT; };
+		F9D044512DE5A1A100FC34DC /* PoolCalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolCalendarCell.swift; sourceTree = "<group>"; };
+		F9D044532DE5A1A600FC34DC /* PoolCalendarDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolCalendarDetailView.swift; sourceTree = "<group>"; };
+		F9D044552DE5A1BF00FC34DC /* PoolCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolCalendarView.swift; sourceTree = "<group>"; };
+		F9D044572DE5A1C300FC34DC /* PoolCalendarDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolCalendarDetailViewController.swift; sourceTree = "<group>"; };
+		F9D044592DE5A1C800FC34DC /* PoolCalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolCalendarViewController.swift; sourceTree = "<group>"; };
+		F9D0445B2DE5A2B400FC34DC /* PoolCalendarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolCalendarModel.swift; sourceTree = "<group>"; };
+		F9D044672DE5A7A500FC34DC /* PoolProceedingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolProceedingView.swift; sourceTree = "<group>"; };
+		F9D044692DE5A7A500FC34DC /* PoolProceedingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolProceedingViewController.swift; sourceTree = "<group>"; };
+		F9D044762DE5A99C00FC34DC /* PoolProceedingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolProceedingModel.swift; sourceTree = "<group>"; };
+		F9D044792DE5A99F00FC34DC /* PoolProceedingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolProceedingCell.swift; sourceTree = "<group>"; };
+		F9D0447C2DE5AAEC00FC34DC /* PoolProceedingDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolProceedingDetailView.swift; sourceTree = "<group>"; };
+		F9D0447E2DE5AAF900FC34DC /* PoolProceedingDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolProceedingDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -436,13 +460,6 @@
 			path = OnBoarding;
 			sourceTree = "<group>";
 		};
-		E5270ACE2DCB147F000D12F2 /* PoolAudioRecordView */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = PoolAudioRecordView;
-			sourceTree = "<group>";
-		};
 		E5270AD22DCB147F000D12F2 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -481,9 +498,10 @@
 		E5270AD82DCB147F000D12F2 /* Pool */ = {
 			isa = PBXGroup;
 			children = (
+				F9D0446B2DE5A7A500FC34DC /* PoolProceeding */,
+				F9D0444E2DE5A12900FC34DC /* PoolCalendar */,
 				E5270AD72DCB147F000D12F2 /* PoolViewController.swift */,
 				E5270AD62DCB147F000D12F2 /* PoolTimeTable */,
-				E5270ACE2DCB147F000D12F2 /* PoolAudioRecordView */,
 			);
 			path = Pool;
 			sourceTree = "<group>";
@@ -714,6 +732,96 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
+		F9D0444C2DE5A12900FC34DC /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F9D044552DE5A1BF00FC34DC /* PoolCalendarView.swift */,
+				F9D044532DE5A1A600FC34DC /* PoolCalendarDetailView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F9D0444D2DE5A12900FC34DC /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				F9D044592DE5A1C800FC34DC /* PoolCalendarViewController.swift */,
+				F9D044572DE5A1C300FC34DC /* PoolCalendarDetailViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		F9D0444E2DE5A12900FC34DC /* PoolCalendar */ = {
+			isa = PBXGroup;
+			children = (
+				F9D0445C2DE5A2B400FC34DC /* Model */,
+				F9D044502DE5A19C00FC34DC /* Cell */,
+				F9D0444C2DE5A12900FC34DC /* View */,
+				F9D0444D2DE5A12900FC34DC /* ViewController */,
+			);
+			path = PoolCalendar;
+			sourceTree = "<group>";
+		};
+		F9D044502DE5A19C00FC34DC /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				F9D044512DE5A1A100FC34DC /* PoolCalendarCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		F9D0445C2DE5A2B400FC34DC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F9D0445B2DE5A2B400FC34DC /* PoolCalendarModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		F9D044682DE5A7A500FC34DC /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F9D044672DE5A7A500FC34DC /* PoolProceedingView.swift */,
+				F9D0447C2DE5AAEC00FC34DC /* PoolProceedingDetailView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F9D0446A2DE5A7A500FC34DC /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				F9D044692DE5A7A500FC34DC /* PoolProceedingViewController.swift */,
+				F9D0447E2DE5AAF900FC34DC /* PoolProceedingDetailViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		F9D0446B2DE5A7A500FC34DC /* PoolProceeding */ = {
+			isa = PBXGroup;
+			children = (
+				F9D0447A2DE5A99F00FC34DC /* Cell */,
+				F9D044772DE5A99C00FC34DC /* Model */,
+				F9D044682DE5A7A500FC34DC /* View */,
+				F9D0446A2DE5A7A500FC34DC /* ViewController */,
+			);
+			path = PoolProceeding;
+			sourceTree = "<group>";
+		};
+		F9D044772DE5A99C00FC34DC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F9D044762DE5A99C00FC34DC /* PoolProceedingModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		F9D0447A2DE5A99F00FC34DC /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				F9D044792DE5A99F00FC34DC /* PoolProceedingCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -805,18 +913,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				E5270AFB2DCB147F000D12F2 /* AppDelegate.swift in Sources */,
+				F9D0447F2DE5AAF900FC34DC /* PoolProceedingDetailViewController.swift in Sources */,
 				E554C9912DD1A554002CF37B /* CalendarCell.swift in Sources */,
 				E5270AFC2DCB147F000D12F2 /* SceneDelegate.swift in Sources */,
 				E5270AFD2DCB147F000D12F2 /* UserDefault.swift in Sources */,
 				E5270AFE2DCB147F000D12F2 /* UserDefaultHandler.swift in Sources */,
 				E5270AFF2DCB147F000D12F2 /* AddPoolNameView.swift in Sources */,
 				E5270B002DCB147F000D12F2 /* CreatPoolView.swift in Sources */,
+				F9D044522DE5A1A100FC34DC /* PoolCalendarCell.swift in Sources */,
 				E5270B012DCB147F000D12F2 /* DeadlineView.swift in Sources */,
 				E5270B022DCB147F000D12F2 /* FindPeopleView.swift in Sources */,
 				E5270B032DCB147F000D12F2 /* SubjectView.swift in Sources */,
 				E5270B042DCB147F000D12F2 /* AddPoolNameViewController.swift in Sources */,
 				E5270B052DCB147F000D12F2 /* CreatPoolViewController.swift in Sources */,
 				E5270B6B2DCB208D000D12F2 /* PoolTimeTableModel.swift in Sources */,
+				F9D0447B2DE5A99F00FC34DC /* PoolProceedingCell.swift in Sources */,
 				E5270B062DCB147F000D12F2 /* DeadlineViewController.swift in Sources */,
 				E5270B072DCB147F000D12F2 /* FindPeopleViewController.swift in Sources */,
 				E5270B082DCB147F000D12F2 /* SubjectViewController.swift in Sources */,
@@ -837,6 +948,8 @@
 				E55D9C312DE10815000FD099 /* GenericResponse.swift in Sources */,
 				E55D9C322DE10815000FD099 /* HomeDTO.swift in Sources */,
 				E5270B0C2DCB147F000D12F2 /* CalendarViewController.swift in Sources */,
+				F9D0446C2DE5A7A500FC34DC /* PoolProceedingView.swift in Sources */,
+				F9D0446D2DE5A7A500FC34DC /* PoolProceedingViewController.swift in Sources */,
 				E554C9942DD1A566002CF37B /* CalendarModel.swift in Sources */,
 				E5270B0D2DCB147F000D12F2 /* HomeModel.swift in Sources */,
 				E5270B0E2DCB147F000D12F2 /* HomeCell.swift in Sources */,
@@ -847,11 +960,13 @@
 				E5270B132DCB147F000D12F2 /* FriendManagementCell.swift in Sources */,
 				E5270B142DCB147F000D12F2 /* LogoutCell.swift in Sources */,
 				E5270B152DCB147F000D12F2 /* SettingTableViewCell.swift in Sources */,
+				F9D044542DE5A1A600FC34DC /* PoolCalendarDetailView.swift in Sources */,
 				E5270B162DCB147F000D12F2 /* WithdrawalCell.swift in Sources */,
 				E5270B172DCB147F000D12F2 /* AccountManagementView.swift in Sources */,
 				E5270B182DCB147F000D12F2 /* FriendManagementView.swift in Sources */,
 				E5270B192DCB147F000D12F2 /* MyPageView.swift in Sources */,
 				E5270B1A2DCB147F000D12F2 /* ScheduleManagementView.swift in Sources */,
+				F9D044582DE5A1C300FC34DC /* PoolCalendarDetailViewController.swift in Sources */,
 				E5270B1B2DCB147F000D12F2 /* UserAgreementView.swift in Sources */,
 				E5270B1C2DCB147F000D12F2 /* AccountManagementViewController.swift in Sources */,
 				E5270B1D2DCB147F000D12F2 /* FriendManagementViewController.swift in Sources */,
@@ -864,22 +979,27 @@
 				E5270B222DCB147F000D12F2 /* SignUpView.swift in Sources */,
 				E5270B232DCB147F000D12F2 /* SignInViewController.swift in Sources */,
 				E5270B242DCB147F000D12F2 /* SignUpViewController.swift in Sources */,
+				F9D044562DE5A1BF00FC34DC /* PoolCalendarView.swift in Sources */,
 				E5270B252DCB147F000D12F2 /* TimeTableView.swift in Sources */,
 				E5270B262DCB147F000D12F2 /* TimeTableViewController.swift in Sources */,
+				F9D0447D2DE5AAEC00FC34DC /* PoolProceedingDetailView.swift in Sources */,
 				E5270B272DCB147F000D12F2 /* PoolViewController.swift in Sources */,
 				E5270B282DCB147F000D12F2 /* LectureModel.swift in Sources */,
 				E5270B292DCB147F000D12F2 /* StudentModel.swift in Sources */,
 				E5270B2A2DCB147F000D12F2 /* UsaintLogInView.swift in Sources */,
 				E5270B722DCB2694000D12F2 /* PoolAvailableTimeView.swift in Sources */,
 				E5270B2B2DCB147F000D12F2 /* UsaintLogInViewController.swift in Sources */,
+				F9D0445A2DE5A1C800FC34DC /* PoolCalendarViewController.swift in Sources */,
 				E5270B2C2DCB147F000D12F2 /* UIColor+.swift in Sources */,
 				E5270B2D2DCB147F000D12F2 /* UIView+.swift in Sources */,
 				E5270B2E2DCB147F000D12F2 /* UIWindow+.swift in Sources */,
 				E5270B2F2DCB147F000D12F2 /* BaseAlertViewController.swift in Sources */,
+				F9D0445D2DE5A2B400FC34DC /* PoolCalendarModel.swift in Sources */,
 				E5270B302DCB147F000D12F2 /* BaseEmptyButton.swift in Sources */,
 				E5270B312DCB147F000D12F2 /* BaseFillButton.swift in Sources */,
 				E5270B322DCB147F000D12F2 /* BaseTabBarController.swift in Sources */,
 				E5270B3D2DCB14BD000D12F2 /* TopTabBar.swift in Sources */,
+				F9D044782DE5A99C00FC34DC /* PoolProceedingModel.swift in Sources */,
 				E5270B332DCB147F000D12F2 /* BaseTableViewCell.swift in Sources */,
 				E5270B702DCB267E000D12F2 /* PoolAvailableTimeViewController.swift in Sources */,
 				E5270B342DCB147F000D12F2 /* BaseTextField.swift in Sources */,
