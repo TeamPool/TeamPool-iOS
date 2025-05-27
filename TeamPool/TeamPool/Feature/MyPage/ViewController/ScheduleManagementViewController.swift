@@ -20,6 +20,7 @@ final class ScheduleManagementViewController: BaseUIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureCustomBackButton()
     }
 
     // MARK: - Custom Method
@@ -33,6 +34,24 @@ final class ScheduleManagementViewController: BaseUIViewController {
         scheduleManagementView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+    }
+    // MARK: - 커스텀 백버튼
+
+    private func configureCustomBackButton() {
+        let backButton = UIButton(type: .system)
+        let config = UIImage.SymbolConfiguration(pointSize: 20, weight: .medium)
+        backButton.setImage(UIImage(systemName: "chevron.left", withConfiguration: config), for: .normal)
+        backButton.setTitle(" 시간표 관리", for: .normal)
+        backButton.titleLabel?.font = .systemFont(ofSize: 20, weight: .medium)
+        backButton.tintColor = .black
+        backButton.addTarget(self, action: #selector(didTapBack), for: .touchUpInside)
+
+        let backItem = UIBarButtonItem(customView: backButton)
+        navigationItem.leftBarButtonItem = backItem
+    }
+
+    @objc private func didTapBack() {
+        navigationController?.popViewController(animated: true)
     }
 
 }

@@ -20,6 +20,7 @@ final class FriendManagementViewController: BaseUIViewController {
         super.viewDidLoad()
         setupTableView()
         loadDummyData()
+        configureCustomBackButton()
         friendManagementView.searchButton.addTarget(self, action: #selector(searchButtonTapped), for: .touchUpInside)
     }
 
@@ -149,6 +150,24 @@ extension FriendManagementViewController: UITableViewDelegate, UITableViewDataSo
         alert.addAction(cancelAction)
 
         present(alert, animated: true)
+    }
+    // MARK: - 커스텀 백버튼
+
+    private func configureCustomBackButton() {
+        let backButton = UIButton(type: .system)
+        let config = UIImage.SymbolConfiguration(pointSize: 20, weight: .medium)
+        backButton.setImage(UIImage(systemName: "chevron.left", withConfiguration: config), for: .normal)
+        backButton.setTitle(" 친구 관리", for: .normal)
+        backButton.titleLabel?.font = .systemFont(ofSize: 20, weight: .medium)
+        backButton.tintColor = .black
+        backButton.addTarget(self, action: #selector(didTapBack), for: .touchUpInside)
+
+        let backItem = UIBarButtonItem(customView: backButton)
+        navigationItem.leftBarButtonItem = backItem
+    }
+
+    @objc private func didTapBack() {
+        navigationController?.popViewController(animated: true)
     }
 }
 

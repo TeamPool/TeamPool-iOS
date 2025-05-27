@@ -1,16 +1,13 @@
 //
-//  MyPageViewController.swift
+//  AccountManagementViewController.swift
 //  TeamPool
 //
 //  Created by 성현주 on 3/26/25.
 //
 
-import Foundation
 import UIKit
 
 final class AccountManagementViewController: BaseUIViewController {
-
-    // MARK: - Properties
 
     // MARK: - UI Components
 
@@ -21,14 +18,15 @@ final class AccountManagementViewController: BaseUIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
+        configureCustomBackButton() // ✅ 커스텀 백버튼
         accountManagementView.nicknameTextField.addTarget(self, action: #selector(nicknameTextFieldDidChange), for: .editingChanged)
         accountManagementView.duplicateCheckButton.addTarget(self, action: #selector(duplicateCheckButtonTapped), for: .touchUpInside)
     }
 
-    // MARK: - Custom Method
+    // MARK: - UI 구성
 
     override func setUI() {
-        view.backgroundColor = UIColor(hex : 0xEFF5FF)
+        view.backgroundColor = UIColor(hex: 0xEFF5FF)
         view.addSubview(accountManagementView)
     }
 
@@ -37,28 +35,24 @@ final class AccountManagementViewController: BaseUIViewController {
             make.edges.equalToSuperview()
         }
     }
-    
-    
+
     private func setupTableView() {
         accountManagementView.LogouttableView.delegate = self
         accountManagementView.LogouttableView.dataSource = self
         accountManagementView.LogouttableView.register(LogoutCell.self, forCellReuseIdentifier: LogoutCell.identifier)
         accountManagementView.LogouttableView.register(WithdrawalCell.self, forCellReuseIdentifier: WithdrawalCell.identifier)
     }
-    
+
+    // MARK: - 닉네임 입력 처리
+
     @objc private func nicknameTextFieldDidChange() {
-        // 텍스트 필드 값 가져오기
         guard let text = accountManagementView.nicknameTextField.text else { return }
-        
-        // 2자 이상, 8자 이하
-            
+
         if text.count >= 2 && text.count <= 8 {
-            // 버튼 활성화
             accountManagementView.errorLabel.text = ""
             accountManagementView.duplicateCheckButton.backgroundColor = UIColor(hex: 0x89A4C7)
             accountManagementView.duplicateCheckButton.isEnabled = true
         } else {
-            // 버튼 비활성화
             if text.count != 0 {
                 accountManagementView.errorLabel.text = "닉네임의 형식이 올바르지 않습니다."
             }
@@ -66,82 +60,87 @@ final class AccountManagementViewController: BaseUIViewController {
             accountManagementView.duplicateCheckButton.isEnabled = false
         }
     }
-    
+
     @objc private func duplicateCheckButtonTapped() {
-            accountManagementView.errorLabel.text = "사용 가능한 닉네임입니다."
-            updateUpdateButtonState()
+        accountManagementView.errorLabel.text = "사용 가능한 닉네임입니다."
+        updateUpdateButtonState()
     }
-    
+
     private func updateUpdateButtonState() {
         accountManagementView.updateButton.backgroundColor = UIColor(hex: 0x89A4C7)
         accountManagementView.updateButton.isEnabled = true
     }
+
+    // MARK: - 커스텀 백버튼
+
+    private func configureCustomBackButton() {
+        let backButton = UIButton(type: .system)
+        let config = UIImage.SymbolConfiguration(pointSize: 20, weight: .medium)
+        backButton.setImage(UIImage(systemName: "chevron.left", withConfiguration: config), for: .normal)
+        backButton.setTitle(" 계정 관리", for: .normal)
+        backButton.titleLabel?.font = .systemFont(ofSize: 20, weight: .medium)
+        backButton.tintColor = .black
+        backButton.addTarget(self, action: #selector(didTapBack), for: .touchUpInside)
+
+        let backItem = UIBarButtonItem(customView: backButton)
+        navigationItem.leftBarButtonItem = backItem
+    }
+
+    @objc private func didTapBack() {
+        navigationController?.popViewController(animated: true)
+    }
 }
 
-//MARK: - 테이블 뷰 정리
+// MARK: - 테이블뷰
 
 extension AccountManagementViewController: UITableViewDelegate, UITableViewDataSource {
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 2
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: LogoutCell.identifier, for: indexPath) as? LogoutCell else {
                 return UITableViewCell()
             }
-            cell.backgroundColor = UIColor(hex : 0xEFF5FF)
+            cell.backgroundColor = UIColor(hex: 0xEFF5FF)
             return cell
-        }
-        if indexPath.row == 1 {
+        } else {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: WithdrawalCell.identifier, for: indexPath) as? WithdrawalCell else {
                 return UITableViewCell()
             }
-            cell.backgroundColor = UIColor(hex : 0xEFF5FF)
+            cell.backgroundColor = UIColor(hex: 0xEFF5FF)
             return cell
         }
-        
-        return UITableViewCell()
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        var message1 : String = ""
-        var message2 : String = ""
+
+        let message1: String
+        let message2: String
+
         if indexPath.row == 0 {
             message1 = "로그아웃하시겠습니까?"
             message2 = "로그아웃"
-        }
-        
-        if indexPath.row == 1 {
+        } else {
             message1 = "계정을 탈퇴하시겠습니까?"
             message2 = "탈퇴"
         }
-        
-        // 경고창 띄우기
+
         let alertController = UIAlertController(title: nil, message: message1, preferredStyle: .alert)
-        
-        //왼쪽 버튼
-        let logoutAction = UIAlertAction(title: message2, style: .default) { _ in
-            if message1 == "로그아웃"{
-                //로그아웃 여기 구현
-            }
-            
-            else {
-                //탈퇴 여기 구현
-            }
+
+        let confirmAction = UIAlertAction(title: message2, style: .default) { _ in
+            // TODO: 로그아웃 / 탈퇴 로직 구현
         }
-        
-        //취소 누르는 경우
-        let cancelAction = UIAlertAction(title: "취소", style: .default) { _ in
-            
-        }
-        // 알림창에 버튼 추가
-        alertController.addAction(logoutAction)
+
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+
+        alertController.addAction(confirmAction)
         alertController.addAction(cancelAction)
-        
-        // 알림창 표시
-        self.present(alertController, animated: true, completion: nil)
+
+        present(alertController, animated: true)
     }
 }
+
