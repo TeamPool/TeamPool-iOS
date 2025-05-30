@@ -96,6 +96,8 @@
 		E5DFF2B92D9C45E400EEE36A /* Rusaint in Frameworks */ = {isa = PBXBuildFile; productRef = E5DFF2B82D9C45E400EEE36A /* Rusaint */; };
 		E5DFF3792D9C866100EEE36A /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = E5DFF3782D9C866100EEE36A /* FSCalendar */; };
 		E5DFF3962D9D18AF00EEE36A /* Univ_TimeTable in Frameworks */ = {isa = PBXBuildFile; productRef = E5DFF3952D9D18AF00EEE36A /* Univ_TimeTable */; };
+		F97358C02DE99F4B005775F6 /* PoolProceedingRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97358BF2DE99F39005775F6 /* PoolProceedingRecordViewController.swift */; };
+		F97358C22DE99F59005775F6 /* PoolProceedingRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97358C12DE99F50005775F6 /* PoolProceedingRecordView.swift */; };
 		F998A92E2DE3132500DB13D6 /* FindPeopleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F998A92D2DE3132500DB13D6 /* FindPeopleModel.swift */; };
 		F9D044522DE5A1A100FC34DC /* PoolCalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D044512DE5A1A100FC34DC /* PoolCalendarCell.swift */; };
 		F9D044542DE5A1A600FC34DC /* PoolCalendarDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D044532DE5A1A600FC34DC /* PoolCalendarDetailView.swift */; };
@@ -197,6 +199,8 @@
 		E55D9C222DE10815000FD099 /* IslandInfoDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IslandInfoDTO.swift; sourceTree = "<group>"; };
 		E55D9C232DE10815000FD099 /* CommentsDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsDTO.swift; sourceTree = "<group>"; };
 		E55D9C242DE10815000FD099 /* CommentsPostDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsPostDTO.swift; sourceTree = "<group>"; };
+		F97358BF2DE99F39005775F6 /* PoolProceedingRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolProceedingRecordViewController.swift; sourceTree = "<group>"; };
+		F97358C12DE99F50005775F6 /* PoolProceedingRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolProceedingRecordView.swift; sourceTree = "<group>"; };
 		F998A92D2DE3132500DB13D6 /* FindPeopleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FindPeopleModel.swift; path = TeamPool/Feature/AddPool/FindPeopleModel.swift; sourceTree = SOURCE_ROOT; };
 		F9D044512DE5A1A100FC34DC /* PoolCalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolCalendarCell.swift; sourceTree = "<group>"; };
 		F9D044532DE5A1A600FC34DC /* PoolCalendarDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolCalendarDetailView.swift; sourceTree = "<group>"; };
@@ -780,6 +784,7 @@
 		F9D044682DE5A7A500FC34DC /* View */ = {
 			isa = PBXGroup;
 			children = (
+				F97358C12DE99F50005775F6 /* PoolProceedingRecordView.swift */,
 				F9D044672DE5A7A500FC34DC /* PoolProceedingView.swift */,
 				F9D0447C2DE5AAEC00FC34DC /* PoolProceedingDetailView.swift */,
 			);
@@ -789,6 +794,7 @@
 		F9D0446A2DE5A7A500FC34DC /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				F97358BF2DE99F39005775F6 /* PoolProceedingRecordViewController.swift */,
 				F9D044692DE5A7A500FC34DC /* PoolProceedingViewController.swift */,
 				F9D0447E2DE5AAF900FC34DC /* PoolProceedingDetailViewController.swift */,
 			);
@@ -925,6 +931,7 @@
 				E5270B022DCB147F000D12F2 /* FindPeopleView.swift in Sources */,
 				E5270B032DCB147F000D12F2 /* SubjectView.swift in Sources */,
 				E5270B042DCB147F000D12F2 /* AddPoolNameViewController.swift in Sources */,
+				F97358C02DE99F4B005775F6 /* PoolProceedingRecordViewController.swift in Sources */,
 				E5270B052DCB147F000D12F2 /* CreatPoolViewController.swift in Sources */,
 				E5270B6B2DCB208D000D12F2 /* PoolTimeTableModel.swift in Sources */,
 				F9D0447B2DE5A99F00FC34DC /* PoolProceedingCell.swift in Sources */,
@@ -999,6 +1006,7 @@
 				E5270B312DCB147F000D12F2 /* BaseFillButton.swift in Sources */,
 				E5270B322DCB147F000D12F2 /* BaseTabBarController.swift in Sources */,
 				E5270B3D2DCB14BD000D12F2 /* TopTabBar.swift in Sources */,
+				F97358C22DE99F59005775F6 /* PoolProceedingRecordView.swift in Sources */,
 				F9D044782DE5A99C00FC34DC /* PoolProceedingModel.swift in Sources */,
 				E5270B332DCB147F000D12F2 /* BaseTableViewCell.swift in Sources */,
 				E5270B702DCB267E000D12F2 /* PoolAvailableTimeViewController.swift in Sources */,

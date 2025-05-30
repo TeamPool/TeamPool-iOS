@@ -10,6 +10,7 @@ final class PoolProceedingViewController: BaseUIViewController {
         meetings = PoolProceedingModel.dummyData()
         proceedingView.tableView.delegate = self
         proceedingView.tableView.dataSource = self
+        proceedingView.addbutton.addTarget(self, action: #selector(didTapAddMeetingButton), for: .touchUpInside)
     }
 
     override func setUI() {
@@ -21,6 +22,12 @@ final class PoolProceedingViewController: BaseUIViewController {
             $0.edges.equalToSuperview()
         }
     }
+    
+    @objc private func didTapAddMeetingButton() {
+        let addVC = PoolProceedingRecordViewController() 
+        navigationController?.pushViewController(addVC, animated: true)
+    }
+    
 }
 
 extension PoolProceedingViewController: UITableViewDelegate, UITableViewDataSource {

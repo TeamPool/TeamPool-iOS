@@ -45,6 +45,10 @@ enum ImageLiterals {
     static var step2: UIImage { .load(name: "Step2")}
     static var step3: UIImage { .load(name: "Step3")}
     static var step4: UIImage { .load(name: "Step4")}
+    
+    //MARK: - Pool
+    static var poolRecord_start: UIImage { .load(name: "Record_start")}
+    static var poolRecord_end: UIImage { .load(name: "Record_end")}
 
 }
 
