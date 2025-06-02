@@ -135,10 +135,11 @@ extension AccountManagementViewController: UITableViewDelegate, UITableViewDataS
             // TODO: 로그아웃 / 탈퇴 로직 구현
         }
 
-        let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+        let cancelAction = UIAlertAction(title: "취소", style: .default)
 
         alertController.addAction(confirmAction)
         alertController.addAction(cancelAction)
+    
 
         present(alertController, animated: true)
     }

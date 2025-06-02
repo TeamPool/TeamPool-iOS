@@ -96,6 +96,7 @@
 		E5DFF2B92D9C45E400EEE36A /* Rusaint in Frameworks */ = {isa = PBXBuildFile; productRef = E5DFF2B82D9C45E400EEE36A /* Rusaint */; };
 		E5DFF3792D9C866100EEE36A /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = E5DFF3782D9C866100EEE36A /* FSCalendar */; };
 		E5DFF3962D9D18AF00EEE36A /* Univ_TimeTable in Frameworks */ = {isa = PBXBuildFile; productRef = E5DFF3952D9D18AF00EEE36A /* Univ_TimeTable */; };
+		F96310342DEDA48400536AD4 /* CalendarAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F96310332DEDA47900536AD4 /* CalendarAddViewController.swift */; };
 		F97358C02DE99F4B005775F6 /* PoolProceedingRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97358BF2DE99F39005775F6 /* PoolProceedingRecordViewController.swift */; };
 		F97358C22DE99F59005775F6 /* PoolProceedingRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97358C12DE99F50005775F6 /* PoolProceedingRecordView.swift */; };
 		F998A92E2DE3132500DB13D6 /* FindPeopleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F998A92D2DE3132500DB13D6 /* FindPeopleModel.swift */; };
@@ -199,6 +200,7 @@
 		E55D9C222DE10815000FD099 /* IslandInfoDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IslandInfoDTO.swift; sourceTree = "<group>"; };
 		E55D9C232DE10815000FD099 /* CommentsDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsDTO.swift; sourceTree = "<group>"; };
 		E55D9C242DE10815000FD099 /* CommentsPostDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsPostDTO.swift; sourceTree = "<group>"; };
+		F96310332DEDA47900536AD4 /* CalendarAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarAddViewController.swift; sourceTree = "<group>"; };
 		F97358BF2DE99F39005775F6 /* PoolProceedingRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolProceedingRecordViewController.swift; sourceTree = "<group>"; };
 		F97358C12DE99F50005775F6 /* PoolProceedingRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolProceedingRecordView.swift; sourceTree = "<group>"; };
 		F998A92D2DE3132500DB13D6 /* FindPeopleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FindPeopleModel.swift; path = TeamPool/Feature/AddPool/FindPeopleModel.swift; sourceTree = SOURCE_ROOT; };
@@ -322,6 +324,7 @@
 		E5270AA72DCB147F000D12F2 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				F96310332DEDA47900536AD4 /* CalendarAddViewController.swift */,
 				E5270AA52DCB147F000D12F2 /* CalendarDetailViewController.swift */,
 				E5270AA62DCB147F000D12F2 /* CalendarViewController.swift */,
 			);
@@ -922,6 +925,7 @@
 				F9D0447F2DE5AAF900FC34DC /* PoolProceedingDetailViewController.swift in Sources */,
 				E554C9912DD1A554002CF37B /* CalendarCell.swift in Sources */,
 				E5270AFC2DCB147F000D12F2 /* SceneDelegate.swift in Sources */,
+				F96310342DEDA48400536AD4 /* CalendarAddViewController.swift in Sources */,
 				E5270AFD2DCB147F000D12F2 /* UserDefault.swift in Sources */,
 				E5270AFE2DCB147F000D12F2 /* UserDefaultHandler.swift in Sources */,
 				E5270AFF2DCB147F000D12F2 /* AddPoolNameView.swift in Sources */,

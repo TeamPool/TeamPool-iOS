@@ -40,6 +40,16 @@ final class CalendarView: BaseUIView, FSCalendarDataSource, FSCalendarDelegate, 
 
     private let events: [CalendarModel] = CalendarModel.dummyData()
     
+    lazy var addbutton: UIButton = {
+        let button = UIButton()
+        button.setTitle("일정 추가", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = .boldSystemFont(ofSize: 14)
+        button.backgroundColor = UIColor(hex: 0x4E709D)
+        button.layer.cornerRadius = 3
+        return button
+    }()
+    
     // MARK: - Init
 
     override init(frame: CGRect) {
@@ -62,7 +72,7 @@ final class CalendarView: BaseUIView, FSCalendarDataSource, FSCalendarDelegate, 
     }
 
     override func setUI() {
-        self.addSubview(calendar)
+        self.addSubviews(calendar, addbutton)
         self.backgroundColor = .white
     }
 
@@ -71,6 +81,13 @@ final class CalendarView: BaseUIView, FSCalendarDataSource, FSCalendarDelegate, 
             $0.top.equalTo(self.safeAreaLayoutGuide).offset(20)
             $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(500)
+        }
+        
+        addbutton.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(100)
+            $0.trailing.equalToSuperview().inset(20)
+            $0.width.equalTo(76)
+            $0.height.equalTo(34)
         }
     }
 

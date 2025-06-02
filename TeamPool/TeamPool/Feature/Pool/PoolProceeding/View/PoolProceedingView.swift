@@ -27,10 +27,10 @@ final class PoolProceedingView: BaseUIView {
 
     override func setLayout() {
         addbutton.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(12)
-            $0.trailing.equalToSuperview().inset(16)
-            $0.width.equalTo(80)
-            $0.height.equalTo(32)
+            $0.bottom.equalToSuperview().inset(100)
+            $0.width.equalToSuperview().inset(20)
+            $0.centerX.equalToSuperview()
+            $0.height.equalTo(50)
         }
         
         tableView.snp.makeConstraints {
