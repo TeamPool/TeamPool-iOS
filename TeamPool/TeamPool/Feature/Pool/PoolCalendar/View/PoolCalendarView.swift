@@ -37,6 +37,18 @@ final class PoolCalendarView: BaseUIView, FSCalendarDataSource, FSCalendarDelega
 
         return calendar
     }()
+    
+    
+    lazy var addbutton: UIButton = {
+        let button = UIButton()
+        button.setTitle("일정 추가", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = .boldSystemFont(ofSize: 14)
+        button.backgroundColor = UIColor(hex: 0x4E709D)
+        button.layer.cornerRadius = 3
+        return button
+    }()
+
 
     private let events: [PoolCalendarModel] = PoolCalendarModel.dummyData()
     
@@ -62,7 +74,7 @@ final class PoolCalendarView: BaseUIView, FSCalendarDataSource, FSCalendarDelega
     }
 
     override func setUI() {
-        self.addSubview(calendar)
+        self.addSubviews(calendar, addbutton)
         self.backgroundColor = .white
     }
 
@@ -72,6 +84,14 @@ final class PoolCalendarView: BaseUIView, FSCalendarDataSource, FSCalendarDelega
             $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(500)
         }
+        
+        addbutton.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(30)
+            $0.trailing.equalToSuperview().inset(20)
+            $0.width.equalTo(76)
+            $0.height.equalTo(34)
+        }
+
     }
 
     // MARK: - FSCalendar DataSource
