@@ -78,6 +78,8 @@
 		E5270B702DCB267E000D12F2 /* PoolAvailableTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5270B6F2DCB267E000D12F2 /* PoolAvailableTimeViewController.swift */; };
 		E5270B722DCB2694000D12F2 /* PoolAvailableTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5270B712DCB2694000D12F2 /* PoolAvailableTimeView.swift */; };
 		E54CDAEF2DEEE6E300DCD48D /* APIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54CDAEE2DEEE6E300DCD48D /* APIResponse.swift */; };
+		E54CDAF92DEEEFF900DCD48D /* STTRecordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54CDAF82DEEEFF900DCD48D /* STTRecordModel.swift */; };
+		E54CDAFB2DEEF01200DCD48D /* SpeechRecognizerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54CDAFA2DEEF01200DCD48D /* SpeechRecognizerManager.swift */; };
 		E554C9912DD1A554002CF37B /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E554C98F2DD1A554002CF37B /* CalendarCell.swift */; };
 		E554C9942DD1A566002CF37B /* CalendarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E554C9922DD1A566002CF37B /* CalendarModel.swift */; };
 		E55D9C292DE10815000FD099 /* BaseTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55D9C1B2DE10815000FD099 /* BaseTargetType.swift */; };
@@ -183,6 +185,8 @@
 		E5270B712DCB2694000D12F2 /* PoolAvailableTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolAvailableTimeView.swift; sourceTree = "<group>"; };
 		E52A16C42D93186100ABD739 /* TeamPool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TeamPool.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E54CDAEE2DEEE6E300DCD48D /* APIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResponse.swift; sourceTree = "<group>"; };
+		E54CDAF82DEEEFF900DCD48D /* STTRecordModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STTRecordModel.swift; sourceTree = "<group>"; };
+		E54CDAFA2DEEF01200DCD48D /* SpeechRecognizerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognizerManager.swift; sourceTree = "<group>"; };
 		E554C98F2DD1A554002CF37B /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
 		E554C9922DD1A566002CF37B /* CalendarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarModel.swift; sourceTree = "<group>"; };
 		E55D9C162DE10815000FD099 /* AuthAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAPI.swift; sourceTree = "<group>"; };
@@ -190,11 +194,7 @@
 		E55D9C1C2DE10815000FD099 /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
 		E55D9C1D2DE10815000FD099 /* GenericResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericResponse.swift; sourceTree = "<group>"; };
 		E55D9C1F2DE10815000FD099 /* MoyaLoggerPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaLoggerPlugin.swift; sourceTree = "<group>"; };
-		E55D9C212DE10815000FD099 /* HomeDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDTO.swift; sourceTree = "<group>"; };
-		E55D9C222DE10815000FD099 /* IslandInfoDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IslandInfoDTO.swift; sourceTree = "<group>"; };
-		E55D9C232DE10815000FD099 /* CommentsDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsDTO.swift; sourceTree = "<group>"; };
-		E55D9C242DE10815000FD099 /* CommentsPostDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsPostDTO.swift; sourceTree = "<group>"; };
-		F96310332DEDA47900536AD4 /* CalendarAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarAddViewController.swift; sourceTree = "<group>"; };
+		E55D9C212DE10815000FD099 /* AuthDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDTO.swift; sourceTree = "<group>"; };
 		F959E5192DEECCCC0050EF8B /* PoolCalendarAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolCalendarAddViewController.swift; sourceTree = "<group>"; };
 		F959E51B2DEECFA10050EF8B /* PoolCalendarAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolCalendarAddView.swift; sourceTree = "<group>"; };
 		F97358BF2DE99F39005775F6 /* PoolProceedingRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolProceedingRecordViewController.swift; sourceTree = "<group>"; };
@@ -212,7 +212,6 @@
 		F9D044792DE5A99F00FC34DC /* PoolProceedingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolProceedingCell.swift; sourceTree = "<group>"; };
 		F9D0447C2DE5AAEC00FC34DC /* PoolProceedingDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolProceedingDetailView.swift; sourceTree = "<group>"; };
 		F9D0447E2DE5AAF900FC34DC /* PoolProceedingDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolProceedingDetailViewController.swift; sourceTree = "<group>"; };
-		E55D9C212DE10815000FD099 /* AuthDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDTO.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -804,6 +803,7 @@
 				F9D044772DE5A99C00FC34DC /* Model */,
 				F9D044682DE5A7A500FC34DC /* View */,
 				F9D0446A2DE5A7A500FC34DC /* ViewController */,
+				E54CDAFA2DEEF01200DCD48D /* SpeechRecognizerManager.swift */,
 			);
 			path = PoolProceeding;
 			sourceTree = "<group>";
@@ -812,6 +812,7 @@
 			isa = PBXGroup;
 			children = (
 				F9D044762DE5A99C00FC34DC /* PoolProceedingModel.swift */,
+				E54CDAF82DEEEFF900DCD48D /* STTRecordModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -970,6 +971,7 @@
 				E5270B1C2DCB147F000D12F2 /* AccountManagementViewController.swift in Sources */,
 				E5270B1D2DCB147F000D12F2 /* FriendManagementViewController.swift in Sources */,
 				F998A92E2DE3132500DB13D6 /* FindPeopleModel.swift in Sources */,
+				E54CDAF92DEEEFF900DCD48D /* STTRecordModel.swift in Sources */,
 				E5270B1E2DCB147F000D12F2 /* MyPageViewController.swift in Sources */,
 				E5270B442DCB1EA0000D12F2 /* PoolTimeTableViewController.swift in Sources */,
 				E5270B1F2DCB147F000D12F2 /* ScheduleManagementViewController.swift in Sources */,
@@ -1006,6 +1008,7 @@
 				E5270B342DCB147F000D12F2 /* BaseTextField.swift in Sources */,
 				E5270B352DCB147F000D12F2 /* BaseUIView.swift in Sources */,
 				E5270B362DCB147F000D12F2 /* BaseUIViewController.swift in Sources */,
+				E54CDAFB2DEEF01200DCD48D /* SpeechRecognizerManager.swift in Sources */,
 				E5270B372DCB147F000D12F2 /* ImageLiterals.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1031,6 +1034,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = C9XX799UJH;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TeamPool/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1058,6 +1062,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = C9XX799UJH;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TeamPool/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
