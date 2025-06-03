@@ -18,7 +18,7 @@ final class AccountManagementViewController: BaseUIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
-        configureCustomBackButton() // ✅ 커스텀 백버튼
+        configureCustomBackButton()
         accountManagementView.nicknameTextField.addTarget(self, action: #selector(nicknameTextFieldDidChange), for: .editingChanged)
         accountManagementView.duplicateCheckButton.addTarget(self, action: #selector(duplicateCheckButtonTapped), for: .touchUpInside)
         accountManagementView.updateButton.addTarget(self, action: #selector(updateButtonTapped), for: .touchUpInside)
@@ -165,6 +165,8 @@ extension AccountManagementViewController: UITableViewDelegate, UITableViewDataS
         let alertController = UIAlertController(title: nil, message: message1, preferredStyle: .alert)
 
         let confirmAction = UIAlertAction(title: message2, style: .default) { [weak self] _ in
+            guard let self else { return }
+
             if indexPath.row == 0 {
                 UserDefaultHandler.accessToken = ""
                 UserDefaultHandler.refreshToken = ""
@@ -176,9 +178,34 @@ extension AccountManagementViewController: UITableViewDelegate, UITableViewDataS
                 sceneDelegate.window?.rootViewController = signInVC
                 sceneDelegate.window?.makeKeyAndVisible()
             } else {
-                // TODO: 탈퇴 로직
+                MyPageService().deleteUser { result in
+                    DispatchQueue.main.async {
+                        switch result {
+                        case .success:
+                            UserDefaultHandler.accessToken = ""
+                            UserDefaultHandler.refreshToken = ""
+
+                            let signInVC = UINavigationController(rootViewController: SignInViewController())
+                            guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                                  let sceneDelegate = windowScene.delegate as? SceneDelegate else { return }
+
+                            sceneDelegate.window?.rootViewController = signInVC
+                            sceneDelegate.window?.makeKeyAndVisible()
+
+                        case .requestErr(let message):
+                            self.showAlert(title: "탈퇴 실패", message: message)
+
+                        case .networkFail:
+                            self.showAlert(title: "네트워크 오류", message: "인터넷 연결을 확인해주세요.")
+
+                        default:
+                            self.showAlert(title: "에러", message: "알 수 없는 오류가 발생했습니다.")
+                        }
+                    }
+                }
             }
         }
+
 
 
         let cancelAction = UIAlertAction(title: "취소", style: .default)

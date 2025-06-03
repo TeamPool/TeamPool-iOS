@@ -10,6 +10,7 @@ import Moya
 
 enum MyPageAPI {
     case updateNickname(nickname: String)
+    case deleteUser
 }
 
 extension MyPageAPI: BaseTargetType {
@@ -18,22 +19,30 @@ extension MyPageAPI: BaseTargetType {
         switch self {
         case .updateNickname:
             return "/api/users/nickname"
+        case .deleteUser:
+            return "/api/users/me"
         }
     }
 
     var method: Moya.Method {
-        return .post
+        switch self {
+        case .updateNickname:
+            return .post
+        case .deleteUser:
+            return .delete
+        }
     }
 
     var task: Task {
         switch self {
         case .updateNickname(let nickname):
-            let body: [String: String] = ["nickname": nickname]
-            return .requestParameters(parameters: body, encoding: JSONEncoding.default)
+            return .requestParameters(parameters: ["nickname": nickname], encoding: JSONEncoding.default)
+        case .deleteUser:
+            return .requestPlain
         }
     }
 
-    var headers: [String: String]? {
+    var headers: [String : String]? {
         return [
             "Content-Type": "application/json",
             "Authorization": "Bearer \(UserDefaultHandler.accessToken)"
@@ -47,26 +56,35 @@ final class MyPageService {
 
     func updateNickname(_ nickname: String, completion: @escaping (NetworkResult<Void>) -> Void) {
         provider.request(.updateNickname(nickname: nickname)) { result in
-            switch result {
-            case .success(let response):
-                switch response.statusCode {
-                case 200..<300:
-                    completion(.success(()))
-                case 400..<500:
-                    if let errorResponse = try? JSONDecoder().decode(ErrorResponseDTO.self, from: response.data) {
-                        completion(.requestErr(errorResponse.message))
-                    } else {
-                        completion(.requestErr("요청 오류"))
-                    }
-                case 500..<600:
-                    completion(.serverErr)
-                default:
-                    completion(.networkFail)
-                }
+            self.handleBasicResponse(result: result, completion: completion)
+        }
+    }
 
-            case .failure:
+    func deleteUser(completion: @escaping (NetworkResult<Void>) -> Void) {
+        provider.request(.deleteUser) { result in
+            self.handleBasicResponse(result: result, completion: completion)
+        }
+    }
+
+    private func handleBasicResponse(result: Result<Response, MoyaError>, completion: @escaping (NetworkResult<Void>) -> Void) {
+        switch result {
+        case .success(let response):
+            switch response.statusCode {
+            case 200..<300:
+                completion(.success(()))
+            case 400..<500:
+                if let error = try? JSONDecoder().decode(ErrorResponseDTO.self, from: response.data) {
+                    completion(.requestErr(error.message))
+                } else {
+                    completion(.requestErr("요청 오류"))
+                }
+            case 500..<600:
+                completion(.serverErr)
+            default:
                 completion(.networkFail)
             }
+        case .failure:
+            completion(.networkFail)
         }
     }
 }
