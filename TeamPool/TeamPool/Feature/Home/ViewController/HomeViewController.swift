@@ -67,30 +67,24 @@ final class HomeViewController: BaseUIViewController {
             print("저장되어있")
         }
 
-
     }
 
     private func showLectureImportAlert() {
         BaseAlertViewController.showAlert(
-                on: self,
-                title: "시간표 불러오기",
-                message: "원활한 TeamPool 사용을 위해 \n 개인 시간표를 불러옵니다",
-                confirmTitle: "계속",
-                cancelTitle: "취소",
-                confirmHandler: { [weak self] in
-                    let loginVC = UsaintLogInViewController()
-                    loginVC.modalPresentationStyle = .pageSheet
-                    if let sheet = loginVC.sheetPresentationController {
-                        sheet.detents = [.medium(), .large()] // 하프, 풀 두단계
-                        sheet.prefersGrabberVisible = true    // 위에 그립바 표시 여부
-                        sheet.preferredCornerRadius = 20
-                    }
-                    self?.present(loginVC, animated: true)
-                },
-                cancelHandler: {
-                    print("취소됨")
-                }
-            )
+            on: self,
+            title: "시간표 불러오기",
+            message: "원활한 TeamPool 사용을 위해 \n 개인 시간표를 불러옵니다",
+            confirmTitle: "계속",
+            cancelTitle: "취소",
+            confirmHandler: { [weak self] in
+                guard let self = self else { return }
+                let loginVC = UsaintLogInViewController()
+                self.navigationController?.pushViewController(loginVC, animated: true)
+            },
+            cancelHandler: {
+                print("취소됨")
+            }
+        )
     }
 
 

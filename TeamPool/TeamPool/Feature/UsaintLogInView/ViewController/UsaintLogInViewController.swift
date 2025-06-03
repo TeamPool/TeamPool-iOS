@@ -7,6 +7,7 @@
 
 import Foundation
 import Rusaint
+import UIKit
 
 final class UsaintLogInViewController: BaseUIViewController {
 
@@ -90,9 +91,9 @@ extension UsaintLogInViewController {
                 let selectedSemester = try await builder.getSelectedSemester()
                 print("✅ 현재 선택된 학기: \(selectedSemester)")
 
-                let schedule = try await builder.schedule(year: selectedSemester.year, semester: selectedSemester.semester)
+                let schedule = try await builder.schedule(year: 2025, semester: .one)
 
-                // ✅ Lecture로 변환 및 저장
+                // ✅ 시간표 저장
                 LectureModel.shared.lectures = schedule.schedule.flatMap { (weekday, courses) -> [Lecture] in
                     courses.map { course in
                         Lecture(
@@ -107,53 +108,45 @@ extension UsaintLogInViewController {
                         )
                     }
                 }
-               // self.hideLoading()
-                print("✅ 시간표 저장완료")
-                print(LectureModel.shared.lectures)
 
-                // TODO: 이후 화면 이동 처리
-
-                // 시간표 저장여부 확인 => 백앤드에서 처리할지 프론트에서 처리할지 고민,, 
                 UserDefaultHandler.lecturesSaved = true
+                print("✅ 시간표 저장완료")
 
-
-                // TODO: 논의이후 변경=> 모달로 구현된 로그임
                 DispatchQueue.main.async { [weak self] in
                     guard let self = self else { return }
                     let studentID = StudentModel.shared.studentID ?? "학번 없음"
 
-                    guard let presentingVC = self.presentingViewController else { return }
-
-
-                    BaseAlertViewController.showAlert(
-                        on: self,
+                    let alert = UIAlertController(
                         title: "정보 확인",
                         message: "학번 \(studentID)이 맞으신가요?",
-                        confirmTitle: "네, 맞아요",
-                        cancelTitle: "아니오",
-                        confirmHandler: {
-                            self.dismiss(animated: true) {
-                                let timetableVC = TimeTableViewController()
-                                timetableVC.modalPresentationStyle = .pageSheet
-                                if let sheet = timetableVC.sheetPresentationController {
-                                    sheet.detents = [.medium(), .large()]
-                                    sheet.prefersGrabberVisible = true
-                                    sheet.preferredCornerRadius = 20
-                                }
-                                presentingVC.present(timetableVC, animated: true)
-                            }
-
-                        },
-                        cancelHandler: {
-                            print("❌ 유저가 이름 확인 거부")
-                        }
+                        preferredStyle: .alert
                     )
-                }
 
+                    let confirmAction = UIAlertAction(title: "네, 맞아요", style: .default) { _ in
+                        let timetableVC = TimeTableViewController()
+                        timetableVC.modalPresentationStyle = .pageSheet
+
+                        if let sheet = timetableVC.sheetPresentationController {
+                            sheet.detents = [.medium(), .large()]
+                            sheet.prefersGrabberVisible = true
+                            sheet.preferredCornerRadius = 20
+                        }
+
+                        self.present(timetableVC, animated: true)
+                    }
+
+                    let cancelAction = UIAlertAction(title: "아니오", style: .cancel)
+
+                    alert.addAction(confirmAction)
+                    alert.addAction(cancelAction)
+
+                    self.present(alert, animated: true)
+                }
 
             } catch {
                 print("❌ 시간표 불러오기 실패: \(error.localizedDescription)")
             }
         }
     }
+
 }
