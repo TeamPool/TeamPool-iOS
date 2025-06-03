@@ -29,3 +29,10 @@ struct ErrorResponseDTO: Decodable {
     let message: String
 }
 
+struct RefreshTokenRequestDTO: Codable {
+    let refreshToken: String
+}
+
+struct RefreshTokenResponseDTO: Codable {
+    let accessToken: String
+}
