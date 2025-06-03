@@ -1,15 +1,44 @@
+//
+//  PoolProceedingRecordViewController.swift
+//  TeamPool
+//
+//  Created by 성현주 on 6/3/25.
+//
 import Foundation
 import UIKit
 
 final class PoolProceedingRecordViewController: BaseUIViewController {
 
+    // MARK: - UI & Manager
+
     private let recordView = PoolProceedingRecordView()
+    private let sttManager = SpeechRecognizerManager()
+    private var recordModel = STTRecordModel()
+
+    // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        // STT 실시간 텍스트 반영
+        sttManager.onResult = { [weak self] transcript in
+            self?.recordModel.transcript = transcript
+            self?.recordView.statusLabel.text = transcript
+        }
+
+        // 권한 요청
+        sttManager.requestAuthorization { granted in
+            if !granted {
+                self.showAlert(message: "음성 인식 권한이 필요합니다.")
+            }
+        }
+
+        // 버튼 이벤트 연결
         recordView.recordButton.addTarget(self, action: #selector(didTapRecord), for: .touchUpInside)
         recordView.endButton.addTarget(self, action: #selector(didTapEnd), for: .touchUpInside)
     }
+
+    // MARK: - UI 구성
 
     override func setUI() {
         view.addSubview(recordView)
@@ -21,47 +50,52 @@ final class PoolProceedingRecordViewController: BaseUIViewController {
         }
     }
 
+    // MARK: - Action
+
     @objc private func didTapRecord() {
         recordView.recordButton.isHidden = true
         recordView.endButton.isHidden = false
-        recordView.statusLabel.text = "녹음 종료"
+        recordView.statusLabel.text = "듣는 중..."
+
+        do {
+            try sttManager.startRecording()
+        } catch {
+            showAlert(message: "음성 인식을 시작할 수 없습니다.")
+        }
     }
 
     @objc private func didTapEnd() {
+        sttManager.stopRecording()
 
-        // ✅ UIAlertController로 bottom sheet 형식 제목 입력창 띄우기!!
         let alert = UIAlertController(title: "제목", message: nil, preferredStyle: .alert)
+        alert.addTextField { $0.placeholder = "제목을 입력해주세요" }
 
-        alert.addTextField { textField in
-            textField.placeholder = "제목"
+        let confirm = UIAlertAction(title: "확인", style: .default) { _ in
+            let title = alert.textFields?.first?.text ?? "(제목 없음)"
+            let content = self.recordModel.transcript
+
+            print("📝 [회의 저장 완료]")
+            print("제목: \(title)")
+            print("내용: \(content.isEmpty ? "(내용 없음)" : content)")
+
+            self.navigationController?.popViewController(animated: true)
         }
 
-        let confirmAction = UIAlertAction(title: "확인", style: .default) { _ in
-            if let title = alert.textFields?.first?.text {
-                print("입력된 제목: \(title)")
-                // 저장 또는 처리 로직 여기에!
-                self.navigationController?.popViewController(animated: true)
-            }
-        }
+        alert.addAction(confirm)
+        alert.addAction(UIAlertAction(title: "취소", style: .cancel))
 
-        let cancelAction = UIAlertAction(title: "취소", style: .cancel)
-
-        alert.addAction(confirmAction)
-        alert.addAction(cancelAction)
-
-        // iPad 대응용 (iOS14+는 없어도 되지만 안전하게)
-        if let popover = alert.popoverPresentationController {
-            popover.sourceView = self.view
-            popover.sourceRect = CGRect(x: self.view.bounds.midX,
-                                        y: self.view.bounds.midY,
-                                        width: 0, height: 0)
-            popover.permittedArrowDirections = []
-        }
-
-        self.present(alert, animated: true) {
+        present(alert, animated: true) {
             alert.textFields?.first?.becomeFirstResponder()
         }
     }
 
-}
+    // MARK: - Alert Helper
 
+    private func showAlert(message: String) {
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: "알림", message: message, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "확인", style: .default))
+            self.present(alert, animated: true)
+        }
+    }
+}
