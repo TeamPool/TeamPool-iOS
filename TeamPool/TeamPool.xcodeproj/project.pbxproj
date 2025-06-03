@@ -82,7 +82,7 @@
 		E554C9942DD1A566002CF37B /* CalendarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E554C9922DD1A566002CF37B /* CalendarModel.swift */; };
 		E55D9C292DE10815000FD099 /* BaseTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55D9C1B2DE10815000FD099 /* BaseTargetType.swift */; };
 		E55D9C2C2DE10815000FD099 /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55D9C1C2DE10815000FD099 /* NetworkResult.swift */; };
-		E55D9C2D2DE10815000FD099 /* HomeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55D9C162DE10815000FD099 /* HomeAPI.swift */; };
+		E55D9C2D2DE10815000FD099 /* AuthAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55D9C162DE10815000FD099 /* AuthAPI.swift */; };
 		E55D9C2F2DE10815000FD099 /* MoyaLoggerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55D9C1F2DE10815000FD099 /* MoyaLoggerPlugin.swift */; };
 		E55D9C312DE10815000FD099 /* GenericResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55D9C1D2DE10815000FD099 /* GenericResponse.swift */; };
 		E55D9C322DE10815000FD099 /* AuthDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55D9C212DE10815000FD099 /* AuthDTO.swift */; };
@@ -185,7 +185,7 @@
 		E54CDAEE2DEEE6E300DCD48D /* APIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResponse.swift; sourceTree = "<group>"; };
 		E554C98F2DD1A554002CF37B /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
 		E554C9922DD1A566002CF37B /* CalendarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarModel.swift; sourceTree = "<group>"; };
-		E55D9C162DE10815000FD099 /* HomeAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAPI.swift; sourceTree = "<group>"; };
+		E55D9C162DE10815000FD099 /* AuthAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAPI.swift; sourceTree = "<group>"; };
 		E55D9C1B2DE10815000FD099 /* BaseTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTargetType.swift; sourceTree = "<group>"; };
 		E55D9C1C2DE10815000FD099 /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
 		E55D9C1D2DE10815000FD099 /* GenericResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericResponse.swift; sourceTree = "<group>"; };
@@ -687,7 +687,7 @@
 		E55D9C1A2DE10815000FD099 /* API */ = {
 			isa = PBXGroup;
 			children = (
-				E55D9C162DE10815000FD099 /* HomeAPI.swift */,
+				E55D9C162DE10815000FD099 /* AuthAPI.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -942,7 +942,7 @@
 				E5270B0B2DCB147F000D12F2 /* CalendarDetailViewController.swift in Sources */,
 				E55D9C292DE10815000FD099 /* BaseTargetType.swift in Sources */,
 				E55D9C2C2DE10815000FD099 /* NetworkResult.swift in Sources */,
-				E55D9C2D2DE10815000FD099 /* HomeAPI.swift in Sources */,
+				E55D9C2D2DE10815000FD099 /* AuthAPI.swift in Sources */,
 				E55D9C2F2DE10815000FD099 /* MoyaLoggerPlugin.swift in Sources */,
 				E55D9C312DE10815000FD099 /* GenericResponse.swift in Sources */,
 				E55D9C322DE10815000FD099 /* AuthDTO.swift in Sources */,
