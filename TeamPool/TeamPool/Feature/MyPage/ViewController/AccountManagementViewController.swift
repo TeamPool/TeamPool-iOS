@@ -21,6 +21,8 @@ final class AccountManagementViewController: BaseUIViewController {
         configureCustomBackButton() // ✅ 커스텀 백버튼
         accountManagementView.nicknameTextField.addTarget(self, action: #selector(nicknameTextFieldDidChange), for: .editingChanged)
         accountManagementView.duplicateCheckButton.addTarget(self, action: #selector(duplicateCheckButtonTapped), for: .touchUpInside)
+        accountManagementView.updateButton.addTarget(self, action: #selector(updateButtonTapped), for: .touchUpInside)
+
     }
 
     // MARK: - UI 구성
@@ -86,9 +88,40 @@ final class AccountManagementViewController: BaseUIViewController {
         navigationItem.leftBarButtonItem = backItem
     }
 
+    private func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "확인", style: .default))
+        present(alert, animated: true)
+    }
+
     @objc private func didTapBack() {
         navigationController?.popViewController(animated: true)
     }
+
+    @objc private func updateButtonTapped() {
+        guard let nickname = accountManagementView.nicknameTextField.text, !nickname.isEmpty else {
+            accountManagementView.errorLabel.text = "닉네임을 입력해주세요."
+            return
+        }
+
+        MyPageService().updateNickname(nickname) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success:
+                    self?.showAlert(title: "성공", message: "닉네임이 변경되었습니다.")
+                    self?.accountManagementView.updateButton.isEnabled = false
+                    self?.accountManagementView.updateButton.backgroundColor = UIColor(hex: 0xCACACA)
+                case .requestErr(let message):
+                    self?.showAlert(title: "오류", message: message)
+                case .networkFail:
+                    self?.showAlert(title: "네트워크 오류", message: "인터넷 연결을 확인해주세요.")
+                default:
+                    self?.showAlert(title: "에러", message: "알 수 없는 오류가 발생했습니다.")
+                }
+            }
+        }
+    }
+
 }
 
 // MARK: - 테이블뷰

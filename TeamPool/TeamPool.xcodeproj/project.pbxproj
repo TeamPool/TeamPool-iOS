@@ -80,6 +80,7 @@
 		E54CDAEF2DEEE6E300DCD48D /* APIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54CDAEE2DEEE6E300DCD48D /* APIResponse.swift */; };
 		E54CDAF92DEEEFF900DCD48D /* STTRecordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54CDAF82DEEEFF900DCD48D /* STTRecordModel.swift */; };
 		E54CDAFB2DEEF01200DCD48D /* SpeechRecognizerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54CDAFA2DEEF01200DCD48D /* SpeechRecognizerManager.swift */; };
+		E54CDAFD2DEF083100DCD48D /* MyPageAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54CDAFC2DEF083100DCD48D /* MyPageAPI.swift */; };
 		E554C9912DD1A554002CF37B /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E554C98F2DD1A554002CF37B /* CalendarCell.swift */; };
 		E554C9942DD1A566002CF37B /* CalendarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E554C9922DD1A566002CF37B /* CalendarModel.swift */; };
 		E55D9C292DE10815000FD099 /* BaseTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55D9C1B2DE10815000FD099 /* BaseTargetType.swift */; };
@@ -187,6 +188,7 @@
 		E54CDAEE2DEEE6E300DCD48D /* APIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResponse.swift; sourceTree = "<group>"; };
 		E54CDAF82DEEEFF900DCD48D /* STTRecordModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STTRecordModel.swift; sourceTree = "<group>"; };
 		E54CDAFA2DEEF01200DCD48D /* SpeechRecognizerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognizerManager.swift; sourceTree = "<group>"; };
+		E54CDAFC2DEF083100DCD48D /* MyPageAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageAPI.swift; sourceTree = "<group>"; };
 		E554C98F2DD1A554002CF37B /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
 		E554C9922DD1A566002CF37B /* CalendarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarModel.swift; sourceTree = "<group>"; };
 		E55D9C162DE10815000FD099 /* AuthAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAPI.swift; sourceTree = "<group>"; };
@@ -687,6 +689,7 @@
 			isa = PBXGroup;
 			children = (
 				E55D9C162DE10815000FD099 /* AuthAPI.swift */,
+				E54CDAFC2DEF083100DCD48D /* MyPageAPI.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -1006,6 +1009,7 @@
 				E5270B332DCB147F000D12F2 /* BaseTableViewCell.swift in Sources */,
 				E5270B702DCB267E000D12F2 /* PoolAvailableTimeViewController.swift in Sources */,
 				E5270B342DCB147F000D12F2 /* BaseTextField.swift in Sources */,
+				E54CDAFD2DEF083100DCD48D /* MyPageAPI.swift in Sources */,
 				E5270B352DCB147F000D12F2 /* BaseUIView.swift in Sources */,
 				E5270B362DCB147F000D12F2 /* BaseUIViewController.swift in Sources */,
 				E54CDAFB2DEEF01200DCD48D /* SpeechRecognizerManager.swift in Sources */,
