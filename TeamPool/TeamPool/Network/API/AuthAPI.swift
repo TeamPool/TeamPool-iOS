@@ -13,6 +13,7 @@ enum AuthAPI {
     case signUp(body: SignUpRequestDTO)
     case checkStudentNumberDup(studentNumber: String)
     case checkNicknameDup(nickname: String)
+    case refreshToken(body: RefreshTokenRequestDTO)
 }
 
 extension AuthAPI: BaseTargetType {
@@ -27,7 +28,9 @@ extension AuthAPI: BaseTargetType {
             return "/api/auth/studentNumber-signup-dup"
         case .checkNicknameDup:
             return "/api/auth/nickname-signup-dup"
-        }
+        case .refreshToken:
+                return "/api/auth/refresh"
+            }
     }
 
     var method: Moya.Method {
@@ -36,7 +39,9 @@ extension AuthAPI: BaseTargetType {
             return .post
         case .checkStudentNumberDup, .checkNicknameDup:
             return .get
-        }
+        case .refreshToken:
+                return .post
+            }
     }
 
     var task: Moya.Task {
@@ -49,7 +54,9 @@ extension AuthAPI: BaseTargetType {
             return .requestParameters(parameters: ["studentNumber": studentNumber], encoding: URLEncoding.queryString)
         case .checkNicknameDup(let nickname):
             return .requestParameters(parameters: ["nickname": nickname], encoding: URLEncoding.queryString)
-        }
+        case .refreshToken(let body):
+                return .requestJSONEncodable(body)
+            }
     }
 
     var headers: [String: String]? {
@@ -180,6 +187,45 @@ extension AuthService {
                 default:
                     completion(.networkFail)
                 }
+            case .failure:
+                completion(.networkFail)
+            }
+        }
+    }
+}
+
+
+extension AuthService {
+    func refreshToken(completion: @escaping (NetworkResult<String>) -> Void) {
+        let requestDTO = RefreshTokenRequestDTO(refreshToken: UserDefaultHandler.refreshToken)
+
+        provider.request(.refreshToken(body: requestDTO)) { result in
+            switch result {
+            case .success(let response):
+                switch response.statusCode {
+                case 200..<300:
+                    do {
+                        let decoded = try JSONDecoder().decode(APIResponse<RefreshTokenResponseDTO>.self, from: response.data)
+                        completion(.success(decoded.data.accessToken))
+                    } catch {
+                        print("디코딩 에러:", error)
+                        completion(.pathErr)
+                    }
+
+                case 400..<500:
+                    if let error = try? JSONDecoder().decode(ErrorResponseDTO.self, from: response.data) {
+                        completion(.requestErr(error.message))
+                    } else {
+                        completion(.requestErr("리프레시 토큰 오류"))
+                    }
+
+                case 500..<600:
+                    completion(.serverErr)
+
+                default:
+                    completion(.networkFail)
+                }
+
             case .failure:
                 completion(.networkFail)
             }

@@ -131,9 +131,22 @@ extension AccountManagementViewController: UITableViewDelegate, UITableViewDataS
 
         let alertController = UIAlertController(title: nil, message: message1, preferredStyle: .alert)
 
-        let confirmAction = UIAlertAction(title: message2, style: .default) { _ in
-            // TODO: 로그아웃 / 탈퇴 로직 구현
+        let confirmAction = UIAlertAction(title: message2, style: .default) { [weak self] _ in
+            if indexPath.row == 0 {
+                UserDefaultHandler.accessToken = ""
+                UserDefaultHandler.refreshToken = ""
+
+                let signInVC = UINavigationController(rootViewController: SignInViewController())
+                guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                      let sceneDelegate = windowScene.delegate as? SceneDelegate else { return }
+
+                sceneDelegate.window?.rootViewController = signInVC
+                sceneDelegate.window?.makeKeyAndVisible()
+            } else {
+                // TODO: 탈퇴 로직
+            }
         }
+
 
         let cancelAction = UIAlertAction(title: "취소", style: .default)
 
