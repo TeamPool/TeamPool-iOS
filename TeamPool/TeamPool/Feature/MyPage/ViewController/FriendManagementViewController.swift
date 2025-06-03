@@ -107,26 +107,50 @@ final class FriendManagementViewController: BaseUIViewController {
     // MARK: - 액션
     @objc private func searchButtonTapped() {
         let query = friendManagementView.searchBar.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-        if query.isEmpty {
+
+        guard !query.isEmpty else {
             fetchFriendsFromAPI()
             return
         }
 
         FriendsService().searchFriend(by: query) { [weak self] result in
             DispatchQueue.main.async {
+                guard let self = self else { return }
+
                 switch result {
-                case .success(let models):
-                    self?.filteredFriends = models
-                    self?.buildTableRows(from: models)
-                    self?.friendManagementView.tableView.reloadData()
+                case .success(let friend):
+                    self.filteredFriends = [friend]
+                    self.buildTableRows(from: self.filteredFriends)
+                    self.friendManagementView.tableView.reloadData()
+
                 case .requestErr(let msg):
-                    print("❌ 검색 오류: \(msg)")
+                    self.showAlert(title: "검색 실패", message: msg)
+
+                case .networkFail:
+                    self.showAlert(title: "검색 실패", message: "네트워크 오류가 발생했습니다.")
+
                 default:
-                    print("❌ 친구 검색 실패")
+                    self.showAlert(title: "검색 실패", message: "해당 학번의 친구를 찾을 수 없습니다.")
                 }
             }
         }
     }
+
+
+    //        FriendsService().addFriends(by: query) { [weak self] result in
+    //            DispatchQueue.main.async {
+    //                switch result {
+    //                case .success(let models):
+    //                    self?.filteredFriends = models
+    //                    self?.buildTableRows(from: models)
+    //                    self?.friendManagementView.tableView.reloadData()
+    //                case .requestErr(let msg):
+    //                    print("❌ 검색 오류: \(msg)")
+    //                default:
+    //                    print("❌ 친구 검색 실패")
+    //                }
+    //            }
+    //        }
 }
 // MARK: - UITableView
 extension FriendManagementViewController: UITableViewDelegate, UITableViewDataSource {
@@ -183,7 +207,7 @@ extension FriendManagementViewController: UITableViewDelegate, UITableViewDataSo
         let deleteAction = UIAlertAction(title: "삭제", style: .destructive) { [weak self] _ in
             guard let self = self else { return }
 
-            FriendsService().deleteFriend(friendUserId: friend.friendId) { result in
+            FriendsService().deleteFriend(friendUserId: friend.friendId ?? -1) { result in
                 DispatchQueue.main.async {
                     switch result {
                     case .success:
