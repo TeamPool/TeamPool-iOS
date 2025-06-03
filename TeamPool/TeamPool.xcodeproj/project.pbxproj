@@ -83,6 +83,7 @@
 		E54CDAFD2DEF083100DCD48D /* MyPageAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54CDAFC2DEF083100DCD48D /* MyPageAPI.swift */; };
 		E54CDAFF2DEF190F00DCD48D /* FriendsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54CDAFE2DEF190F00DCD48D /* FriendsAPI.swift */; };
 		E54CDB012DEF191D00DCD48D /* FriendsDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54CDB002DEF191D00DCD48D /* FriendsDTO.swift */; };
+		E54CDB052DEF2DEE00DCD48D /* MyPageDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54CDB042DEF2DEE00DCD48D /* MyPageDTO.swift */; };
 		E554C9912DD1A554002CF37B /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E554C98F2DD1A554002CF37B /* CalendarCell.swift */; };
 		E554C9942DD1A566002CF37B /* CalendarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E554C9922DD1A566002CF37B /* CalendarModel.swift */; };
 		E55D9C292DE10815000FD099 /* BaseTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55D9C1B2DE10815000FD099 /* BaseTargetType.swift */; };
@@ -193,6 +194,7 @@
 		E54CDAFC2DEF083100DCD48D /* MyPageAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageAPI.swift; sourceTree = "<group>"; };
 		E54CDAFE2DEF190F00DCD48D /* FriendsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsAPI.swift; sourceTree = "<group>"; };
 		E54CDB002DEF191D00DCD48D /* FriendsDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsDTO.swift; sourceTree = "<group>"; };
+		E54CDB042DEF2DEE00DCD48D /* MyPageDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageDTO.swift; sourceTree = "<group>"; };
 		E554C98F2DD1A554002CF37B /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
 		E554C9922DD1A566002CF37B /* CalendarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarModel.swift; sourceTree = "<group>"; };
 		E55D9C162DE10815000FD099 /* AuthAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAPI.swift; sourceTree = "<group>"; };
@@ -724,6 +726,7 @@
 			children = (
 				E55D9C212DE10815000FD099 /* AuthDTO.swift */,
 				E54CDB002DEF191D00DCD48D /* FriendsDTO.swift */,
+				E54CDB042DEF2DEE00DCD48D /* MyPageDTO.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -972,6 +975,7 @@
 				E5270B152DCB147F000D12F2 /* SettingTableViewCell.swift in Sources */,
 				F9D044542DE5A1A600FC34DC /* PoolCalendarDetailView.swift in Sources */,
 				E5270B162DCB147F000D12F2 /* WithdrawalCell.swift in Sources */,
+				E54CDB052DEF2DEE00DCD48D /* MyPageDTO.swift in Sources */,
 				E5270B172DCB147F000D12F2 /* AccountManagementView.swift in Sources */,
 				E5270B182DCB147F000D12F2 /* FriendManagementView.swift in Sources */,
 				E5270B192DCB147F000D12F2 /* MyPageView.swift in Sources */,

@@ -22,13 +22,18 @@ final class MyPageViewController: BaseUIViewController {
         super.viewDidLoad()
         myPageView.tableView.delegate = self
         myPageView.tableView.dataSource = self
+        fetchMyInfo()
     }
-    
+
+    override func viewWillAppear(_ animated: Bool) {
+        fetchMyInfo()
+    }
+
 
     // MARK: - Custom Method
 
     override func setUI() {
-        myPageView.backgroundColor = UIColor(hex : 0xEFF5FF)
+        myPageView.backgroundColor = .white
         view.addSubview(myPageView)
     }
 
@@ -37,6 +42,29 @@ final class MyPageViewController: BaseUIViewController {
             make.edges.equalToSuperview()
         }
     }
+
+    private func fetchMyInfo() {
+        MyPageService().getNickname { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let model):
+                    self?.myPageView.nameLabel.text = model.myName
+                    self?.myPageView.studentNumberLabel.text = model.myStudentNumber
+
+                case .requestErr(let msg):
+                    print("❌ 닉네임 요청 오류: \(msg)")
+
+                case .networkFail:
+                    print("❌ 닉네임 네트워크 오류 발생")
+
+                default:
+                    print("❌ 닉네임 알 수 없는 오류")
+                }
+            }
+        }
+    }
+
+
 }
 
 

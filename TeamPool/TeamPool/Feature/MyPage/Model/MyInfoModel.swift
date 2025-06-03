@@ -2,14 +2,13 @@
 
 
 
-struct MyInfoModel {
-    let myName : String
-    let myStudentNumber : String
-    
-    static func dummyData() -> (MyInfoModel) {
-        return MyInfoModel(
-                myName : "꽁이오라버니",
-                myStudentNumber : "20233048"
-            )
+struct MyInfoModel: Codable {
+    let myName: String
+    let myStudentNumber: String
+
+    enum CodingKeys: String, CodingKey {
+        case myName = "name"
+        case myStudentNumber = "studentNumber"
     }
 }
+
