@@ -25,3 +25,18 @@ struct MyPoolListResponseDTO: Codable {
     let subject: String
     let deadline: String
 }
+
+
+struct PoolTimetableResponseDTO: Codable {
+    let userId: Int
+    let nickname: String
+    let timetables: [TimetableDTO]
+}
+
+struct TimetableDTO: Codable {
+    let dayOfWeek: String
+    let subject: String
+    let startTime: String
+    let endTime: String
+    let place: String
+}
