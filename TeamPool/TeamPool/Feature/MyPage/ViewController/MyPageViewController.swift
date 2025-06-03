@@ -96,6 +96,3 @@ extension MyPageViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
 }
-
-
-

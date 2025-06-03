@@ -1,157 +1,138 @@
 import UIKit
 
-final class FriendManagementViewController: BaseUIViewController, UISearchBarDelegate {
-    
-    // MARK: - Properties
-    private var friends: [MyPageModel] = [] // 전체 친구 목록
-    private var filteredFriends: [MyPageModel] = [] // 필터링된 친구 목록
-    private var sectionedFriends: [String: [MyPageModel]] = [:]
-    private var sectionTitles: [String] = []
-    
-    // MARK: - UI Components
+final class FriendManagementViewController: BaseUIViewController {
+
+    // MARK: - 데이터 구조
+    private enum FriendRow {
+        case sectionHeader(String)
+        case person(FindPeopleModel)
+    }
+
+    private var friends: [FindPeopleModel] = []
+    private var filteredFriends: [FindPeopleModel] = []
+    private var tableRows: [FriendRow] = []
+
+    // MARK: - UI
     private let friendManagementView = FriendManagementView()
-    
-    // MARK: - Life Cycle
+
+    // MARK: - 생명주기
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
         loadDummyData()
-        filteredFriends = friends // 초기에는 모든 데이터를 보여줌
+        configureCustomBackButton()
         friendManagementView.searchButton.addTarget(self, action: #selector(searchButtonTapped), for: .touchUpInside)
     }
-    
-    // MARK: - Custom Method
+
     override func setUI() {
         view.addSubview(friendManagementView)
-        view.backgroundColor = UIColor(hex : 0xEFF5FF)
+        view.backgroundColor = .white
     }
-    
+
     override func setLayout() {
         friendManagementView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
     }
-    
+
+    // MARK: - 설정
     private func setupTableView() {
-        friendManagementView.tableView.delegate = self
-        friendManagementView.tableView.dataSource = self
-        friendManagementView.searchBar.delegate = self // UISearchBar delegate 설정
+        let tableView = friendManagementView.tableView
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.separatorStyle = .none
+        tableView.register(FriendManagementCell.self, forCellReuseIdentifier: FriendManagementCell.identifier)
+        tableView.register(SectionHeaderCell.self, forCellReuseIdentifier: SectionHeaderCell.identifier)
+        friendManagementView.searchBar.delegate = self
     }
-    
+
     private func loadDummyData() {
-        friends = MyPageModel.dummyData()
-        filteredFriends = friends // 초기에는 모든 데이터를 보여줌
+        friends = FindPeopleModel.dummyData()
+        filteredFriends = friends
+        buildTableRows(from: filteredFriends)
         friendManagementView.tableView.reloadData()
-        createSections(from: filteredFriends)
     }
-    
-    // MARK: - Action
-    @objc private func searchButtonTapped() {
-        // 검색 버튼을 눌렀을 때, 학번으로 필터링
-        filterFriends()
-    }
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        // 텍스트가 변경될 때마다 호출됨
-        filterFriends()
-    }
-    
+
     private func filterFriends() {
-        guard let searchText = friendManagementView.searchBar.text else { return }
-        
-        // 검색 텍스트가 비어 있으면 전체 목록을 표시
-        if searchText.isEmpty {
-            filteredFriends = friends
-        } else {
-            // 학번으로 필터링
-            filteredFriends = friends.filter { $0.studentNumber.contains(searchText) }
-        }
-        createSections(from: filteredFriends)
-        friendManagementView.tableView.reloadData() // 테이블 뷰 새로 고침
+        let searchText = friendManagementView.searchBar.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+
+        filteredFriends = searchText.isEmpty
+            ? friends
+            : friends.filter { $0.studentNumber.contains(searchText) }
+
+        buildTableRows(from: filteredFriends)
+        friendManagementView.tableView.reloadData()
     }
+
+    private func buildTableRows(from models: [FindPeopleModel]) {
+        let grouped = Dictionary(grouping: models) { getInitialConsonant(of: $0.name) }
+        let sortedKeys = grouped.keys.sorted()
+
+        var rows: [FriendRow] = []
+        for key in sortedKeys {
+            rows.append(.sectionHeader(key))
+            for person in grouped[key] ?? [] {
+                rows.append(.person(person))
+            }
+        }
+        tableRows = rows
+    }
+
     private func getInitialConsonant(of name: String) -> String {
         guard let first = name.first else { return "#" }
         let scalar = first.unicodeScalars.first!.value
-        
         let consonants = ["ㄱ","ㄲ","ㄴ","ㄷ","ㄸ","ㄹ","ㅁ","ㅂ","ㅃ","ㅅ","ㅆ","ㅇ","ㅈ","ㅉ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"]
-        
-        if scalar >= 0xAC00 && scalar <= 0xD7A3 {
-            let index = (scalar - 0xAC00) / 28 / 21
-            return consonants[Int(index)]
-        } else {
-            return "#"
-        }
+        return (scalar >= 0xAC00 && scalar <= 0xD7A3) ? consonants[Int((scalar - 0xAC00) / 28 / 21)] : "#"
     }
-    private func createSections(from friends: [MyPageModel]) {
-        var sections: [String: [MyPageModel]] = [:]
-        
-        for friend in friends {
-            let key = getInitialConsonant(of: friend.name)
-            if sections[key] == nil {
-                sections[key] = []
-            }
-            sections[key]?.append(friend)
-        }
-        
-        sectionedFriends = sections
-        sectionTitles = sections.keys.sorted()
+
+    // MARK: - 액션
+    @objc private func searchButtonTapped() {
+        filterFriends()
     }
 }
-
-//MARK: - 테이블 뷰 수정
-
+// MARK: - UITableView
 extension FriendManagementViewController: UITableViewDelegate, UITableViewDataSource {
-    
+
     func numberOfSections(in tableView: UITableView) -> Int {
-        return sectionTitles.count
+        return 1
     }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let key = sectionTitles[section]
-        return sectionedFriends[key]?.count ?? 0
+        return tableRows.count
     }
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        let key = sectionTitles[indexPath.section]
-        if let friend = sectionedFriends[key]?[indexPath.row] {
-            print("\(friend.name) 선택됨")
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch tableRows[indexPath.row] {
+        case .sectionHeader:
+            return 28
+        case .person:
+            return 50
         }
     }
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: FriendManagementCell.identifier, for: indexPath) as? FriendManagementCell else {
-            return UITableViewCell()
-        }
-        
-        let key = sectionTitles[indexPath.section]
-        if let friend = sectionedFriends[key]?[indexPath.row] {
+        switch tableRows[indexPath.row] {
+        case .sectionHeader(let title):
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: SectionHeaderCell.identifier, for: indexPath) as? SectionHeaderCell else {
+                return UITableViewCell()
+            }
+            cell.configure(with: title)
+            return cell
+
+        case .person(let friend):
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: FriendManagementCell.identifier, for: indexPath) as? FriendManagementCell else {
+                return UITableViewCell()
+            }
             cell.configure(with: friend)
-            cell.deleteButton.accessibilityIdentifier = "\(indexPath.section)-\(indexPath.row)"
+            cell.deleteButton.accessibilityIdentifier = "\(indexPath.row)"
             cell.deleteButton.addTarget(self, action: #selector(deleteFriend(_:)), for: .touchUpInside)
+            return cell
         }
-        
-        return cell
     }
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return sectionTitles[section]
-    }
-    
+
     @objc private func deleteFriend(_ sender: UIButton) {
-        guard let id = sender.accessibilityIdentifier else { return }
-        let components = id.split(separator: "-")
-
-        guard components.count == 2,
-              let section = Int(components[0]),
-              let row = Int(components[1]),
-              section >= 0, section < sectionTitles.count else {
-            return
-        }
-
-        let key = sectionTitles[section]
-        guard let friendsInSection = sectionedFriends[key],
-              row >= 0, row < friendsInSection.count else {
-            return
-        }
-
-        let friend = friendsInSection[row]
+        guard let id = sender.accessibilityIdentifier, let row = Int(id) else { return }
+        guard case .person(let friend) = tableRows[row] else { return }
 
         let alert = UIAlertController(
             title: "\"\(friend.name)\"님을 친구 목록에서 삭제하시겠습니까?",
@@ -160,12 +141,8 @@ extension FriendManagementViewController: UITableViewDelegate, UITableViewDataSo
         )
 
         let cancelAction = UIAlertAction(title: "취소", style: .default)
-
-        let deleteAction = UIAlertAction(title: "삭제", style: .default) { _ in
-            // 1. 원본 friends 배열에서 삭제
+        let deleteAction = UIAlertAction(title: "삭제", style: .destructive) { _ in
             self.friends.removeAll { $0.studentNumber == friend.studentNumber }
-
-            // 2. 필터링 및 섹션 다시 구성
             self.filterFriends()
         }
 
@@ -174,7 +151,36 @@ extension FriendManagementViewController: UITableViewDelegate, UITableViewDataSo
 
         present(alert, animated: true)
     }
+    // MARK: - 커스텀 백버튼
+
+    private func configureCustomBackButton() {
+        let backButton = UIButton(type: .system)
+        let config = UIImage.SymbolConfiguration(pointSize: 20, weight: .medium)
+        backButton.setImage(UIImage(systemName: "chevron.left", withConfiguration: config), for: .normal)
+        backButton.setTitle(" 친구 관리", for: .normal)
+        backButton.titleLabel?.font = .systemFont(ofSize: 20, weight: .medium)
+        backButton.tintColor = .black
+        backButton.addTarget(self, action: #selector(didTapBack), for: .touchUpInside)
+
+        let backItem = UIBarButtonItem(customView: backButton)
+        navigationItem.leftBarButtonItem = backItem
+    }
+
+    @objc private func didTapBack() {
+        navigationController?.popViewController(animated: true)
+    }
 }
-    
-//MARK: - 테이블 뷰 수정
+
+// MARK: - UISearchBarDelegate
+extension FriendManagementViewController: UISearchBarDelegate {
+
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        filterFriends()
+    }
+
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        filterFriends()
+    }
+}
 
