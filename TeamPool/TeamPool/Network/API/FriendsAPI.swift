@@ -77,14 +77,17 @@ final class FriendsService {
         }
     }
 
-    func addFriends(by studentNumber: String, completion: @escaping (NetworkResult<[FindPeopleModel]>) -> Void) {
+    func addFriends(by studentNumber: String, completion: @escaping (NetworkResult<Void>) -> Void) {
         provider.request(.addFriends(studentNumber: studentNumber)) { result in
             switch result {
             case .success(let response):
                 do {
-                    let decoded = try JSONDecoder().decode(APIResponse<[FriendDTO]>.self, from: response.data)
-                    let models = decoded.data.map { FindPeopleModel(from: $0) }
-                    completion(.success(models))
+                    let decoded = try JSONDecoder().decode(APIResponse<String?>.self, from: response.data)
+                    if decoded.code == "SUCCESS" {
+                        completion(.success(()))
+                    } else {
+                        completion(.requestErr(decoded.message))
+                    }
                 } catch {
                     print("디코딩 오류:", error)
                     completion(.pathErr)
