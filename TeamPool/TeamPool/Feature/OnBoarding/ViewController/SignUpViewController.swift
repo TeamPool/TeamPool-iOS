@@ -12,6 +12,8 @@ final class SignUpViewController: BaseUIViewController {
 
     // MARK: - Properties
 
+    private let authService = AuthService() 
+
     // MARK: - UI Components
 
     private let signUpView = SignUpView()
@@ -21,7 +23,7 @@ final class SignUpViewController: BaseUIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         handleIdValidation(isValid: true)
-        handleNicknameValidation(isValid: false)
+        handleNicknameValidation(isValid: true)
     }
 
     // MARK: - Custom Method
@@ -48,6 +50,12 @@ final class SignUpViewController: BaseUIViewController {
         signUpView.nicknameErrorLabel.textColor = isValid ? .systemBlue : .systemRed
     }
 
+    private func showAlert(_ message: String) {
+        let alert = UIAlertController(title: "회원가입 실패", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "확인", style: .default))
+        present(alert, animated: true)
+    }
+
     // MARK: - Action Method
 
     override func addTarget() {
@@ -65,13 +73,48 @@ final class SignUpViewController: BaseUIViewController {
 
     @objc
     func didTappedSignUpButton() {
-        print("회원가입 완료")
-        navigationController?.popToRootViewController(animated: true)
+        guard let studentNumber = signUpView.idTextField.text,
+              let nickname = signUpView.nicknameTextField.text,
+              let password = signUpView.pwTextField.text,
+              !studentNumber.isEmpty,
+              !nickname.isEmpty,
+              !password.isEmpty else {
+            showAlert("모든 필드를 입력해주세요.")
+            return
+        }
 
+        let requestDTO = SignUpRequestDTO(studentNumber: studentNumber, nickname: nickname, password: password)
+
+        authService.signUp(requestDTO: requestDTO) { [weak self] result in
+            switch result {
+            case .success(let message):
+                print("✅ 회원가입 성공:", message)
+                DispatchQueue.main.async {
+                    self?.navigationController?.popToRootViewController(animated: true)
+                }
+
+            case .requestErr(let message):
+                print("❌ 회원가입 실패:", message)
+
+                DispatchQueue.main.async {
+                    if message.contains("학번") {
+                        self?.handleIdValidation(isValid: false)
+                    }
+                    if message.contains("닉네임") {
+                        self?.handleNicknameValidation(isValid: false)
+                    }
+                    self?.showAlert(message)
+                }
+
+            case .pathErr:
+                self?.showAlert("응답을 처리할 수 없습니다.")
+
+            case .serverErr:
+                self?.showAlert("서버 오류가 발생했습니다.")
+
+            case .networkFail:
+                self?.showAlert("네트워크 연결에 실패했습니다.")
+            }
+        }
     }
-
 }
-
-
-
-

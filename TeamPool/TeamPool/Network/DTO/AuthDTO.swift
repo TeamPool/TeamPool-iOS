@@ -17,6 +17,13 @@ struct LoginResponseDTO: Decodable {
     let refreshToken: String
 }
 
+struct SignUpRequestDTO: Encodable {
+    let studentNumber: String
+    let nickname: String
+    let password: String
+}
+
+
 struct ErrorResponseDTO: Decodable {
     let code: Int
     let message: String
