@@ -1,5 +1,5 @@
 //
-//  HomeAPI.swift
+//  AuthAPI.swift
 //  36-SOPKATHON-iOS-TEAM-3
 //
 //  Created by 성현주 on 5/17/25.
