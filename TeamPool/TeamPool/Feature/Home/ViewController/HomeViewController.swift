@@ -24,24 +24,20 @@ final class HomeViewController: BaseUIViewController {
         super.viewWillAppear(animated)
         tabBarController?.tabBar.isHidden = false
         navigationController?.navigationBar.prefersLargeTitles = true
+        fetchMyPools()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        //더미 데이터
-        poolList = HomeModel.dummyData()
-
-        // 알람 테스트 => 지울 예정
-        UserDefaultHandler.lecturesSaved = false
-        print(UserDefaultHandler.lecturesSaved)
-
         homeView.tableView.dataSource = self
         homeView.tableView.delegate = self
         homeView.tableView.register(HomeCell.self, forCellReuseIdentifier: HomeCell.identifier)
 
+        fetchMyPools()
         checkLectureSaved()
     }
+
 
     // MARK: - Custom Method
 
@@ -86,6 +82,36 @@ final class HomeViewController: BaseUIViewController {
             }
         )
     }
+
+    private func fetchMyPools() {
+        PoolService().fetchMyPools { [weak self] result in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+
+                switch result {
+                case .success(let dtoList):
+                    self.poolList = dtoList.map { HomeModel.from(dto: $0) }
+                    self.homeView.tableView.reloadData()
+
+                case .requestErr(let msg):
+                    self.showAlert(title: "불러오기 실패", message: msg)
+
+                case .networkFail:
+                    self.showAlert(title: "네트워크 오류", message: "인터넷 연결을 확인해주세요.")
+
+                default:
+                    self.showAlert(title: "오류", message: "스터디 목록 불러오기에 실패했어요.")
+                }
+            }
+        }
+    }
+
+    private func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "확인", style: .default))
+        present(alert, animated: true)
+    }
+
 
 
     // MARK: - Action Method

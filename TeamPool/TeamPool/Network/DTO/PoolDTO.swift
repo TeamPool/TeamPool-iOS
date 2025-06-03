@@ -18,3 +18,10 @@ struct PoolCreateRequestDTO: Codable {
 struct PoolCreateResponseDTO: Codable {
     let poolId: Int
 }
+
+struct MyPoolListResponseDTO: Codable {
+    let poolId: Int
+    let name: String
+    let subject: String
+    let deadline: String
+}
