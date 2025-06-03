@@ -5,54 +5,72 @@
 //  Created by 성현주 on 5/17/25.
 //
 
-
-
-
 import Foundation
 import Moya
 
-enum HomeAPI {
-    case getHomeStep(userID: Int)
+enum AuthAPI {
+    case login(body: LoginRequestDTO)
 }
 
-extension HomeAPI: BaseTargetType {
+extension AuthAPI: BaseTargetType {
 
     var path: String {
         switch self {
-        case .getHomeStep(let userID):
-            return "/islands/steps/\(userID)" 
+        case .login:
+            return "/api/auth/login"
         }
     }
 
     var method: Moya.Method {
-        return .get
+        switch self {
+        case .login:
+            return .post
+        }
     }
 
-    var task: Task {
-        return .requestPlain
+    var task: Moya.Task {
+        switch self {
+        case .login(let body):
+            return .requestJSONEncodable(body)
+        }
     }
 
-    var headers: [String : String]? {
+    var headers: [String: String]? {
         return ["Content-Type": "application/json"]
     }
 }
 
+final class AuthService {
 
+    private let provider = MoyaProvider<AuthAPI>(plugins: [MoyaLoggerPlugin()])
 
-final class HomeService {
-
-    private let provider = MoyaProvider<HomeAPI>(plugins: [MoyaLoggerPlugin()])
-
-    func getHomeStep(userID: Int, completion: @escaping (NetworkResult<StepInfo>) -> Void) {
-        provider.request(.getHomeStep(userID: userID)) { result in
+    func login(requestDTO: LoginRequestDTO, completion: @escaping (NetworkResult<LoginResponseDTO>) -> Void) {
+        provider.request(.login(body: requestDTO)) { (result: Result<Response, MoyaError>) in
             switch result {
             case .success(let response):
-                do {
-                    let decoded = try JSONDecoder().decode(HomeStepResponse.self, from: response.data)
-                    completion(.success(decoded.data.self))
-                } catch {
-                    print("디코딩 에러:", error)
-                    completion(.pathErr)
+                switch response.statusCode {
+                case 200..<300:
+                    do {
+                        let decoded = try JSONDecoder().decode(APIResponse<LoginResponseDTO>.self, from: response.data)
+                        completion(.success(decoded.data))
+                    } catch {
+                        print("디코딩 에러:", error)
+                        print("응답 문자열:\n" + (String(data: response.data, encoding: .utf8) ?? "없음"))
+                        completion(.pathErr)
+                    }
+
+                case 400..<500:
+                    if let error = try? JSONDecoder().decode(ErrorResponseDTO.self, from: response.data) {
+                        completion(.requestErr(error.message))
+                    } else {
+                        completion(.requestErr("알 수 없는 클라이언트 오류"))
+                    }
+
+                case 500..<600:
+                    completion(.serverErr)
+
+                default:
+                    completion(.networkFail)
                 }
 
             case .failure:
