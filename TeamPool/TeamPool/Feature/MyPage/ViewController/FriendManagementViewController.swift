@@ -106,7 +106,26 @@ final class FriendManagementViewController: BaseUIViewController {
 
     // MARK: - 액션
     @objc private func searchButtonTapped() {
-        filterFriends()
+        let query = friendManagementView.searchBar.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        if query.isEmpty {
+            fetchFriendsFromAPI()
+            return
+        }
+
+        FriendsService().searchFriend(by: query) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let models):
+                    self?.filteredFriends = models
+                    self?.buildTableRows(from: models)
+                    self?.friendManagementView.tableView.reloadData()
+                case .requestErr(let msg):
+                    print("❌ 검색 오류: \(msg)")
+                default:
+                    print("❌ 친구 검색 실패")
+                }
+            }
+        }
     }
 }
 // MARK: - UITableView
