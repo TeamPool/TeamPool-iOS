@@ -11,14 +11,16 @@ import Moya
 enum ScheduleAPI {
     case addPoolSchedule(ScheduleCreateRequestDTO)
     case fetchSchedules(poolId: Int)
+    case fetchSchedulesByDay(date: String)
 }
 
 extension ScheduleAPI: BaseTargetType {
-
     var path: String {
         switch self {
         case .addPoolSchedule, .fetchSchedules:
             return "/api/schedules"
+        case .fetchSchedulesByDay:
+            return "/api/schedules/by-day"
         }
     }
 
@@ -26,7 +28,7 @@ extension ScheduleAPI: BaseTargetType {
         switch self {
         case .addPoolSchedule:
             return .post
-        case .fetchSchedules:
+        case .fetchSchedules, .fetchSchedulesByDay:
             return .get
         }
     }
@@ -37,10 +39,12 @@ extension ScheduleAPI: BaseTargetType {
             return .requestJSONEncodable(dto)
         case .fetchSchedules(let poolId):
             return .requestParameters(parameters: ["poolId": poolId], encoding: URLEncoding.queryString)
+        case .fetchSchedulesByDay(let date):
+            return .requestParameters(parameters: ["date": date], encoding: URLEncoding.queryString)
         }
     }
 
-    var headers: [String : String]? {
+    var headers: [String: String]? {
         return [
             "Content-Type": "application/json",
             "Authorization": "Bearer \(UserDefaultHandler.accessToken)"
@@ -87,4 +91,21 @@ final class AddPoolScheduleService {
             }
         }
     }
+
+    func fetchSchedulesByDay(date: String, completion: @escaping (NetworkResult<[ScheduleResponseDTO]>) -> Void) {
+            provider.request(.fetchSchedulesByDay(date: date)) { result in
+                switch result {
+                case .success(let response):
+                    do {
+                        let decoded = try JSONDecoder().decode(APIResponse<[ScheduleResponseDTO]>.self, from: response.data)
+                        completion(.success(decoded.data))
+                    } catch {
+                        print("❌ 디코딩 실패: \(error)")
+                        completion(.pathErr)
+                    }
+                case .failure:
+                    completion(.networkFail)
+                }
+            }
+        }
 }
