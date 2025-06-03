@@ -19,8 +19,8 @@ final class FriendManagementViewController: BaseUIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
-        loadDummyData()
         configureCustomBackButton()
+        fetchFriendsFromAPI()
         friendManagementView.searchButton.addTarget(self, action: #selector(searchButtonTapped), for: .touchUpInside)
     }
 
@@ -36,6 +36,26 @@ final class FriendManagementViewController: BaseUIViewController {
     }
 
     // MARK: - 설정
+    private func fetchFriendsFromAPI() {
+        FriendsService().fetchFriends { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let models):
+                    self?.friends = models
+                    self?.filteredFriends = models
+                    self?.buildTableRows(from: models)
+                    self?.friendManagementView.tableView.reloadData()
+                case .requestErr(let msg):
+                    print("❌ 요청 오류: \(msg)")
+                case .networkFail:
+                    print("❌ 네트워크 실패")
+                default:
+                    print("❌ 알 수 없는 오류")
+                }
+            }
+        }
+    }
+
     private func setupTableView() {
         let tableView = friendManagementView.tableView
         tableView.delegate = self
@@ -47,7 +67,6 @@ final class FriendManagementViewController: BaseUIViewController {
     }
 
     private func loadDummyData() {
-        friends = FindPeopleModel.dummyData()
         filteredFriends = friends
         buildTableRows(from: filteredFriends)
         friendManagementView.tableView.reloadData()

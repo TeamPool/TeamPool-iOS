@@ -51,7 +51,6 @@ final class FindPeopleViewController: BaseUIViewController {
     }
 
     private func loadDummyData() {
-        friends = FindPeopleModel.dummyData()
         filteredFriends = friends
         buildTableRows(from: filteredFriends)
         findPeopleView.tableView.reloadData()
