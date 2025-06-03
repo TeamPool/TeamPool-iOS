@@ -21,6 +21,7 @@ final class FindPeopleViewController: BaseUIViewController {
         setupTableView()
         loadDummyData()
         setSearchTargets()
+        fetchFriendsFromAPI()
         tabBarController?.tabBar.isHidden = true
         navigationController?.navigationBar.prefersLargeTitles = false
     }
@@ -88,16 +89,53 @@ final class FindPeopleViewController: BaseUIViewController {
         return (scalar >= 0xAC00 && scalar <= 0xD7A3) ? consonants[Int((scalar - 0xAC00) / 28 / 21)] : "#"
     }
 
+    private func fetchFriendsFromAPI() {
+        FriendsService().fetchFriends { [weak self] result in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+
+                switch result {
+                case .success(let friends):
+                    self.friends = friends
+                    self.filteredFriends = friends
+                    self.buildTableRows(from: friends)
+                    self.findPeopleView.tableView.reloadData()
+                case .requestErr(let message):
+                    self.showAlert(title: "불러오기 실패", message: message)
+                case .networkFail:
+                    self.showAlert(title: "불러오기 실패", message: "네트워크 오류 발생")
+                default:
+                    self.showAlert(title: "불러오기 실패", message: "알 수 없는 오류")
+                }
+            }
+        }
+    }
+
+    private func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "확인", style: .default))
+        present(alert, animated: true)
+    }
+
+
+
     @objc private func searchButtonTapped() {
         filterFriends()
     }
 
     @objc private func didTappedNextButton() {
         let selected = friends.filter { selectedFriends.contains($0.studentNumber) }
-        print("선택된 친구 목록: \(selected.map { $0.name })")
+
+        let selectedStudentNumbers = selected.map { $0.studentNumber }
+
+        PoolCreateDataStore.shared.memberStudentNumbers = selectedStudentNumbers
+
+        print("선택된 친구 학번: \(selectedStudentNumbers)")
+
         let deadlineVC = DeadlineViewController()
         navigationController?.pushViewController(deadlineVC, animated: true)
     }
+
 }
 
 // MARK: - UITableViewDataSource
