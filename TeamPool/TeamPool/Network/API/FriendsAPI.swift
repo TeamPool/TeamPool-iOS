@@ -4,28 +4,38 @@
 //
 //  Created by 성현주 on 6/3/25.
 //
-
-import Foundation
 import Moya
+import UIKit
 
 enum FriendsAPI {
-    case getFriends
+    case getMyFriends
+    case searchFriend(studentNumber: String)
 }
 
 extension FriendsAPI: BaseTargetType {
     var path: String {
         switch self {
-        case .getFriends:
+        case .getMyFriends, .searchFriend:
             return "/api/friends"
         }
     }
 
     var method: Moya.Method {
-        return .get
+        switch self {
+        case .getMyFriends:
+            return .get
+        case .searchFriend:
+            return .post
+        }
     }
 
     var task: Task {
-        return .requestPlain
+        switch self {
+        case .getMyFriends:
+            return .requestPlain
+        case .searchFriend(let studentNumber):
+            return .requestJSONEncodable(["studentNumber": studentNumber])
+        }
     }
 
     var headers: [String: String]? {
@@ -36,11 +46,12 @@ extension FriendsAPI: BaseTargetType {
     }
 }
 
+
 final class FriendsService {
     private let provider = MoyaProvider<FriendsAPI>(plugins: [MoyaLoggerPlugin()])
 
     func fetchFriends(completion: @escaping (NetworkResult<[FindPeopleModel]>) -> Void) {
-        provider.request(.getFriends) { result in
+        provider.request(.getMyFriends) { result in
             switch result {
             case .success(let response):
                 do {
@@ -56,4 +67,22 @@ final class FriendsService {
             }
         }
     }
+
+    func searchFriend(by studentNumber: String, completion: @escaping (NetworkResult<[FindPeopleModel]>) -> Void) {
+            provider.request(.searchFriend(studentNumber: studentNumber)) { result in
+                switch result {
+                case .success(let response):
+                    do {
+                        let decoded = try JSONDecoder().decode(APIResponse<[FriendDTO]>.self, from: response.data)
+                        let models = decoded.data.map { FindPeopleModel(from: $0) }
+                        completion(.success(models))
+                    } catch {
+                        print("디코딩 오류:", error)
+                        completion(.pathErr)
+                    }
+                case .failure:
+                    completion(.networkFail)
+                }
+            }
+        }
 }

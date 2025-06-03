@@ -13,3 +13,6 @@ struct FriendDTO: Codable {
     let studentNumber: String
 }
 
+struct AddFriendRequest: Encodable {
+    let studentNumber: String
+}
