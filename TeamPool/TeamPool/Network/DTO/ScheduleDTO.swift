@@ -6,10 +6,19 @@
 //
 
 import Foundation
+
 struct ScheduleCreateRequestDTO: Codable {
     let poolId: Int
     let title: String
     let startDatetime: String 
+    let endDatetime: String
+    let place: String
+}
+
+struct ScheduleResponseDTO: Codable {
+    let scheduleId: Int
+    let title: String
+    let startDatetime: String
     let endDatetime: String
     let place: String
 }
