@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E512B1D22DEF5CE400C509BE /* TimeTableAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E512B1D12DEF5CE400C509BE /* TimeTableAPI.swift */; };
+		E512B1D42DEF5CF100C509BE /* TimeTableDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E512B1D32DEF5CF100C509BE /* TimeTableDTO.swift */; };
 		E5270AFB2DCB147F000D12F2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5270A8D2DCB147F000D12F2 /* AppDelegate.swift */; };
 		E5270AFC2DCB147F000D12F2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5270A8E2DCB147F000D12F2 /* SceneDelegate.swift */; };
 		E5270AFD2DCB147F000D12F2 /* UserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5270A902DCB147F000D12F2 /* UserDefault.swift */; };
@@ -117,6 +119,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E512B1D12DEF5CE400C509BE /* TimeTableAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTableAPI.swift; sourceTree = "<group>"; };
+		E512B1D32DEF5CF100C509BE /* TimeTableDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTableDTO.swift; sourceTree = "<group>"; };
 		E5270A8D2DCB147F000D12F2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E5270A8E2DCB147F000D12F2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		E5270A902DCB147F000D12F2 /* UserDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefault.swift; sourceTree = "<group>"; };
@@ -697,6 +701,7 @@
 				E55D9C162DE10815000FD099 /* AuthAPI.swift */,
 				E54CDAFC2DEF083100DCD48D /* MyPageAPI.swift */,
 				E54CDAFE2DEF190F00DCD48D /* FriendsAPI.swift */,
+				E512B1D12DEF5CE400C509BE /* TimeTableAPI.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -727,6 +732,7 @@
 				E55D9C212DE10815000FD099 /* AuthDTO.swift */,
 				E54CDB002DEF191D00DCD48D /* FriendsDTO.swift */,
 				E54CDB042DEF2DEE00DCD48D /* MyPageDTO.swift */,
+				E512B1D32DEF5CF100C509BE /* TimeTableDTO.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -933,8 +939,10 @@
 				E5270AFC2DCB147F000D12F2 /* SceneDelegate.swift in Sources */,
 				F959E51A2DEECCCC0050EF8B /* PoolCalendarAddViewController.swift in Sources */,
 				E5270AFD2DCB147F000D12F2 /* UserDefault.swift in Sources */,
+				E512B1D22DEF5CE400C509BE /* TimeTableAPI.swift in Sources */,
 				E5270AFE2DCB147F000D12F2 /* UserDefaultHandler.swift in Sources */,
 				F959E51C2DEECFA90050EF8B /* PoolCalendarAddView.swift in Sources */,
+				E512B1D42DEF5CF100C509BE /* TimeTableDTO.swift in Sources */,
 				E5270AFF2DCB147F000D12F2 /* AddPoolNameView.swift in Sources */,
 				E5270B002DCB147F000D12F2 /* CreatPoolView.swift in Sources */,
 				F9D044522DE5A1A100FC34DC /* PoolCalendarCell.swift in Sources */,

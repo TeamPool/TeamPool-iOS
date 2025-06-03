@@ -57,7 +57,7 @@ extension LectureModel {
     func getLectureNames() -> [String] {
         let names = lectures.map { $0.name }
         let uniqueNames = Array(Set(names))
-        return uniqueNames.sorted()        
+        return uniqueNames.sorted()
     }
 }
 
@@ -74,5 +74,40 @@ extension TeamPool.Lecture {
             endTime: self.endTime,
             backgroundColor: self.backgroundColor
         )
+    }
+}
+
+
+extension Lecture {
+    func toRequestDTO() -> TimeTableRequestDTO {
+        return TimeTableRequestDTO(
+            dayOfWeek: courseDay.toServerString(),
+            subject: name,
+            startTime: convertToTimeString(from: startTime),
+            endTime: convertToTimeString(from: endTime),
+            place: classroom
+        )
+    }
+
+    private func convertToTimeString(from time: String) -> String {
+        // "9:00" → "09:00:00"
+        let components = time.split(separator: ":").map { Int($0) ?? 0 }
+        let hour = String(format: "%02d", components.count > 0 ? components[0] : 0)
+        let minute = String(format: "%02d", components.count > 1 ? components[1] : 0)
+        return "\(hour):\(minute):00"
+    }
+}
+
+extension CourseDay {
+    func toServerString() -> String {
+        switch self {
+        case .monday: return "MONDAY"
+        case .tuesday: return "TUESDAY"
+        case .wednesday: return "WEDNESDAY"
+        case .thursday: return "THURSDAY"
+        case .friday: return "FRIDAY"
+        case .saturday: return "SATURDAY"
+        case .sunday: return "SUNDAY"
+        }
     }
 }
