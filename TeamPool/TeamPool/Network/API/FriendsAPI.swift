@@ -10,6 +10,7 @@ import UIKit
 enum FriendsAPI {
     case getMyFriends
     case searchFriend(studentNumber: String)
+    case deleteFriend(friendUserId: Int)
 }
 
 extension FriendsAPI: BaseTargetType {
@@ -17,6 +18,8 @@ extension FriendsAPI: BaseTargetType {
         switch self {
         case .getMyFriends, .searchFriend:
             return "/api/friends"
+        case .deleteFriend(let friendUserId):
+            return "/api/friends/\(friendUserId)"
         }
     }
 
@@ -26,12 +29,14 @@ extension FriendsAPI: BaseTargetType {
             return .get
         case .searchFriend:
             return .post
+        case .deleteFriend:
+            return .delete // 🔥 삭제 메서드
         }
     }
 
     var task: Task {
         switch self {
-        case .getMyFriends:
+        case .getMyFriends, .deleteFriend:
             return .requestPlain
         case .searchFriend(let studentNumber):
             return .requestJSONEncodable(["studentNumber": studentNumber])
@@ -45,7 +50,6 @@ extension FriendsAPI: BaseTargetType {
         ]
     }
 }
-
 
 final class FriendsService {
     private let provider = MoyaProvider<FriendsAPI>(plugins: [MoyaLoggerPlugin()])
@@ -80,6 +84,26 @@ final class FriendsService {
                         print("디코딩 오류:", error)
                         completion(.pathErr)
                     }
+                case .failure:
+                    completion(.networkFail)
+                }
+            }
+        }
+    func deleteFriend(friendUserId: Int, completion: @escaping (NetworkResult<Void>) -> Void) {
+            provider.request(.deleteFriend(friendUserId: friendUserId)) { result in
+                switch result {
+                case .success(let response):
+                    if (200..<300).contains(response.statusCode) {
+                        completion(.success(())) // 삭제 성공
+                    } else {
+                        do {
+                            let error = try JSONDecoder().decode(APIResponse<String>.self, from: response.data)
+                            completion(.requestErr(error.message))
+                        } catch {
+                            completion(.requestErr("삭제 실패: 알 수 없는 오류"))
+                        }
+                    }
+
                 case .failure:
                     completion(.networkFail)
                 }
