@@ -50,8 +50,8 @@ final class PoolCalendarView: BaseUIView, FSCalendarDataSource, FSCalendarDelega
     }()
 
 
-    private let events: [PoolCalendarModel] = PoolCalendarModel.dummyData()
-    
+    private var events: [PoolCalendarModel] = []
+
     // MARK: - Init
 
     override init(frame: CGRect) {
@@ -92,6 +92,12 @@ final class PoolCalendarView: BaseUIView, FSCalendarDataSource, FSCalendarDelega
             $0.height.equalTo(34)
         }
 
+    }
+
+    func updateEvents(_ newEvents: [PoolCalendarModel]) {
+        self.events = newEvents
+        print(events)
+        self.calendar.reloadData()
     }
 
     // MARK: - FSCalendar DataSource
