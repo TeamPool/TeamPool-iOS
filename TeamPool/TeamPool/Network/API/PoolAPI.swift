@@ -10,6 +10,7 @@ import Moya
 
 enum PoolAPI {
     case createPool(PoolCreateRequestDTO)
+    case getMyPools
 }
 
 extension PoolAPI: BaseTargetType {
@@ -18,21 +19,30 @@ extension PoolAPI: BaseTargetType {
         switch self {
         case .createPool:
             return "/api/pools"
+        case .getMyPools:
+            return "/api/pools/my"
         }
     }
 
     var method: Moya.Method {
-        return .post
+        switch self {
+        case .createPool:
+            return .post
+        case .getMyPools:
+            return .get
+        }
     }
 
     var task: Task {
         switch self {
         case .createPool(let dto):
             return .requestJSONEncodable(dto)
+        case .getMyPools:
+            return .requestPlain
         }
     }
 
-    var headers: [String: String]? {
+    var headers: [String : String]? {
         return [
             "Content-Type": "application/json",
             "Authorization": "Bearer \(UserDefaultHandler.accessToken)"
@@ -40,10 +50,10 @@ extension PoolAPI: BaseTargetType {
     }
 }
 
-
 final class PoolService {
     private let provider = MoyaProvider<PoolAPI>(plugins: [MoyaLoggerPlugin()])
 
+    // 기존 생성 API
     func createPool(
         with request: PoolCreateRequestDTO,
         completion: @escaping (NetworkResult<Int>) -> Void
@@ -54,6 +64,24 @@ final class PoolService {
                 do {
                     let decoded = try JSONDecoder().decode(APIResponse<PoolCreateResponseDTO>.self, from: response.data)
                     completion(.success(decoded.data.poolId))
+                } catch {
+                    print("❌ 디코딩 실패:", error)
+                    completion(.pathErr)
+                }
+
+            case .failure:
+                completion(.networkFail)
+            }
+        }
+    }
+
+    func fetchMyPools(completion: @escaping (NetworkResult<[MyPoolListResponseDTO]>) -> Void) {
+        provider.request(.getMyPools) { result in
+            switch result {
+            case .success(let response):
+                do {
+                    let decoded = try JSONDecoder().decode(APIResponse<[MyPoolListResponseDTO]>.self, from: response.data)
+                    completion(.success(decoded.data))
                 } catch {
                     print("❌ 디코딩 실패:", error)
                     completion(.pathErr)

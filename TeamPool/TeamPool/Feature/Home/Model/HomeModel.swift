@@ -66,3 +66,27 @@ struct HomeModel {
         ]
     }
 }
+
+extension HomeModel {
+    static func from(dto: MyPoolListResponseDTO) -> HomeModel {
+        return HomeModel(
+            poolId: dto.poolId,
+            name: dto.name,
+            subName: dto.subject,
+            date: dto.deadline,
+            location: "미정",
+            participant: "미정", 
+            dDay: calculateDDay(from: dto.deadline)
+        )
+    }
+
+    private static func calculateDDay(from dateString: String) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        guard let targetDate = formatter.date(from: dateString) else {
+            return "D-?"
+        }
+        let days = Calendar.current.dateComponents([.day], from: Date(), to: targetDate).day ?? 0
+        return "D-\(days)"
+    }
+}
