@@ -169,8 +169,9 @@ extension FriendManagementViewController: UITableViewDelegate, UITableViewDataSo
     }
 
     @objc private func deleteFriend(_ sender: UIButton) {
-        guard let id = sender.accessibilityIdentifier, let row = Int(id) else { return }
-        guard case .person(let friend) = tableRows[row] else { return }
+        guard let id = sender.accessibilityIdentifier,
+              let row = Int(id),
+              case .person(let friend) = tableRows[row] else { return }
 
         let alert = UIAlertController(
             title: "\"\(friend.name)\"님을 친구 목록에서 삭제하시겠습니까?",
@@ -179,18 +180,43 @@ extension FriendManagementViewController: UITableViewDelegate, UITableViewDataSo
         )
 
         let cancelAction = UIAlertAction(title: "취소", style: .default)
-        let deleteAction = UIAlertAction(title: "삭제", style: .destructive) { _ in
-            self.friends.removeAll { $0.studentNumber == friend.studentNumber }
-            self.filterFriends()
+        let deleteAction = UIAlertAction(title: "삭제", style: .destructive) { [weak self] _ in
+            guard let self = self else { return }
+
+            FriendsService().deleteFriend(friendUserId: friend.friendId) { result in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success:
+                        self.friends.removeAll { $0.studentNumber == friend.studentNumber }
+                        self.filterFriends()
+
+                    case .requestErr(let msg):
+                        self.showAlert(title: "삭제 실패", message: msg)
+
+                    case .networkFail:
+                        self.showAlert(title: "삭제 실패", message: "네트워크 오류가 발생했습니다.")
+
+                    default:
+                        self.showAlert(title: "삭제 실패", message: "알 수 없는 오류가 발생했습니다.")
+                    }
+                }
+            }
         }
 
         alert.addAction(deleteAction)
         alert.addAction(cancelAction)
-
         present(alert, animated: true)
     }
+
     // MARK: - 커스텀 백버튼
 
+    private func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "확인", style: .default))
+        present(alert, animated: true)
+    }
+
+    
     private func configureCustomBackButton() {
         let backButton = UIButton(type: .system)
         let config = UIImage.SymbolConfiguration(pointSize: 20, weight: .medium)
