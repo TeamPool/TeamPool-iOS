@@ -11,6 +11,8 @@ import Moya
 enum AuthAPI {
     case login(body: LoginRequestDTO)
     case signUp(body: SignUpRequestDTO)
+    case checkStudentNumberDup(studentNumber: String)
+    case checkNicknameDup(nickname: String)
 }
 
 extension AuthAPI: BaseTargetType {
@@ -21,6 +23,10 @@ extension AuthAPI: BaseTargetType {
             return "/api/auth/login"
         case .signUp:
             return "/api/auth/signup"
+        case .checkStudentNumberDup:
+            return "/api/auth/studentNumber-signup-dup"
+        case .checkNicknameDup:
+            return "/api/auth/nickname-signup-dup"
         }
     }
 
@@ -28,6 +34,8 @@ extension AuthAPI: BaseTargetType {
         switch self {
         case .login, .signUp:
             return .post
+        case .checkStudentNumberDup, .checkNicknameDup:
+            return .get
         }
     }
 
@@ -37,6 +45,10 @@ extension AuthAPI: BaseTargetType {
             return .requestJSONEncodable(body)
         case .signUp(let body):
             return .requestJSONEncodable(body)
+        case .checkStudentNumberDup(let studentNumber):
+            return .requestParameters(parameters: ["studentNumber": studentNumber], encoding: URLEncoding.queryString)
+        case .checkNicknameDup(let nickname):
+            return .requestParameters(parameters: ["nickname": nickname], encoding: URLEncoding.queryString)
         }
     }
 
@@ -44,6 +56,7 @@ extension AuthAPI: BaseTargetType {
         return ["Content-Type": "application/json"]
     }
 }
+
 
 final class AuthService {
 
@@ -115,6 +128,58 @@ extension AuthService {
                     completion(.networkFail)
                 }
 
+            case .failure:
+                completion(.networkFail)
+            }
+        }
+    }
+}
+
+
+extension AuthService {
+
+    func checkStudentNumberDup(_ studentNumber: String, completion: @escaping (NetworkResult<Void>) -> Void) {
+        provider.request(.checkStudentNumberDup(studentNumber: studentNumber)) { result in
+            switch result {
+            case .success(let response):
+                switch response.statusCode {
+                case 200..<300:
+                    completion(.success(())) // 성공이면 특별한 데이터 없음
+                case 400..<500:
+                    if let error = try? JSONDecoder().decode(ErrorResponseDTO.self, from: response.data) {
+                        completion(.requestErr(error.message))
+                    } else {
+                        completion(.requestErr("알 수 없는 클라이언트 오류"))
+                    }
+                case 500..<600:
+                    completion(.serverErr)
+                default:
+                    completion(.networkFail)
+                }
+            case .failure:
+                completion(.networkFail)
+            }
+        }
+    }
+
+    func checkNicknameDup(_ nickname: String, completion: @escaping (NetworkResult<Void>) -> Void) {
+        provider.request(.checkNicknameDup(nickname: nickname)) { result in
+            switch result {
+            case .success(let response):
+                switch response.statusCode {
+                case 200..<300:
+                    completion(.success(())) // 사용 가능
+                case 400..<500:
+                    if let error = try? JSONDecoder().decode(ErrorResponseDTO.self, from: response.data) {
+                        completion(.requestErr(error.message))
+                    } else {
+                        completion(.requestErr("알 수 없는 클라이언트 오류"))
+                    }
+                case 500..<600:
+                    completion(.serverErr)
+                default:
+                    completion(.networkFail)
+                }
             case .failure:
                 completion(.networkFail)
             }
