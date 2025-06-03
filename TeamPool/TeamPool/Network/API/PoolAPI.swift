@@ -11,6 +11,7 @@ import Moya
 enum PoolAPI {
     case createPool(PoolCreateRequestDTO)
     case getMyPools
+    case getPoolTimetables(poolId: Int)
 }
 
 extension PoolAPI: BaseTargetType {
@@ -21,6 +22,8 @@ extension PoolAPI: BaseTargetType {
             return "/api/pools"
         case .getMyPools:
             return "/api/pools/my"
+        case .getPoolTimetables(let poolId):
+            return "/api/pools/\(poolId)/timetables"
         }
     }
 
@@ -28,7 +31,7 @@ extension PoolAPI: BaseTargetType {
         switch self {
         case .createPool:
             return .post
-        case .getMyPools:
+        case .getMyPools, .getPoolTimetables:
             return .get
         }
     }
@@ -37,7 +40,7 @@ extension PoolAPI: BaseTargetType {
         switch self {
         case .createPool(let dto):
             return .requestJSONEncodable(dto)
-        case .getMyPools:
+        case .getMyPools, .getPoolTimetables:
             return .requestPlain
         }
     }
@@ -49,6 +52,7 @@ extension PoolAPI: BaseTargetType {
         ]
     }
 }
+
 
 final class PoolService {
     private let provider = MoyaProvider<PoolAPI>(plugins: [MoyaLoggerPlugin()])
@@ -91,5 +95,23 @@ final class PoolService {
                 completion(.networkFail)
             }
         }
+        
     }
+    func fetchPoolTimetables(poolId: Int, completion: @escaping (NetworkResult<[PoolTimetableResponseDTO]>) -> Void) {
+            provider.request(.getPoolTimetables(poolId: poolId)) { result in
+                switch result {
+                case .success(let response):
+                    do {
+                        let decoded = try JSONDecoder().decode(APIResponse<[PoolTimetableResponseDTO]>.self, from: response.data)
+                        completion(.success(decoded.data))
+                    } catch {
+                        print("❌ 디코딩 실패:", error)
+                        completion(.pathErr)
+                    }
+
+                case .failure:
+                    completion(.networkFail)
+                }
+            }
+        }
 }

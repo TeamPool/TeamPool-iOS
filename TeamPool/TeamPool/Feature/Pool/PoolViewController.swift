@@ -29,7 +29,7 @@ final class PoolViewController: BaseUIViewController {
 
     // MARK: - View Controllers
     private lazy var viewControllers: [UIViewController] = [
-        PoolTimeTableViewController(),
+        PoolTimeTableViewController(poolId: poolID),
         PoolCalendarViewController(),
         PoolProceedingViewController()
     ]
