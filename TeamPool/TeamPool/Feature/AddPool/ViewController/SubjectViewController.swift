@@ -6,10 +6,9 @@
 //
 
 import Foundation
+import UIKit
 
 final class SubjectViewController: BaseUIViewController {
-
-    // MARK: - Data
 
     // MARK: - UI Components
     private let subjectView = SubjectView()
@@ -19,6 +18,8 @@ final class SubjectViewController: BaseUIViewController {
         super.viewDidLoad()
         tabBarController?.tabBar.isHidden = true
         navigationController?.navigationBar.prefersLargeTitles = false
+        setupTextFieldObserver()
+        updateNextButtonState()
     }
 
     // MARK: - Custom Method
@@ -32,18 +33,31 @@ final class SubjectViewController: BaseUIViewController {
         }
     }
 
-    // MARK: - Action Method
-
     override func addTarget() {
         subjectView.nextButton.addTarget(self, action: #selector(didTappedNextButton), for: .touchUpInside)
+    }
 
+    private func setupTextFieldObserver() {
+        subjectView.subjectTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
     }
 
     @objc
+    private func textFieldDidChange() {
+        updateNextButtonState()
+    }
+
+    private func updateNextButtonState() {
+        let isFilled = !(subjectView.subjectTextField.text ?? "").isEmpty
+        subjectView.nextButton.isEnabled = isFilled
+    }
+
+    // MARK: - Action Method
+    @objc
     func didTappedNextButton() {
+        guard let subject = subjectView.subjectTextField.text else { return }
+        PoolCreateDataStore.shared.poolSubject = subject
+
         let createPoolVC = CreatPoolViewController()
         self.navigationController?.pushViewController(createPoolVC, animated: true)
     }
 }
-
-

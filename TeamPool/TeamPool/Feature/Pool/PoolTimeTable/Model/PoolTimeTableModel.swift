@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import Univ_TimeTable
 
 final class PoolTimeTableModel {
 
@@ -15,40 +16,76 @@ final class PoolTimeTableModel {
 
     var pooledLectures: [Lecture] = []
 
-    func mockData() {
-        pooledLectures = []
+    // 사용자별 색상 캐싱용
+    private var userColorMap: [Int: UIColor] = [:]
 
-        let lectures: [Lecture] = [
+    // MARK: - 실제 API 데이터로 업데이트
+    func update(with dtoList: [PoolTimetableResponseDTO]) {
+        self.pooledLectures = []
+        self.userColorMap = [:] // 매번 새로 고침 시 초기화
 
-            Lecture(classroomID: "101", name: "소프트웨어공학", classroom: "IT관 101호", professor: "김소프트", courseDay: .monday, startTime: "09:00", endTime: "10:15", backgroundColor: randomColor()),
-            Lecture(classroomID: "102", name: "운영체제", classroom: "IT관 102호", professor: "이운영", courseDay: .wednesday, startTime: "10:30", endTime: "11:45", backgroundColor: randomColor()),
-            Lecture(classroomID: "103", name: "자료구조", classroom: "IT관 103호", professor: "최자료", courseDay: .friday, startTime: "11:00", endTime: "12:15", backgroundColor: randomColor()),
+        for dto in dtoList {
+            let color = color(for: dto.userId)
 
-            Lecture(classroomID: "201", name: "네트워크", classroom: "IT관 201호", professor: "정네트", courseDay: .tuesday, startTime: "13:00", endTime: "14:15", backgroundColor: randomColor()),
-            Lecture(classroomID: "202", name: "데이터베이스", classroom: "IT관 202호", professor: "박데이", courseDay: .thursday, startTime: "14:30", endTime: "15:45", backgroundColor: randomColor()),
-            Lecture(classroomID: "203", name: "컴퓨터구조", classroom: "IT관 203호", professor: "구조쌤", courseDay: .friday, startTime: "09:00", endTime: "10:15", backgroundColor: randomColor()),
+            let lectures = dto.timetables.map {
+                Lecture(
+                    classroomID: UUID().uuidString,
+                    name: $0.subject,
+                    classroom: $0.place,
+                    professor: dto.nickname,
+                    courseDay: mapDayStringToEnum($0.dayOfWeek),
+                    startTime: formatTime($0.startTime),
+                    endTime: formatTime($0.endTime),
+                    backgroundColor: color
+                )
+            }
 
-            Lecture(classroomID: "301", name: "운영체제", classroom: "IT관 102호", professor: "이운영", courseDay: .monday, startTime: "13:00", endTime: "14:15", backgroundColor: randomColor()),
-            Lecture(classroomID: "302", name: "알고리즘", classroom: "IT관 302호", professor: "알쌤", courseDay: .tuesday, startTime: "15:00", endTime: "16:15", backgroundColor: randomColor()),
-            Lecture(classroomID: "303", name: "인공지능", classroom: "IT관 303호", professor: "AI박사", courseDay: .thursday, startTime: "10:30", endTime: "11:45", backgroundColor: randomColor()),
-
-            Lecture(classroomID: "401", name: "컴퓨터비전", classroom: "IT관 401호", professor: "비전쌤", courseDay: .monday, startTime: "15:00", endTime: "16:15", backgroundColor: randomColor()),
-            Lecture(classroomID: "402", name: "기계학습", classroom: "IT관 402호", professor: "머신쌤", courseDay: .tuesday, startTime: "11:00", endTime: "12:15", backgroundColor: randomColor()),
-            Lecture(classroomID: "403", name: "심층학습", classroom: "IT관 403호", professor: "딥쌤", courseDay: .wednesday, startTime: "14:00", endTime: "15:15", backgroundColor: randomColor()),
-
-            Lecture(classroomID: "501", name: "모바일프로그래밍", classroom: "IT관 501호", professor: "스위프트", courseDay: .friday, startTime: "13:00", endTime: "14:15", backgroundColor: randomColor()),
-            Lecture(classroomID: "502", name: "웹개발", classroom: "IT관 502호", professor: "리액트쌤", courseDay: .thursday, startTime: "16:00", endTime: "17:15", backgroundColor: randomColor()),
-            Lecture(classroomID: "503", name: "클라우드컴퓨팅", classroom: "IT관 503호", professor: "클라우드쌤", courseDay: .monday, startTime: "10:30", endTime: "11:45", backgroundColor: randomColor()),
-
-            Lecture(classroomID: "601", name: "소프트웨어테스팅", classroom: "IT관 601호", professor: "테스트쌤", courseDay: .wednesday, startTime: "09:00", endTime: "10:15", backgroundColor: randomColor()),
-            Lecture(classroomID: "602", name: "정보보안", classroom: "IT관 602호", professor: "보안쌤", courseDay: .tuesday, startTime: "14:00", endTime: "15:15", backgroundColor: randomColor()),
-            Lecture(classroomID: "603", name: "데이터사이언스", classroom: "IT관 603호", professor: "데사쌤", courseDay: .friday, startTime: "15:00", endTime: "16:15", backgroundColor: randomColor())
-        ]
-
-        pooledLectures.append(contentsOf: lectures)
+            pooledLectures.append(contentsOf: lectures)
+        }
     }
 
+    // MARK: - 사용자별 랜덤 색상 반환
+    private func color(for userId: Int) -> UIColor {
+        if let color = userColorMap[userId] {
+            return color
+        } else {
+            let newColor = randomColor()
+            userColorMap[userId] = newColor
+            return newColor
+        }
+    }
+
+    // MARK: - 요일 변환
+    private func mapDayStringToEnum(_ day: String) -> CourseDay {
+        switch day.uppercased() {
+        case "MONDAY": return .monday
+        case "TUESDAY": return .tuesday
+        case "WEDNESDAY": return .wednesday
+        case "THURSDAY": return .thursday
+        case "FRIDAY": return .friday
+        default: return .monday
+        }
+    }
+
+    // MARK: - 시간 포맷 "13:30:00" → "13:30"
+    private func formatTime(_ time: String) -> String {
+        let components = time.split(separator: ":")
+        guard components.count >= 2 else { return time }
+        return "\(components[0]):\(components[1])"
+    }
+
+    // MARK: - 색상 랜덤 선택
     private func randomColor() -> UIColor {
         return UIColor.timetableColors.randomElement() ?? .systemGray
+    }
+
+    // MARK: - 목업 (테스트용 유지)
+    func mockData() {
+        pooledLectures = []
+        let lectures: [Lecture] = [
+            Lecture(classroomID: "101", name: "소프트웨어공학", classroom: "IT관 101호", professor: "김소프트", courseDay: .monday, startTime: "09:00", endTime: "10:15", backgroundColor: randomColor()),
+            Lecture(classroomID: "102", name: "운영체제", classroom: "IT관 102호", professor: "이운영", courseDay: .wednesday, startTime: "10:30", endTime: "11:45", backgroundColor: randomColor())
+        ]
+        pooledLectures.append(contentsOf: lectures)
     }
 }

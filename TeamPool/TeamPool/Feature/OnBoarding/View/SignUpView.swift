@@ -103,6 +103,8 @@ final class SignUpView: BaseUIView {
         checkPwTextField.isSecureTextEntry = true
         pwTextField.isSecureTextEntry = true
 
+        idCheckButton.isEnabled = true
+        nicknameCheckButton.isEnabled = true
 
 
         //버튼

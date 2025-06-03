@@ -41,8 +41,18 @@ final class DeadlineViewController: BaseUIViewController {
 
     @objc
     func didTappedNextButton() {
+        let selectedDate = deadlineView.calendarPicker.date
+
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        let formattedDate = formatter.string(from: selectedDate)
+
+        PoolCreateDataStore.shared.deadline = formattedDate
+
         let subjectVC = SubjectViewController()
         self.navigationController?.pushViewController(subjectVC, animated: true)
     }
+
+
 }
 

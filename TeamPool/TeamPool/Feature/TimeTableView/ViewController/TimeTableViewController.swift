@@ -8,6 +8,7 @@
 import Foundation
 import Rusaint
 import Univ_TimeTable
+import UIKit
 
 final class TimeTableViewController: BaseUIViewController {
 
@@ -39,20 +40,56 @@ final class TimeTableViewController: BaseUIViewController {
     private func addDelegate(){
         timeTableView.timeTable.dataSource = self
     }
+
     // MARK: - Action Method
 
     override func addTarget() {
         timeTableView.callTimeTableButton.addTarget(self, action: #selector(didTappedCallTimeTableButton), for: .touchUpInside)
-
     }
 
     @objc
     func didTappedCallTimeTableButton() {
-        print("dddddd")
-        self.dismiss(animated: true)
+        let dtoList = LectureModel.shared.lectures.map { $0.toRequestDTO() }
+
+        TimeTableService().postTimeTables(dtoList) { [weak self] result in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                switch result {
+                case .success:
+                    print("✅ 시간표 서버 전송 성공")
+                    self.showAlertWithDismiss(title: "성공", message: "시간표가 성공적으로 저장되었습니다.")
+
+                case .requestErr(let msg):
+                    self.showAlert(title: "실패", message: msg)
+
+                case .networkFail:
+                    self.showAlert(title: "실패", message: "네트워크 오류가 발생했습니다.")
+
+                default:
+                    self.showAlert(title: "실패", message: "알 수 없는 오류가 발생했습니다.")
+                }
+            }
+        }
     }
 
+    // MARK: - Alert Helper
+
+    private func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "확인", style: .default))
+        self.present(alert, animated: true)
+    }
+
+    private func showAlertWithDismiss(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let confirm = UIAlertAction(title: "확인", style: .default) { _ in
+            self.dismiss(animated: true)
+        }
+        alert.addAction(confirm)
+        self.present(alert, animated: true)
+    }
 }
+
 // MARK: - UnivTimeTableDataSource
 
 extension TimeTableViewController: UnivTimeTableDataSource {

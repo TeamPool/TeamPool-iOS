@@ -33,3 +33,20 @@ struct PoolCalendarModel {
     }
 }
 
+extension PoolCalendarModel {
+    init(from dto: ScheduleResponseDTO) {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        formatter.locale = Locale(identifier: "ko_KR")
+
+        self.subjectName = dto.title
+        self.title = dto.title
+        self.startDate = formatter.date(from: dto.startDatetime) ?? Date()
+        self.endDate = formatter.date(from: dto.endDatetime) ?? Date()
+        self.place = dto.place
+
+        let colors: [UIColor] = [.CalendarColar1, .CalendarColar2, .CalendarColar3, .CalendarColar4]
+        self.color = colors.randomElement() ?? .gray
+    }
+}
+

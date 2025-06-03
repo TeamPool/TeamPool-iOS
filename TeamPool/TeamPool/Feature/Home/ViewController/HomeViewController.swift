@@ -24,24 +24,22 @@ final class HomeViewController: BaseUIViewController {
         super.viewWillAppear(animated)
         tabBarController?.tabBar.isHidden = false
         navigationController?.navigationBar.prefersLargeTitles = true
+        fetchMyPools()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        //더미 데이터
-        poolList = HomeModel.dummyData()
-
-        // 알람 테스트 => 지울 예정
         UserDefaultHandler.lecturesSaved = false
-        print(UserDefaultHandler.lecturesSaved)
 
         homeView.tableView.dataSource = self
         homeView.tableView.delegate = self
         homeView.tableView.register(HomeCell.self, forCellReuseIdentifier: HomeCell.identifier)
 
+        fetchMyPools()
         checkLectureSaved()
     }
+
 
     // MARK: - Custom Method
 
@@ -67,31 +65,55 @@ final class HomeViewController: BaseUIViewController {
             print("저장되어있")
         }
 
-
     }
 
     private func showLectureImportAlert() {
         BaseAlertViewController.showAlert(
-                on: self,
-                title: "시간표 불러오기",
-                message: "원활한 TeamPool 사용을 위해 \n 개인 시간표를 불러옵니다",
-                confirmTitle: "계속",
-                cancelTitle: "취소",
-                confirmHandler: { [weak self] in
-                    let loginVC = UsaintLogInViewController()
-                    loginVC.modalPresentationStyle = .pageSheet
-                    if let sheet = loginVC.sheetPresentationController {
-                        sheet.detents = [.medium(), .large()] // 하프, 풀 두단계
-                        sheet.prefersGrabberVisible = true    // 위에 그립바 표시 여부
-                        sheet.preferredCornerRadius = 20
-                    }
-                    self?.present(loginVC, animated: true)
-                },
-                cancelHandler: {
-                    print("취소됨")
-                }
-            )
+            on: self,
+            title: "시간표 불러오기",
+            message: "원활한 TeamPool 사용을 위해 \n 개인 시간표를 불러옵니다",
+            confirmTitle: "계속",
+            cancelTitle: "취소",
+            confirmHandler: { [weak self] in
+                guard let self = self else { return }
+                let loginVC = UsaintLogInViewController()
+                self.navigationController?.pushViewController(loginVC, animated: true)
+            },
+            cancelHandler: {
+                print("취소됨")
+            }
+        )
     }
+
+    private func fetchMyPools() {
+        PoolService().fetchMyPools { [weak self] result in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+
+                switch result {
+                case .success(let dtoList):
+                    self.poolList = dtoList.map { HomeModel.from(dto: $0) }
+                    self.homeView.tableView.reloadData()
+
+                case .requestErr(let msg):
+                    self.showAlert(title: "불러오기 실패", message: msg)
+
+                case .networkFail:
+                    self.showAlert(title: "네트워크 오류", message: "인터넷 연결을 확인해주세요.")
+
+                default:
+                    self.showAlert(title: "오류", message: "스터디 목록 불러오기에 실패했어요.")
+                }
+            }
+        }
+    }
+
+    private func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "확인", style: .default))
+        present(alert, animated: true)
+    }
+
 
 
     // MARK: - Action Method

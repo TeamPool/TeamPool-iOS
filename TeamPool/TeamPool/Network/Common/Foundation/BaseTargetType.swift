@@ -15,8 +15,9 @@ extension BaseTargetType{
 
     var baseURL: URL {
         /// 실제 url로 바꿔주세요.
-//        return URL(string: "https://62268471-962b-47f7-bf38-92dd2a82213e.mock.pstmn.io/")!
-        return URL(string:"http://43.201.115.250:8080")!
+//        return URL(string:"http://43.201.18.0:8080")!
+       return URL(string: "http://172.30.1.56:8080")!
+        //return URL(string: "http://localhost:8080")!
     }
 
     var headers: [String : String]? {

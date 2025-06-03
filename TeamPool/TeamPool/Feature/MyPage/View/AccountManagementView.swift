@@ -21,8 +21,7 @@ class AccountManagementView: BaseUIView {
     
     lazy var nicknameTextField: UITextField = {
         let textField = UITextField()
-        let name = MyInfoModel.dummyData()
-        textField.placeholder = name.myName
+        textField.placeholder = "닉네임을 입력해주세요"
         textField.font = UIFont.systemFont(ofSize: 20)
         textField.textColor = .black
         textField.borderStyle = .roundedRect

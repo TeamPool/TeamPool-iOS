@@ -34,7 +34,7 @@ class TimeTableView: BaseUIView {
 
     lazy var callTimeTableButton: BaseFillButton = {
         let button = BaseFillButton()
-        button.setTitle("확인", for: .normal)
+        button.setTitle("등록하기!", for: .normal)
         button.isEnabled = true
         return button
     }()
