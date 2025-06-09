@@ -21,7 +21,14 @@ final class UsaintLogInViewController: BaseUIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(navigateToRootAfterRegistration),
+            name: .timeTableDidRegister,
+            object: nil
+        )
     }
+
 
     // MARK: - Custom Method
 
@@ -53,6 +60,15 @@ final class UsaintLogInViewController: BaseUIViewController {
         fetchStudentInfo(id: studentID, pw: password)
     }
 
+    @objc private func navigateToRootAfterRegistration() {
+        if let window = UIApplication.shared.windows.first {
+            let rootVC = BaseTabBarController() 
+            window.rootViewController = BaseTabBarController() 
+            window.makeKeyAndVisible()
+        }
+    }
+
+
 
 }
 
@@ -60,7 +76,6 @@ final class UsaintLogInViewController: BaseUIViewController {
 extension UsaintLogInViewController {
     // MARK: 학생정보 로드
     func fetchStudentInfo(id: String, pw: String) {
-       // showLoading()
         Task {
             do {
                 let session = try await USaintSessionBuilder().withPassword(id: id, password: pw)
@@ -74,14 +89,26 @@ extension UsaintLogInViewController {
 
                 print("✅ 학생정보 저장완료: \(StudentModel.shared.studentID)")
 
-                // 시간표 불러오기
                 fetchStudentCourse(session: session)
 
             } catch {
                 print("❌ 로그인 실패: \(error.localizedDescription)")
+
+                DispatchQueue.main.async { [weak self] in
+                    guard let self = self else { return }
+
+                    let alert = UIAlertController(
+                        title: "로그인 실패",
+                        message: "학번 또는 비밀번호가 잘못되었습니다.\n다시 시도해주세요.",
+                        preferredStyle: .alert
+                    )
+                    alert.addAction(UIAlertAction(title: "확인", style: .default))
+                    self.present(alert, animated: true)
+                }
             }
         }
     }
+
 
     // MARK: 시간표 로드
     func fetchStudentCourse(session: USaintSession) {

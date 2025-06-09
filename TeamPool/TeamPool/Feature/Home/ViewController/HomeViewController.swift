@@ -25,6 +25,7 @@ final class HomeViewController: BaseUIViewController {
         super.viewWillAppear(animated)
         tabBarController?.tabBar.isHidden = false
         navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.isHidden = false
         fetchMyPools()
     }
 
@@ -156,7 +157,7 @@ extension HomeViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         let pool = poolList[indexPath.row]
-        cell.configure(with: pool) 
+        cell.configure(with: pool)
         return cell
     }
 

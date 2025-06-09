@@ -49,7 +49,7 @@ enum ImageLiterals {
     //MARK: - Pool
     static var poolRecord_start: UIImage { .load(name: "Record_start")}
     static var poolRecord_end: UIImage { .load(name: "Record_end")}
-
+    static var soongsil: UIImage { .load(name: "soongsil")}
 }
 
 extension UIImage {

@@ -84,6 +84,7 @@ final class TimeTableViewController: BaseUIViewController {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let confirm = UIAlertAction(title: "확인", style: .default) { _ in
             self.dismiss(animated: true)
+            NotificationCenter.default.post(name: .timeTableDidRegister, object: nil)
         }
         alert.addAction(confirm)
         self.present(alert, animated: true)
@@ -105,4 +106,8 @@ extension TimeTableViewController: UnivTimeTableDataSource {
     func courseItems(in univTimeTable: UnivTimeTable) -> [Univ_TimeTable.Lecture] {
         return LectureModel.shared.lectures.map { $0.toUnivLecture() }
     }
+}
+
+extension Notification.Name {
+    static let timeTableDidRegister = Notification.Name("timeTableDidRegister")
 }
