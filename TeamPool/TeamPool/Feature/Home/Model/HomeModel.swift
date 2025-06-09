@@ -21,9 +21,9 @@ extension HomeModel {
         return HomeModel(
             poolId: dto.poolId,
             name: dto.name,
-            subName: dto.poolSubject, // 팀플 주제
+            subName: dto.poolSubject,
             date: dto.deadline,
-            participant: "\(dto.members.count)명", // 참가자 수
+            participant: formatParticipant(from: dto.members),
             dDay: calculateDDay(from: dto.deadline)
         )
     }
@@ -37,4 +37,21 @@ extension HomeModel {
         let days = Calendar.current.dateComponents([.day], from: Date(), to: targetDate).day ?? 0
         return "D-\(days)"
     }
+
+    private static func formatParticipant(from members: [String]) -> String {
+        guard let first = members.first else { return "0명" }
+
+        let others = members.count - 1
+
+        switch others {
+        case 0: return "\(first) 단독"
+        case 1: return "\(first) 외 1명"
+        default: return "\(first) 외 \(others)명"
+        }
+    }
+}
+
+struct MemberDTO: Decodable {
+    let name: String
+    let studentNumber: String
 }

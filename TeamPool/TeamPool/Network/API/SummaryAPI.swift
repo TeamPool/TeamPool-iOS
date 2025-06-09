@@ -29,9 +29,16 @@ extension SummaryAPI: BaseTargetType {
         switch self {
         case .summarize(let content):
             let messages: [OpenAIChatMessage] = [
-                .init(role: "system", content: "다음 텍스트가 회의록이라면 핵심 내용을 3~5줄로 한국어로 요약해줘. 의미 없는 말이면 '요약할 내용이 없습니다'라고 답해줘."),
+                .init(role: "system", content: """
+                다음 텍스트는 말로 진행된 회의의 STT(음성 인식) 결과입니다. 문장 구분이 없고 어색할 수 있지만, 핵심 내용을 3~5줄로 한국어로 요약해줘.
+
+                - 가능한 한 명확한 항목으로 정리해줘.
+                - 업무 분담 내용이 있다면 사람 이름과 함께 요약해줘.
+                - 내용이 너무 불분명하거나 회의록이 아니면 '요약할 내용이 없습니다'라고 해줘.
+                """),
                 .init(role: "user", content: content)
             ]
+
             let request = ChatGPTRequestDTO(
                 model: "gpt-3.5-turbo",
                 messages: messages,

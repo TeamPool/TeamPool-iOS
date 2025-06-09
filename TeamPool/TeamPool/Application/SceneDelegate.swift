@@ -10,41 +10,44 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
+    let authService = AuthService()
 
-       let authService = AuthService()
+    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        guard let windowScene = (scene as? UIWindowScene) else { return }
 
-       func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        let window = UIWindow(windowScene: windowScene)
+        self.window = window
+        window.rootViewController = SplashViewController()
+        window.makeKeyAndVisible()
+    }
 
-           guard let windowScene = (scene as? UIWindowScene) else { return }
+    func handleAuthFlow() {
+        if !UserDefaultHandler.refreshToken.isEmpty {
+            authService.refreshToken { [weak self] result in
+                DispatchQueue.main.async {
+                    guard let self = self else { return }
 
-           let window = UIWindow(windowScene: windowScene)
-           self.window = window
-           window.makeKeyAndVisible()
+                    switch result {
+                    case .success(let newAccessToken):
+                        UserDefaultHandler.accessToken = newAccessToken
+                        print("✅ 자동 로그인 성공. 새 토큰: \(newAccessToken)")
+                        self.window?.rootViewController = BaseTabBarController()
 
-           if !UserDefaultHandler.refreshToken.isEmpty {
-               authService.refreshToken { [weak self] result in
-                   DispatchQueue.main.async {
-                       switch result {
-                       case .success(let newAccessToken):
-                           UserDefaultHandler.accessToken = newAccessToken
-                           print("✅ 자동 로그인 성공. 새 토큰: \(newAccessToken)")
-                           let mainVC = BaseTabBarController()
-                           self?.window?.rootViewController = mainVC
+                    case .requestErr(let message):
+                        print("❌ 자동 로그인 실패: \(message)")
+                        self.window?.rootViewController = UINavigationController(rootViewController: SignInViewController())
 
-                       case .requestErr(let message):
-                           print("❌ 자동 로그인 실패: \(message)")
-                           self?.window?.rootViewController = UINavigationController(rootViewController: SignInViewController())
+                    default:
+                        print("❌ 자동 로그인 실패: 네트워크/서버 오류")
+                        self.window?.rootViewController = UINavigationController(rootViewController: SignInViewController())
+                    }
+                }
+            }
+        } else {
+            window?.rootViewController = UINavigationController(rootViewController: SignInViewController())
+        }
+    }
 
-                       default:
-                           print("❌ 자동 로그인 실패: 네트워크/서버 오류")
-                           self?.window?.rootViewController = UINavigationController(rootViewController: SignInViewController())
-                       }
-                   }
-               }
-           } else {
-               window.rootViewController = UINavigationController(rootViewController: SignInViewController())
-           }
-       }
 
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.

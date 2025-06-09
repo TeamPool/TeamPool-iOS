@@ -101,6 +101,7 @@
 		E55D9C322DE10815000FD099 /* AuthDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55D9C212DE10815000FD099 /* AuthDTO.swift */; };
 		E55D9C352DE1084E000FD099 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = E55D9C342DE1084E000FD099 /* Moya */; };
 		E5D200002DF73C9E00586C28 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D2FFFF2DF73C9E00586C28 /* AppConfig.swift */; };
+		E5D200022DF7666300586C28 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D200012DF7666300586C28 /* SplashViewController.swift */; };
 		E5D2FFFA2DF73B4E00586C28 /* SummaryAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D2FFF92DF73B4E00586C28 /* SummaryAPI.swift */; };
 		E5D2FFFC2DF73B5800586C28 /* SummaryDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D2FFFB2DF73B5800586C28 /* SummaryDTO.swift */; };
 		E5D2FFFE2DF73BE100586C28 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E5D2FFFD2DF73BE100586C28 /* Config.xcconfig */; };
@@ -221,6 +222,7 @@
 		E55D9C1D2DE10815000FD099 /* GenericResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericResponse.swift; sourceTree = "<group>"; };
 		E55D9C1F2DE10815000FD099 /* MoyaLoggerPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaLoggerPlugin.swift; sourceTree = "<group>"; };
 		E55D9C212DE10815000FD099 /* AuthDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDTO.swift; sourceTree = "<group>"; };
+		E5D200012DF7666300586C28 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		E5D2FFF92DF73B4E00586C28 /* SummaryAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryAPI.swift; sourceTree = "<group>"; };
 		E5D2FFFB2DF73B5800586C28 /* SummaryDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryDTO.swift; sourceTree = "<group>"; };
 		E5D2FFFD2DF73BE100586C28 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
@@ -637,6 +639,7 @@
 			isa = PBXGroup;
 			children = (
 				E5270AF52DCB147F000D12F2 /* Assets.xcassets */,
+				E5D200012DF7666300586C28 /* SplashViewController.swift */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -1008,6 +1011,7 @@
 				E5270B0F2DCB147F000D12F2 /* HomeView.swift in Sources */,
 				E5270B102DCB147F000D12F2 /* HomeViewController.swift in Sources */,
 				E5270B112DCB147F000D12F2 /* MyInfoModel.swift in Sources */,
+				E5D200022DF7666300586C28 /* SplashViewController.swift in Sources */,
 				E5270B122DCB147F000D12F2 /* MyPageModel.swift in Sources */,
 				E5270B132DCB147F000D12F2 /* FriendManagementCell.swift in Sources */,
 				E5270B142DCB147F000D12F2 /* LogoutCell.swift in Sources */,
