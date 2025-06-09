@@ -52,10 +52,10 @@ final class ScheduleManagementView: BaseUIView {
     }
 
     override func setLayout() {
-        timeTable.snp.makeConstraints {
-            $0.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(24)
-            $0.leading.trailing.equalToSuperview().inset(16)
-            $0.bottom.equalToSuperview().inset(20)
+        timeTable.snp.makeConstraints { make in
+            make.horizontalEdges.equalToSuperview().inset(10)
+            make.top.equalToSuperview().offset(40)
+            make.bottom.equalToSuperview()
         }
     }
 }

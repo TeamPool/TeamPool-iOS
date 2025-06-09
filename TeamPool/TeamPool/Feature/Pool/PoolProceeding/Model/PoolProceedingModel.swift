@@ -35,8 +35,11 @@ extension PoolProceedingModel {
     init(from dto: PoolNoteResponseDTO) {
         self.title = dto.title
         self.description = dto.summary
-        let components = DateComponents(hour: dto.time.hour, minute: dto.time.minute, second: dto.time.second, nanosecond: dto.time.nano)
-        self.date = Calendar.current.date(from: components) ?? Date()
+
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm:ss"
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+
+        self.date = formatter.date(from: dto.time) ?? Date()
     }
 }
-

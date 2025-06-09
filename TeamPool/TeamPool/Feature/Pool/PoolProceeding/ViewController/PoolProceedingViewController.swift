@@ -48,7 +48,7 @@ final class PoolProceedingViewController: BaseUIViewController {
     }
     
     @objc private func didTapAddMeetingButton() {
-        let addVC = PoolProceedingRecordViewController() 
+        let addVC = PoolProceedingRecordViewController(poolId: poolId) 
         navigationController?.pushViewController(addVC, animated: true)
     }
 

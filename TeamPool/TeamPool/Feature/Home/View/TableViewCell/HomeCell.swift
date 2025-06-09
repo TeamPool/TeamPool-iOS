@@ -149,15 +149,10 @@ class HomeCell: BaseTableViewCell {
             $0.leading.equalTo(checkImage.snp.trailing).offset(8)
             $0.centerY.equalTo(checkImage)
         }
-
-        locationLabel.snp.makeConstraints {
-            $0.leading.equalTo(dateLabel)
-            $0.top.equalTo(dateLabel.snp.bottom).offset(4)
-        }
-
+        
         participantLabel.snp.makeConstraints {
             $0.leading.equalTo(dateLabel)
-            $0.top.equalTo(locationLabel.snp.bottom).offset(4)
+            $0.top.equalTo(dateLabel.snp.bottom).offset(4)
             $0.bottom.equalToSuperview().inset(16)
         }
     }
@@ -168,7 +163,6 @@ class HomeCell: BaseTableViewCell {
         nameLabel.text = model.name
         subNameLabel.text = model.subName
         dateLabel.text = model.date
-        locationLabel.text = model.location
         participantLabel.text = model.participant
         dDayLabel.text = model.dDay
     }

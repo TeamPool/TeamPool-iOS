@@ -13,6 +13,7 @@ enum PoolAPI {
     case getMyPools
     case getPoolTimetables(poolId: Int)
     case getPoolNotes(poolId: Int)
+    case postPoolNote(poolId: Int, body: PoolNoteRequestDTO)
 }
 
 extension PoolAPI: BaseTargetType {
@@ -27,12 +28,14 @@ extension PoolAPI: BaseTargetType {
             return "/api/pools/\(poolId)/timetables"
         case .getPoolNotes(let poolId):
             return "/api/pools/\(poolId)/notes"
+        case .postPoolNote(poolId: let poolId, body: let body):
+            return "/api/pools/\(poolId)/notes"
         }
     }
 
     var method: Moya.Method {
         switch self {
-        case .createPool:
+        case .createPool, .postPoolNote:
             return .post
         case .getMyPools, .getPoolTimetables, .getPoolNotes:
             return .get
@@ -43,10 +46,13 @@ extension PoolAPI: BaseTargetType {
         switch self {
         case .createPool(let dto):
             return .requestJSONEncodable(dto)
+        case .postPoolNote(_, let body):
+            return .requestJSONEncodable(body)
         case .getMyPools, .getPoolTimetables, .getPoolNotes:
             return .requestPlain
         }
     }
+
 
     var headers: [String : String]? {
         return [
@@ -135,5 +141,22 @@ final class PoolService {
             }
         }
     }
+
+    func postPoolNote(poolId: Int, body: PoolNoteRequestDTO, completion: @escaping (NetworkResult<Void>) -> Void) {
+        provider.request(.postPoolNote(poolId: poolId, body: body)) { result in
+            switch result {
+            case .success(let response):
+                if response.statusCode == 200 || response.statusCode == 201 {
+                    completion(.success(()))
+                } else {
+                    print("❌ 회의록 저장 실패: \(response.statusCode)")
+                    completion(.requestErr("회의록 저장 실패"))
+                }
+            case .failure:
+                completion(.networkFail)
+            }
+        }
+    }
+
 
 }

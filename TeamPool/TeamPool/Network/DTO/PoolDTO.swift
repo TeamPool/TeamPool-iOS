@@ -23,7 +23,9 @@ struct MyPoolListResponseDTO: Codable {
     let poolId: Int
     let name: String
     let subject: String
+    let poolSubject: String
     let deadline: String
+    let members: [String]
 }
 
 
@@ -45,12 +47,21 @@ struct TimetableDTO: Codable {
 struct PoolNoteResponseDTO: Codable {
     let title: String
     let summary: String
-    let time: NoteTime
+    let time: String
+}
 
-    struct NoteTime: Codable {
-        let hour: Int
-        let minute: Int
-        let second: Int
-        let nano: Int
-    }
+
+struct PoolNoteRequestDTO: Codable {
+    let title: String
+    let summary: String
+    let time: String
+}
+
+
+// AvailableTimeResponseDTO.swift
+
+import Foundation
+
+struct AvailableTimeResponseDTO: Codable {
+    let availableTimes: [String: [String]]
 }

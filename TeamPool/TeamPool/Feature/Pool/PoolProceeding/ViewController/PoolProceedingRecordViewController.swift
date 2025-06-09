@@ -9,6 +9,17 @@ import UIKit
 
 final class PoolProceedingRecordViewController: BaseUIViewController {
 
+    private let poolId: Int
+
+    init(poolId: Int) {
+            self.poolId = poolId
+            super.init(nibName: nil, bundle: nil)
+        }
+
+    @MainActor required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - UI & Manager
 
     private let recordView = PoolProceedingRecordView()
@@ -135,7 +146,37 @@ final class PoolProceedingRecordViewController: BaseUIViewController {
                 switch result {
                 case .success(let summary):
                     print("요약: \(summary)")
-                    self.navigationController?.popViewController(animated: true)
+
+                    let now = Date()
+                    let components = Calendar.current.dateComponents([.hour, .minute, .second, .nanosecond], from: now)
+
+                    let timeString = String(
+                        format: "%02d:%02d:%02d.%09d",
+                        components.hour ?? 0,
+                        components.minute ?? 0,
+                        components.second ?? 0,
+                        components.nanosecond ?? 0
+                    )
+
+                    let noteDTO = PoolNoteRequestDTO(title: title, summary: summary, time: timeString)
+
+                    PoolService().postPoolNote(poolId: self.poolId, body: noteDTO) { result in
+                        switch result {
+                        case .success:
+                            print("✅ 회의록 등록 성공")
+                            self.navigationController?.popViewController(animated: true)
+
+                        case .requestErr(let msg):
+                            self.showAlert(message: msg)
+
+                        case .pathErr:
+                            self.showAlert(message: "요청 경로 오류")
+                        case .networkFail:
+                            self.showAlert(message: "네트워크 오류 발생")
+                        case .serverErr:
+                            self.showAlert(message: "네트워크 오류 발생")
+                        }
+                    }
 
                 case .failure(let error):
                     self.showAlert(message: "요약 실패: \(error.localizedDescription)")
@@ -143,6 +184,7 @@ final class PoolProceedingRecordViewController: BaseUIViewController {
             }
         }
     }
+
 
 
 
