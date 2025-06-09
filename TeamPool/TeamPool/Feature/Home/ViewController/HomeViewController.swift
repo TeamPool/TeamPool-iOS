@@ -13,6 +13,7 @@ final class HomeViewController: BaseUIViewController {
     // MARK: - Properties
 
     private var poolList: [HomeModel] = []
+    private var hasFetchedLecture = false
 
     // MARK: - UI Components
 
@@ -24,13 +25,12 @@ final class HomeViewController: BaseUIViewController {
         super.viewWillAppear(animated)
         tabBarController?.tabBar.isHidden = false
         navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.isHidden = false
         fetchMyPools()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        UserDefaultHandler.lecturesSaved = false
 
         homeView.tableView.dataSource = self
         homeView.tableView.delegate = self
@@ -39,7 +39,6 @@ final class HomeViewController: BaseUIViewController {
         fetchMyPools()
         checkLectureSaved()
     }
-
 
     // MARK: - Custom Method
 
@@ -59,12 +58,29 @@ final class HomeViewController: BaseUIViewController {
     }
 
     private func checkLectureSaved() {
-        if !UserDefaultHandler.lecturesSaved {
-            showLectureImportAlert()
-        }else{
-            print("저장되어있")
-        }
+        TimeTableService().getMyTimeTables { [weak self] result in
+            guard let self = self else { return }
 
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let timetableList):
+                    if timetableList.isEmpty {
+                        self.showLectureImportAlert()
+                    } else {
+                        print("✅ 시간표 저장되어 있음. 알림 안띄움.")
+                    }
+
+                case .requestErr(let msg):
+                    print("❌ 시간표 요청 오류: \(msg)")
+
+                case .networkFail:
+                    self.showAlert(title: "네트워크 오류", message: "시간표 확인에 실패했습니다.")
+
+                default:
+                    print("❌ 기타 오류 발생")
+                }
+            }
+        }
     }
 
     private func showLectureImportAlert() {
@@ -80,7 +96,7 @@ final class HomeViewController: BaseUIViewController {
                 self.navigationController?.pushViewController(loginVC, animated: true)
             },
             cancelHandler: {
-                print("취소됨")
+                print("⛔️ 시간표 불러오기 취소됨")
             }
         )
     }
@@ -94,6 +110,7 @@ final class HomeViewController: BaseUIViewController {
                 case .success(let dtoList):
                     self.poolList = dtoList.map { HomeModel.from(dto: $0) }
                     self.homeView.tableView.reloadData()
+                    self.updateEmptyStateIfNeeded()
 
                 case .requestErr(let msg):
                     self.showAlert(title: "불러오기 실패", message: msg)
@@ -114,22 +131,53 @@ final class HomeViewController: BaseUIViewController {
         present(alert, animated: true)
     }
 
+    private func updateEmptyStateIfNeeded() {
+        if poolList.isEmpty {
+            let emptyLabel = UILabel()
+            emptyLabel.text = "아직 생성된 Pool이 없어요.\n오른쪽 아래 + 버튼을 눌러 시작해보세요!"
+            emptyLabel.font = .systemFont(ofSize: 16, weight: .medium)
+            emptyLabel.textColor = .gray
+            emptyLabel.numberOfLines = 0
+            emptyLabel.textAlignment = .center
+            emptyLabel.sizeToFit()
+
+            // 두근두근 애니메이션 (3초 동안 반복)
+            let pulse = CABasicAnimation(keyPath: "transform.scale")
+            pulse.fromValue = 1.0
+            pulse.toValue = 1.05
+            pulse.duration = 0.8
+            pulse.autoreverses = true
+            pulse.repeatCount = .greatestFiniteMagnitude // 무한 반복으로 설정
+            emptyLabel.layer.add(pulse, forKey: "pulse")
+
+            homeView.tableView.backgroundView = emptyLabel
+
+            // 3초 후 애니메이션 제거
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.0) {
+                emptyLabel.layer.removeAnimation(forKey: "pulse")
+            }
+
+        } else {
+            homeView.tableView.backgroundView?.layer.removeAnimation(forKey: "pulse")
+            homeView.tableView.backgroundView = nil
+            homeView.floatingButton.layer.removeAnimation(forKey: "shake")
+        }
+    }
 
 
     // MARK: - Action Method
 
     override func addTarget() {
         homeView.floatingButton.addTarget(self, action: #selector(didTappedFloatingButton), for: .touchUpInside)
-
     }
 
     @objc
     func didTappedFloatingButton() {
-        print("플로팅 버튼 클릭")
         let addPoolVC = AddPoolNameViewController()
         self.navigationController?.pushViewController(addPoolVC, animated: true)
     }
 }
+
 
 // MARK: - TableViewDatasource & Delegate
 
@@ -144,7 +192,7 @@ extension HomeViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         let pool = poolList[indexPath.row]
-        cell.configure(with: pool) 
+        cell.configure(with: pool)
         return cell
     }
 

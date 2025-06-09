@@ -12,59 +12,8 @@ struct HomeModel {
     let name: String
     let subName: String
     let date: String
-    let location: String
     let participant: String
     let dDay: String
-
-    static func dummyData() -> [HomeModel] {
-        return [
-            HomeModel(
-                poolId: 1,
-                name: "전설의 시작",
-                subName: "소프트웨어 프로젝트",
-                date: "2025년 03월 18일 18:00 - 19:15",
-                location: "정보과학관 21304",
-                participant: "성현주 외 4명",
-                dDay: "D-72"
-            ),
-            HomeModel(
-                poolId: 2,
-                name: "알고리즘 스터디",
-                subName: "소프트웨어 프로젝트",
-                date: "2025년 03월 20일 13:00 - 15:00",
-                location: "정보과학관 21203",
-                participant: "김영희 외 3명",
-                dDay: "D-75"
-            ),
-            HomeModel(
-                poolId: 3,
-                name: "소프트웨어 프로젝트",
-                subName: "소프트웨어 프로젝트",
-                date: "2025년 03월 25일 17:00 - 18:30",
-                location: "정보과학관 21305",
-                participant: "박철수 외 5명",
-                dDay: "D-80"
-            ),
-            HomeModel(
-                poolId: 4,
-                name: "소프트웨어 프로젝트",
-                subName: "소프트웨어 프로젝트",
-                date: "2025년 03월 25일 17:00 - 18:30",
-                location: "정보과학관 21305",
-                participant: "박철수 외 5명",
-                dDay: "D-80"
-            ),
-            HomeModel(
-                poolId: 5,
-                name: "소프트웨어 프로젝트",
-                subName: "소프트웨어 프로젝트",
-                date: "2025년 03월 25일 17:00 - 18:30",
-                location: "정보과학관 21305",
-                participant: "박철수 외 5명",
-                dDay: "D-80"
-            )
-        ]
-    }
 }
 
 extension HomeModel {
@@ -72,10 +21,9 @@ extension HomeModel {
         return HomeModel(
             poolId: dto.poolId,
             name: dto.name,
-            subName: dto.subject,
+            subName: dto.poolSubject,
             date: dto.deadline,
-            location: "미정",
-            participant: "미정", 
+            participant: formatParticipant(from: dto.members),
             dDay: calculateDDay(from: dto.deadline)
         )
     }
@@ -89,4 +37,21 @@ extension HomeModel {
         let days = Calendar.current.dateComponents([.day], from: Date(), to: targetDate).day ?? 0
         return "D-\(days)"
     }
+
+    private static func formatParticipant(from members: [String]) -> String {
+        guard let first = members.first else { return "0명" }
+
+        let others = members.count - 1
+
+        switch others {
+        case 0: return "\(first) 단독"
+        case 1: return "\(first) 외 1명"
+        default: return "\(first) 외 \(others)명"
+        }
+    }
+}
+
+struct MemberDTO: Decodable {
+    let name: String
+    let studentNumber: String
 }

@@ -22,3 +22,17 @@ struct ScheduleResponseDTO: Codable {
     let endDatetime: String
     let place: String
 }
+
+struct MyScheduleResponseDTO: Codable {
+    let poolId: Int
+    let poolName: String
+    let schedules: [ScheduleDTO]
+
+    struct ScheduleDTO: Codable {
+        let scheduleId: Int
+        let title: String
+        let startDatetime: String
+        let endDatetime: String
+        let place: String
+    }
+}

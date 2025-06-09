@@ -5,6 +5,7 @@ final class CalendarDetailViewController: BaseUIViewController {
     // MARK: - Properties
 
     private let date: Date
+    private let allEvents: [CalendarModel]
 
     // MARK: - UI Components
 
@@ -12,8 +13,9 @@ final class CalendarDetailViewController: BaseUIViewController {
 
     // MARK: - Initializer
 
-    init(date: Date) {
+    init(date: Date, events: [CalendarModel]) {
         self.date = date
+        self.allEvents = events
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -26,6 +28,7 @@ final class CalendarDetailViewController: BaseUIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadEvents(for: date)
+        calendarDetailView.dontShowAgainSwitch.addTarget(self, action: #selector(didToggleDontShowAgain), for: .valueChanged)
     }
 
     // MARK: - Custom Method
@@ -42,7 +45,6 @@ final class CalendarDetailViewController: BaseUIViewController {
     }
 
     private func loadEvents(for date: Date) {
-        let allEvents = CalendarModel.dummyData()
         let filteredEvents = allEvents.filter {
             guard let range = Calendar.current.dateInterval(of: .day, for: date) else { return false }
             return $0.startDate <= range.end && $0.endDate >= range.start
@@ -50,5 +52,20 @@ final class CalendarDetailViewController: BaseUIViewController {
 
         calendarDetailView.update(date: date, events: filteredEvents)
     }
-}
 
+    @objc private func didToggleDontShowAgain(_ sender: UISwitch) {
+//        if sender.isOn {
+//            let todayKey = Self.makeTodayKey()
+//            UserDefaults.standard.set(true, forKey: todayKey)
+//        }
+        if sender.isOn {
+            self.dismiss(animated: true)
+        }
+    }
+
+    private static func makeTodayKey() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return "dontShowCalendarPopup-\(formatter.string(from: Date()))"
+    }
+}

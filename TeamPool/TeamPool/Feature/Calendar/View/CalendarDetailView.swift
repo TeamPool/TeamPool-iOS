@@ -32,6 +32,29 @@ final class CalendarDetailView: BaseUIView {
         return stack
     }()
 
+    private let dontShowAgainLabel: UILabel = {
+        let label = UILabel()
+        label.text = "오늘은 그만 보기"
+        label.font = .systemFont(ofSize: 14)
+        label.textColor = .darkGray
+        return label
+    }()
+
+    let dontShowAgainSwitch: UISwitch = {
+        let toggle = UISwitch()
+        toggle.onTintColor = .systemBlue
+        return toggle
+    }()
+
+    private lazy var toggleStackView: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [dontShowAgainLabel, dontShowAgainSwitch])
+        stack.axis = .horizontal
+        stack.spacing = 12
+        stack.alignment = .center
+        return stack
+    }()
+
+
     // MARK: - Life Cycle
 
     override init(frame: CGRect) {
@@ -45,6 +68,7 @@ final class CalendarDetailView: BaseUIView {
     // MARK: - Custom Method
 
     override func setUI() {
+        self.addSubview(toggleStackView)
         self.addSubview(dayLabel)
         self.addSubview(weekLabel)
         self.addSubview(scrollView)
@@ -71,23 +95,43 @@ final class CalendarDetailView: BaseUIView {
             $0.edges.equalToSuperview()
             $0.width.equalToSuperview()
         }
+
+        toggleStackView.snp.makeConstraints {
+            $0.top.equalTo(dayLabel.snp.top)
+            $0.trailing.equalToSuperview().inset(20)
+        }
     }
 
     func update(date: Date, events: [CalendarModel]) {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ko_KR")
+
         formatter.dateFormat = "d"
         dayLabel.text = formatter.string(from: date)
+
         formatter.dateFormat = "EEEE"
         weekLabel.text = formatter.string(from: date)
 
+        // 기존 카드 제거
         contentStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 
-        for event in events {
-            let card = makeEventCard(for: event)
-            contentStackView.addArrangedSubview(card)
+        if events.isEmpty {
+            let emptyLabel = UILabel()
+            emptyLabel.text = "중요한 일정이 없어요!\n푹 쉬어봐요 ☕️"
+            emptyLabel.textColor = .gray
+            emptyLabel.font = .systemFont(ofSize: 16, weight: .medium)
+            emptyLabel.textAlignment = .center
+            emptyLabel.numberOfLines = 0
+            emptyLabel.setContentHuggingPriority(.required, for: .vertical)
+            contentStackView.addArrangedSubview(emptyLabel)
+        } else {
+            for event in events {
+                let card = makeEventCard(for: event)
+                contentStackView.addArrangedSubview(card)
+            }
         }
     }
+
 
     private func makeEventCard(for event: CalendarModel) -> UIView {
         let card = UIView()

@@ -21,6 +21,20 @@ final class PoolProceedingDetailView: BaseUIView {
         return label
     }()
 
+    private let aiBadgeLabel: UILabel = {
+        let label = UILabel()
+        label.text = "AI 요약"
+        label.font = .systemFont(ofSize: 12, weight: .semibold)
+        label.textColor = .white
+        label.backgroundColor = .systemBlue
+        label.textAlignment = .center
+        label.layer.cornerRadius = 6
+        label.layer.masksToBounds = true
+        label.setContentHuggingPriority(.required, for: .vertical)
+        label.setContentCompressionResistancePriority(.required, for: .vertical)
+        return label
+    }()
+
     private let descriptionLabel: UILabel = {
         let label = UILabel()
         label.text = "회의에 대한 내용이 여기에 들어갑니다.\n긴 텍스트가 들어가도 줄바꿈이 됩니다."
@@ -33,13 +47,13 @@ final class PoolProceedingDetailView: BaseUIView {
     // MARK: - Setup
 
     override func setUI() {
-        self.addSubviews(titleLabel, dateLabel, descriptionLabel)
         self.backgroundColor = .white
+        self.addSubviews(titleLabel, dateLabel, aiBadgeLabel, descriptionLabel)
     }
 
     override func setLayout() {
         titleLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(100) // 네비게이션 바 여유
+            $0.top.equalToSuperview().offset(100)
             $0.leading.trailing.equalToSuperview().inset(24)
         }
 
@@ -48,8 +62,15 @@ final class PoolProceedingDetailView: BaseUIView {
             $0.leading.equalTo(titleLabel)
         }
 
-        descriptionLabel.snp.makeConstraints {
+        aiBadgeLabel.snp.makeConstraints {
             $0.top.equalTo(dateLabel.snp.bottom).offset(24)
+            $0.leading.equalTo(descriptionLabel)
+            $0.height.equalTo(24)
+            $0.width.greaterThanOrEqualTo(50)
+        }
+
+        descriptionLabel.snp.makeConstraints {
+            $0.top.equalTo(aiBadgeLabel.snp.bottom).offset(8)
             $0.leading.trailing.equalToSuperview().inset(24)
         }
     }
@@ -62,4 +83,3 @@ final class PoolProceedingDetailView: BaseUIView {
         descriptionLabel.text = meeting.description
     }
 }
-

@@ -36,9 +36,30 @@ final class AddPoolNameViewController: BaseUIViewController {
     }
 
     private func updateSubjectList() {
-        let lectureNames = LectureModel.shared.getLectureNames()
-        addPoolNameView.configureSubjectList(lectureNames)
+        TimeTableService().getMyTimeTables { [weak self] result in
+            guard let self = self else { return }
+
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let dtos):
+                    let lectures = dtos.map { $0.toLecture() }
+                    LectureModel.shared.lectures = lectures
+                    let lectureNames = LectureModel.shared.getLectureNames()
+                    self.addPoolNameView.configureSubjectList(lectureNames)
+
+                case .requestErr(let msg):
+                    self.showAlert(title: "시간표 불러오기 실패", message: msg)
+
+                case .networkFail:
+                    self.showAlert(title: "네트워크 오류", message: "인터넷 연결을 확인해주세요.")
+
+                default:
+                    self.showAlert(title: "오류", message: "과목 목록을 불러올 수 없습니다.")
+                }
+            }
+        }
     }
+
 
     private func addTextFieldObservers() {
         addPoolNameView.teamNameTextField.addTarget(self, action: #selector(textFieldsDidChange), for: .editingChanged)

@@ -3,13 +3,15 @@ import SnapKit
 
 final class PoolProceedingView: BaseUIView {
 
+    // MARK: - UI Components
+
     lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(PoolProceedingCell.self, forCellReuseIdentifier: PoolProceedingCell.identifier)
         tableView.separatorStyle = .none
         return tableView
     }()
-    
+
     lazy var addbutton: UIButton = {
         let button = UIButton()
         button.setTitle("회의 추가", for: .normal)
@@ -20,9 +22,21 @@ final class PoolProceedingView: BaseUIView {
         return button
     }()
 
+    private let emptyLabel: UILabel = {
+        let label = UILabel()
+        label.text = "아직 회의가 없습니다.\n회의를 만들어보세요!"
+        label.textAlignment = .center
+        label.textColor = .lightGray
+        label.font = .systemFont(ofSize: 16, weight: .medium)
+        label.numberOfLines = 2
+        label.isHidden = true
+        return label
+    }()
+
+    // MARK: - UI Setup
+
     override func setUI() {
-        self.addSubviews(tableView,
-                         addbutton)
+        self.addSubviews(tableView, addbutton, emptyLabel)
     }
 
     override func setLayout() {
@@ -32,10 +46,21 @@ final class PoolProceedingView: BaseUIView {
             $0.centerX.equalToSuperview()
             $0.height.equalTo(50)
         }
-        
+
         tableView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
+
+        emptyLabel.snp.makeConstraints {
+            $0.center.equalToSuperview()
+            $0.leading.trailing.equalToSuperview().inset(20)
+        }
+    }
+
+    // MARK: - Empty State Control
+
+    func setEmptyState(_ isEmpty: Bool) {
+        emptyLabel.isHidden = !isEmpty
+        tableView.isHidden = isEmpty
     }
 }
-

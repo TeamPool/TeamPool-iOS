@@ -13,7 +13,4 @@ struct UserDefaultHandler {
 
     @UserDefault(key: "refreshToken", defaultValue: "")
     static var refreshToken: String
-
-    @UserDefault(key: "lecturesSaved", defaultValue: false)
-    static var lecturesSaved: Bool
 }

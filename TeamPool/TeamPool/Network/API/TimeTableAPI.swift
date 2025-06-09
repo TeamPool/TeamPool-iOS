@@ -10,6 +10,7 @@ import Moya
 
 enum TimeTableAPI {
     case postTimeTables([TimeTableRequestDTO])
+    case getMyTimeTables
 }
 
 extension TimeTableAPI: BaseTargetType {
@@ -17,17 +18,26 @@ extension TimeTableAPI: BaseTargetType {
         switch self {
         case .postTimeTables:
             return "/api/timetables/me"
+        case .getMyTimeTables:
+            return "/api/timetables/me"
         }
     }
 
     var method: Moya.Method {
-        return .post
+        switch self {
+        case .postTimeTables:
+            return .post
+        case .getMyTimeTables:
+            return .get
+        }
     }
 
     var task: Task {
         switch self {
         case .postTimeTables(let timeTables):
             return .requestJSONEncodable(timeTables)
+        case .getMyTimeTables:
+            return .requestPlain
         }
     }
 
@@ -38,6 +48,7 @@ extension TimeTableAPI: BaseTargetType {
         ]
     }
 }
+
 
 import Moya
 
@@ -64,4 +75,22 @@ final class TimeTableService {
             }
         }
     }
+
+    func getMyTimeTables(completion: @escaping (NetworkResult<[TimeTableResponseDTO]>) -> Void) {
+            provider.request(.getMyTimeTables) { result in
+                switch result {
+                case .success(let response):
+                    do {
+                        let decoded = try JSONDecoder().decode(APIResponse<[TimeTableResponseDTO]>.self, from: response.data)
+                        completion(.success(decoded.data))
+                    } catch {
+                        print("❌ 디코딩 실패: \(error)")
+                        completion(.pathErr)
+                    }
+
+                case .failure:
+                    completion(.networkFail)
+                }
+            }
+        }
 }

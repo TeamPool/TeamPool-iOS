@@ -12,6 +12,7 @@ enum ScheduleAPI {
     case addPoolSchedule(ScheduleCreateRequestDTO)
     case fetchSchedules(poolId: Int)
     case fetchSchedulesByDay(date: String)
+    case fetchMySchedules
 }
 
 extension ScheduleAPI: BaseTargetType {
@@ -21,6 +22,8 @@ extension ScheduleAPI: BaseTargetType {
             return "/api/schedules"
         case .fetchSchedulesByDay:
             return "/api/schedules/by-day"
+        case .fetchMySchedules:
+            return "/api/schedules/my" 
         }
     }
 
@@ -28,7 +31,7 @@ extension ScheduleAPI: BaseTargetType {
         switch self {
         case .addPoolSchedule:
             return .post
-        case .fetchSchedules, .fetchSchedulesByDay:
+        case .fetchSchedules, .fetchSchedulesByDay, .fetchMySchedules:
             return .get
         }
     }
@@ -41,6 +44,8 @@ extension ScheduleAPI: BaseTargetType {
             return .requestParameters(parameters: ["poolId": poolId], encoding: URLEncoding.queryString)
         case .fetchSchedulesByDay(let date):
             return .requestParameters(parameters: ["date": date], encoding: URLEncoding.queryString)
+        case .fetchMySchedules:
+            return .requestPlain
         }
     }
 
@@ -51,6 +56,7 @@ extension ScheduleAPI: BaseTargetType {
         ]
     }
 }
+
 
 
 final class AddPoolScheduleService {
@@ -108,4 +114,23 @@ final class AddPoolScheduleService {
                 }
             }
         }
+
+    func fetchMySchedules(completion: @escaping (NetworkResult<[MyScheduleResponseDTO]>) -> Void) {
+        provider.request(.fetchMySchedules) { result in
+            switch result {
+            case .success(let response):
+                do {
+                    let decoded = try JSONDecoder().decode(APIResponse<[MyScheduleResponseDTO]>.self, from: response.data)
+                    completion(.success(decoded.data))
+                } catch {
+                    print("❌ 디코딩 실패: \(error)")
+                    completion(.pathErr)
+                }
+
+            case .failure:
+                completion(.networkFail)
+            }
+        }
+    }
+
 }

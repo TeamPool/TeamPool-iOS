@@ -10,79 +10,50 @@ import SnapKit
 
 class HomeCell: BaseTableViewCell {
 
-    // MARK: - Properties
     static let identifier = "HomeCell"
 
     // MARK: - UI Components
 
     private let containerView: UIView = {
         let view = UIView()
-        view.layer.cornerRadius = 8
-        view.layer.borderColor = UIColor.systemGray4.cgColor
-        view.layer.borderWidth = 1
+        view.layer.cornerRadius = 12
         view.backgroundColor = .white
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOpacity = 0.15
+        view.layer.shadowOffset = CGSize(width: 0, height: 2)
+        view.layer.shadowRadius = 6
         return view
     }()
 
-    private let teamImage: UIImageView = {
-        let image = UIImageView()
-        image.image = ImageLiterals.teamIcon
-        return image
-    }()
-
+    private let teamIcon = UIImageView(image: ImageLiterals.teamIcon)
     private let nameLabel: UILabel = {
         let label = UILabel()
-        label.font = .boldSystemFont(ofSize: 18)
+        label.font = .boldSystemFont(ofSize: 17)
         label.textColor = .black
         return label
     }()
 
-    private let bookmarkImage: UIImageView = {
-        let image = UIImageView()
-        image.image = ImageLiterals.bookMark
-        return image
-    }()
-
+    private let bookmarkIcon = UIImageView(image: ImageLiterals.bookMark)
     private let subNameLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 16)
-        label.textColor = .black
+        label.font = .systemFont(ofSize: 15)
+        label.textColor = .darkGray
         return label
     }()
 
-    private let checkImage: UIImageView = {
-        let image = UIImageView()
-        image.image = ImageLiterals.check
-        return image
-    }()
-
+    private let dateIcon = UIImageView(image: ImageLiterals.check)
     private let dateLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14)
-        label.textColor = .black
-        label.numberOfLines = 0
-        return label
-    }()
-
-    private let locationLabel: UILabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 14)
-        label.textColor = .black
+        label.textColor = .gray
         return label
     }()
 
     private let participantLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14)
-        label.textColor = .black
+        label.textColor = .gray
         return label
-    }()
-
-    private let dDayView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .systemIndigo
-        view.layer.cornerRadius = 8
-        return view
     }()
 
     private let dDayLabel: UILabel = {
@@ -90,75 +61,83 @@ class HomeCell: BaseTableViewCell {
         label.font = .boldSystemFont(ofSize: 12)
         label.textColor = .white
         label.textAlignment = .center
+        label.text = "D-9"
         return label
     }()
 
-    // MARK: - Custom Method
+    private let dDayView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .systemIndigo
+        view.layer.cornerRadius = 12
+        return view
+    }()
+
+    // MARK: - SetUI & Layout
 
     override func setUI() {
+        contentView.backgroundColor = .clear
         contentView.addSubview(containerView)
-        containerView.addSubviews(teamImage, nameLabel, dDayView, bookmarkImage, subNameLabel, checkImage, dateLabel, locationLabel, participantLabel)
+
+        [teamIcon, nameLabel, bookmarkIcon, subNameLabel,
+         dateIcon, dateLabel, participantLabel,
+         dDayView].forEach { containerView.addSubview($0) }
+
         dDayView.addSubview(dDayLabel)
     }
 
     override func setLayout() {
         containerView.snp.makeConstraints {
-            $0.edges.equalToSuperview().inset(8)
+            $0.edges.equalToSuperview().inset(12)
         }
 
-        teamImage.snp.makeConstraints {
-            $0.top.leading.equalToSuperview().inset(16)
+        teamIcon.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(20)
+            $0.leading.equalToSuperview().offset(20)
             $0.size.equalTo(20)
         }
 
         nameLabel.snp.makeConstraints {
-            $0.leading.equalTo(teamImage.snp.trailing).offset(8)
-            $0.centerY.equalTo(teamImage)
+            $0.leading.equalTo(teamIcon.snp.trailing).offset(8)
+            $0.centerY.equalTo(teamIcon)
         }
 
-        dDayView.snp.makeConstraints {
-            $0.trailing.equalToSuperview().inset(12)
-            $0.centerY.equalTo(teamImage)
-            $0.width.equalTo(58)
-            $0.height.equalTo(24)
-        }
-
-        dDayLabel.snp.makeConstraints {
-            $0.center.equalToSuperview()
-        }
-
-        bookmarkImage.snp.makeConstraints {
-            $0.leading.equalToSuperview().inset(16)
-            $0.top.equalTo(teamImage.snp.bottom).offset(12)
-            $0.width.equalTo(14)
-            $0.height.equalTo(17)
+        bookmarkIcon.snp.makeConstraints {
+            $0.leading.equalTo(teamIcon)
+            $0.top.equalTo(teamIcon.snp.bottom).offset(16)
+            $0.size.equalTo(CGSize(width: 16, height: 16))
         }
 
         subNameLabel.snp.makeConstraints {
-            $0.leading.equalTo(bookmarkImage.snp.trailing).offset(8)
-            $0.centerY.equalTo(bookmarkImage)
+            $0.leading.equalTo(bookmarkIcon.snp.trailing).offset(8)
+            $0.centerY.equalTo(bookmarkIcon)
         }
 
-        checkImage.snp.makeConstraints {
-            $0.leading.equalToSuperview().inset(16)
-            $0.top.equalTo(bookmarkImage.snp.bottom).offset(12)
+        dateIcon.snp.makeConstraints {
+            $0.leading.equalTo(bookmarkIcon)
+            $0.top.equalTo(bookmarkIcon.snp.bottom).offset(12)
             $0.size.equalTo(16)
         }
 
         dateLabel.snp.makeConstraints {
-            $0.leading.equalTo(checkImage.snp.trailing).offset(8)
-            $0.centerY.equalTo(checkImage)
-        }
-
-        locationLabel.snp.makeConstraints {
-            $0.leading.equalTo(dateLabel)
-            $0.top.equalTo(dateLabel.snp.bottom).offset(4)
+            $0.leading.equalTo(dateIcon.snp.trailing).offset(8)
+            $0.centerY.equalTo(dateIcon)
         }
 
         participantLabel.snp.makeConstraints {
             $0.leading.equalTo(dateLabel)
-            $0.top.equalTo(locationLabel.snp.bottom).offset(4)
-            $0.bottom.equalToSuperview().inset(16)
+            $0.top.equalTo(dateLabel.snp.bottom).offset(4)
+            $0.bottom.equalToSuperview().inset(20)
+        }
+
+        dDayView.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(16)
+            $0.trailing.equalToSuperview().inset(16)
+            $0.height.equalTo(24)
+            $0.width.greaterThanOrEqualTo(50)
+        }
+
+        dDayLabel.snp.makeConstraints {
+            $0.center.equalToSuperview()
         }
     }
 
@@ -168,7 +147,6 @@ class HomeCell: BaseTableViewCell {
         nameLabel.text = model.name
         subNameLabel.text = model.subName
         dateLabel.text = model.date
-        locationLabel.text = model.location
         participantLabel.text = model.participant
         dDayLabel.text = model.dDay
     }

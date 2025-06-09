@@ -18,23 +18,34 @@ final class PoolProceedingRecordView: BaseUIView {
         button.setImage(ImageLiterals.poolRecord_end, for: .normal)
         button.tintColor = .white
         button.imageView?.contentMode = .scaleAspectFit
-        button.isHidden = true // 초기엔 숨김
+        button.isHidden = true
         return button
     }()
 
-    // 상태 텍스트
+    // 상태 출력용 스크롤 뷰 + 라벨
+    private let scrollView: UIScrollView = {
+        let scroll = UIScrollView()
+        scroll.showsVerticalScrollIndicator = true
+        return scroll
+    }()
+
     let statusLabel: UILabel = {
         let label = UILabel()
         label.text = "녹음 시작"
-        label.textAlignment = .center
-        label.font = .boldSystemFont(ofSize: 18)
+        label.textAlignment = .left
+        label.font = .systemFont(ofSize: 16)
+        label.numberOfLines = 0 // ✅ 줄바꿈 허용
+        label.textColor = .black
         return label
     }()
+
+    // MARK: - UI Setup
 
     override func setUI() {
         addSubview(recordButton)
         addSubview(endButton)
-        addSubview(statusLabel)
+        addSubview(scrollView)
+        scrollView.addSubview(statusLabel)
     }
 
     override func setLayout() {
@@ -48,10 +59,17 @@ final class PoolProceedingRecordView: BaseUIView {
             $0.width.height.equalTo(120)
         }
 
+        scrollView.snp.makeConstraints {
+            $0.top.equalTo(recordButton.snp.bottom).offset(20)
+            $0.leading.trailing.equalToSuperview().inset(24)
+            $0.bottom.lessThanOrEqualTo(safeAreaLayoutGuide).inset(20)
+            $0.height.greaterThanOrEqualTo(120)
+        }
+
         statusLabel.snp.makeConstraints {
-            $0.top.equalTo(recordButton.snp.bottom).offset(16)
-            $0.centerX.equalToSuperview()
+            $0.top.leading.trailing.equalToSuperview()
+            $0.bottom.equalToSuperview() // 중요: 이걸 해줘야 contentSize 자동 계산
+            $0.width.equalTo(scrollView.snp.width)
         }
     }
 }
-

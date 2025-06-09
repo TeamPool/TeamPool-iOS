@@ -12,6 +12,9 @@ enum PoolAPI {
     case createPool(PoolCreateRequestDTO)
     case getMyPools
     case getPoolTimetables(poolId: Int)
+    case getPoolNotes(poolId: Int)
+    case postPoolNote(poolId: Int, body: PoolNoteRequestDTO)
+    case getAvailableTimes(poolId: Int) 
 }
 
 extension PoolAPI: BaseTargetType {
@@ -24,26 +27,35 @@ extension PoolAPI: BaseTargetType {
             return "/api/pools/my"
         case .getPoolTimetables(let poolId):
             return "/api/pools/\(poolId)/timetables"
+        case .getPoolNotes(let poolId):
+            return "/api/pools/\(poolId)/notes"
+        case .postPoolNote(poolId: let poolId, body: let body):
+            return "/api/pools/\(poolId)/notes"
+        case .getAvailableTimes(let poolId):
+                    return "/api/pools/\(poolId)/available-times"
         }
     }
 
     var method: Moya.Method {
         switch self {
-        case .createPool:
+        case .createPool, .postPoolNote:
             return .post
-        case .getMyPools, .getPoolTimetables:
-            return .get
-        }
+        case .getMyPools, .getPoolTimetables, .getPoolNotes, .getAvailableTimes:
+                   return .get
+               }
     }
 
     var task: Task {
-        switch self {
-        case .createPool(let dto):
-            return .requestJSONEncodable(dto)
-        case .getMyPools, .getPoolTimetables:
-            return .requestPlain
+            switch self {
+            case .createPool(let dto):
+                return .requestJSONEncodable(dto)
+            case .postPoolNote(_, let body):
+                return .requestJSONEncodable(body)
+            case .getMyPools, .getPoolTimetables, .getPoolNotes, .getAvailableTimes:
+                return .requestPlain
+            }
         }
-    }
+
 
     var headers: [String : String]? {
         return [
@@ -114,4 +126,57 @@ final class PoolService {
                 }
             }
         }
+
+    func fetchPoolNotes(poolId: Int, completion: @escaping (NetworkResult<[PoolNoteResponseDTO]>) -> Void) {
+        provider.request(.getPoolNotes(poolId: poolId)) { result in
+            switch result {
+            case .success(let response):
+                do {
+                    let decoded = try JSONDecoder().decode(APIResponse<[PoolNoteResponseDTO]>.self, from: response.data)
+                    completion(.success(decoded.data))
+                } catch {
+                    print("❌ 디코딩 실패:", error)
+                    completion(.pathErr)
+                }
+
+            case .failure:
+                completion(.networkFail)
+            }
+        }
+    }
+
+    func postPoolNote(poolId: Int, body: PoolNoteRequestDTO, completion: @escaping (NetworkResult<Void>) -> Void) {
+        provider.request(.postPoolNote(poolId: poolId, body: body)) { result in
+            switch result {
+            case .success(let response):
+                if response.statusCode == 200 || response.statusCode == 201 {
+                    completion(.success(()))
+                } else {
+                    print("❌ 회의록 저장 실패: \(response.statusCode)")
+                    completion(.requestErr("회의록 저장 실패"))
+                }
+            case .failure:
+                completion(.networkFail)
+            }
+        }
+    }
+}
+extension PoolService {
+    func fetchAvailableTimes(poolId: Int, completion: @escaping (NetworkResult<AvailableTimeResponseDTO>) -> Void) {
+        provider.request(.getAvailableTimes(poolId: poolId)) { result in
+            switch result {
+            case .success(let response):
+                do {
+                    let decoded = try JSONDecoder().decode(APIResponse<AvailableTimeResponseDTO>.self, from: response.data)
+                    completion(.success(decoded.data))
+                } catch {
+                    print("❌ 디코딩 실패: \(error)")
+                    completion(.pathErr)
+                }
+
+            case .failure:
+                completion(.networkFail)
+            }
+        }
+    }
 }

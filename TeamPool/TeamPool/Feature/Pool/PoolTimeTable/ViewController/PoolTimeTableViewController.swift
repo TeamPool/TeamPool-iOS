@@ -14,6 +14,7 @@ import UIKit
 final class PoolTimeTableViewController: BaseUIViewController {
 
     var poolId: Int
+    private let poolTimeTableView = PoolTimeTableView()
 
     init(poolId: Int) {
         self.poolId = poolId
@@ -23,8 +24,6 @@ final class PoolTimeTableViewController: BaseUIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    private let poolTimeTableView = PoolTimeTableView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +40,19 @@ final class PoolTimeTableViewController: BaseUIViewController {
             make.edges.equalToSuperview()
         }
     }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        let availableVC = PoolAvailableTimeViewController(poolId: poolId)
+        if let sheet = availableVC.sheetPresentationController {
+            sheet.detents = [.medium(), .large()]
+            sheet.prefersGrabberVisible = true
+            sheet.preferredCornerRadius = 20
+        }
+        present(availableVC, animated: true)
+    }
+
 
     private func addDelegate() {
         poolTimeTableView.timeTable.dataSource = self
@@ -69,13 +81,13 @@ final class PoolTimeTableViewController: BaseUIViewController {
         })
     }
 
-
     private func showAlert(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "확인", style: .default))
         present(alert, animated: true)
     }
 }
+
 
 // MARK: - UnivTimeTableDataSource
 
