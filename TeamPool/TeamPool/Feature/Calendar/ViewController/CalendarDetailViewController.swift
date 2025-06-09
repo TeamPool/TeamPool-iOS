@@ -28,6 +28,7 @@ final class CalendarDetailViewController: BaseUIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadEvents(for: date)
+        calendarDetailView.dontShowAgainSwitch.addTarget(self, action: #selector(didToggleDontShowAgain), for: .valueChanged)
     }
 
     // MARK: - Custom Method
@@ -50,5 +51,21 @@ final class CalendarDetailViewController: BaseUIViewController {
         }
 
         calendarDetailView.update(date: date, events: filteredEvents)
+    }
+
+    @objc private func didToggleDontShowAgain(_ sender: UISwitch) {
+//        if sender.isOn {
+//            let todayKey = Self.makeTodayKey()
+//            UserDefaults.standard.set(true, forKey: todayKey)
+//        }
+        if sender.isOn {
+            self.dismiss(animated: true)
+        }
+    }
+
+    private static func makeTodayKey() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return "dontShowCalendarPopup-\(formatter.string(from: Date()))"
     }
 }

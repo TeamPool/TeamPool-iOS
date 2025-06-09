@@ -44,8 +44,9 @@ final class CalendarViewController: BaseUIViewController {
             case .success(let schedules):
                 let allSchedules = schedules.flatMap { $0.schedules }
                 let models = allSchedules.map { CalendarModel(from: $0) }
-                self.calendarView.updateEvents(models)
 
+                self.calendarView.updateEvents(models)
+                self.presentTodayDetailModal(with: models) 
             case .requestErr(let msg):
                 self.showAlert(title: "내 일정 조회 실패", message: msg)
 
@@ -58,6 +59,27 @@ final class CalendarViewController: BaseUIViewController {
         }
     }
 
+
+    private func presentTodayDetailModal(with events: [CalendarModel]) {
+        let today = Date()
+        let filteredEvents = events.filter {
+            guard let range = Calendar.current.dateInterval(of: .day, for: today) else { return false }
+            return $0.startDate <= range.end && $0.endDate >= range.start
+        }
+
+        let detailVC = CalendarDetailViewController(date: today, events: filteredEvents)
+        detailVC.modalPresentationStyle = .pageSheet
+
+        if let sheet = detailVC.sheetPresentationController {
+            sheet.detents = [.medium()]
+            sheet.prefersGrabberVisible = true
+            sheet.preferredCornerRadius = 20
+        }
+
+        present(detailVC, animated: true)
+    }
+
+
     func showAlert(title: String, message: String, completion: (() -> Void)? = nil) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "확인", style: .default) { _ in
@@ -69,7 +91,7 @@ final class CalendarViewController: BaseUIViewController {
 
 extension CalendarModel {
     init(from dto: MyScheduleResponseDTO.ScheduleDTO) {
-        self.subjectName = "" // ❗️MyScheduleResponseDTO에는 과목명 없으므로 빈값 또는 필요 시 외부에서 주입
+        self.subjectName = ""
         self.title = dto.title
         self.place = dto.place
         self.color = UIColor.timetableColors.randomElement() ?? .systemGray

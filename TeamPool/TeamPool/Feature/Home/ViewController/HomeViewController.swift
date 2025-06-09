@@ -110,6 +110,7 @@ final class HomeViewController: BaseUIViewController {
                 case .success(let dtoList):
                     self.poolList = dtoList.map { HomeModel.from(dto: $0) }
                     self.homeView.tableView.reloadData()
+                    self.updateEmptyStateIfNeeded()
 
                 case .requestErr(let msg):
                     self.showAlert(title: "불러오기 실패", message: msg)
@@ -129,6 +130,40 @@ final class HomeViewController: BaseUIViewController {
         alert.addAction(UIAlertAction(title: "확인", style: .default))
         present(alert, animated: true)
     }
+
+    private func updateEmptyStateIfNeeded() {
+        if poolList.isEmpty {
+            let emptyLabel = UILabel()
+            emptyLabel.text = "아직 생성된 Pool이 없어요.\n오른쪽 아래 + 버튼을 눌러 시작해보세요!"
+            emptyLabel.font = .systemFont(ofSize: 16, weight: .medium)
+            emptyLabel.textColor = .gray
+            emptyLabel.numberOfLines = 0
+            emptyLabel.textAlignment = .center
+            emptyLabel.sizeToFit()
+
+            // 두근두근 애니메이션 (3초 동안 반복)
+            let pulse = CABasicAnimation(keyPath: "transform.scale")
+            pulse.fromValue = 1.0
+            pulse.toValue = 1.05
+            pulse.duration = 0.8
+            pulse.autoreverses = true
+            pulse.repeatCount = .greatestFiniteMagnitude // 무한 반복으로 설정
+            emptyLabel.layer.add(pulse, forKey: "pulse")
+
+            homeView.tableView.backgroundView = emptyLabel
+
+            // 3초 후 애니메이션 제거
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.0) {
+                emptyLabel.layer.removeAnimation(forKey: "pulse")
+            }
+
+        } else {
+            homeView.tableView.backgroundView?.layer.removeAnimation(forKey: "pulse")
+            homeView.tableView.backgroundView = nil
+            homeView.floatingButton.layer.removeAnimation(forKey: "shake")
+        }
+    }
+
 
     // MARK: - Action Method
 
