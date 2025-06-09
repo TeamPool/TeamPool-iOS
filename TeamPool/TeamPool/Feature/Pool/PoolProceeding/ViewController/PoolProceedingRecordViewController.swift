@@ -22,8 +22,13 @@ final class PoolProceedingRecordViewController: BaseUIViewController {
 
         // STT 실시간 텍스트 반영
         sttManager.onResult = { [weak self] transcript in
-            self?.recordModel.transcript = transcript
-            self?.recordView.statusLabel.text = transcript
+            guard let self = self else { return }
+
+            // 빈 텍스트일 경우 무시하고 기존 transcript 유지
+            if transcript.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty { return }
+
+            self.recordModel.transcript = transcript
+            self.recordView.statusLabel.text = transcript
         }
 
         // 권한 요청
@@ -74,25 +79,7 @@ final class PoolProceedingRecordViewController: BaseUIViewController {
             guard let self else { return }
 
             let title = alert.textFields?.first?.text ?? "(제목 없음)"
-            let content = self.recordView.statusLabel.text ?? "(내용 없음)"
-
-            // GPT 요약 API 호출
-            SummaryService().summarizeWithChatGPT(transcript: content) { result in
-                DispatchQueue.main.async {
-                    switch result {
-                    case .success(let summary):
-                        print("📝 [회의 저장 완료]")
-                        print("제목: \(title)")
-                        print("원문: \(content)")
-                        print("요약: \(summary)")
-
-                        self.navigationController?.popViewController(animated: true)
-
-                    case .failure(let error):
-                        self.showAlert(message: "요약 실패: \(error.localizedDescription)")
-                    }
-                }
-            }
+            self.waitForTranscript(title: title)
         }
 
         alert.addAction(confirm)
@@ -102,6 +89,61 @@ final class PoolProceedingRecordViewController: BaseUIViewController {
             alert.textFields?.first?.becomeFirstResponder()
         }
     }
+    private func waitForTranscript(title: String) {
+        let loading = UIAlertController(title: nil, message: "요약 중입니다...\n\n", preferredStyle: .alert)
+
+        let activityIndicator = UIActivityIndicatorView(style: .medium)
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        loading.view.addSubview(activityIndicator)
+        NSLayoutConstraint.activate([
+            activityIndicator.centerXAnchor.constraint(equalTo: loading.view.centerXAnchor),
+            activityIndicator.bottomAnchor.constraint(equalTo: loading.view.bottomAnchor, constant: -20)
+        ])
+        activityIndicator.startAnimating()
+        present(loading, animated: true)
+
+        // 최대 3초까지 대기하면서 텍스트 길이 확인
+        var checkCount = 0
+        Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { timer in
+            checkCount += 1
+            let transcript = self.recordModel.transcript.trimmingCharacters(in: .whitespacesAndNewlines)
+
+            if !transcript.isEmpty && transcript.count > 10 {
+                timer.invalidate()
+                loading.dismiss(animated: true) {
+                    self.requestSummary(title: title, content: transcript)
+                }
+            }
+
+            if checkCount >= 6 { // 0.5초 * 6 = 3초
+                timer.invalidate()
+                loading.dismiss(animated: true) {
+                    print("⚠️ STT 결과 부족으로 요약을 생략합니다.")
+                    self.showAlert(message: "충분한 음성 인식 결과가 없어 요약을 생략합니다.")
+                    self.navigationController?.popViewController(animated: true)
+                }
+            }
+        }
+    }
+    private func requestSummary(title: String, content: String) {
+        print("📝 [회의 저장 완료]")
+        print("제목: \(title)")
+        print("원문: \(content)")
+
+        SummaryService().summarizeWithChatGPT(transcript: content) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let summary):
+                    print("요약: \(summary)")
+                    self.navigationController?.popViewController(animated: true)
+
+                case .failure(let error):
+                    self.showAlert(message: "요약 실패: \(error.localizedDescription)")
+                }
+            }
+        }
+    }
+
 
 
 
