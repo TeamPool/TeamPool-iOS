@@ -14,6 +14,7 @@ enum PoolAPI {
     case getPoolTimetables(poolId: Int)
     case getPoolNotes(poolId: Int)
     case postPoolNote(poolId: Int, body: PoolNoteRequestDTO)
+    case getAvailableTimes(poolId: Int) 
 }
 
 extension PoolAPI: BaseTargetType {
@@ -30,6 +31,8 @@ extension PoolAPI: BaseTargetType {
             return "/api/pools/\(poolId)/notes"
         case .postPoolNote(poolId: let poolId, body: let body):
             return "/api/pools/\(poolId)/notes"
+        case .getAvailableTimes(let poolId):
+                    return "/api/pools/\(poolId)/available-times"
         }
     }
 
@@ -37,21 +40,21 @@ extension PoolAPI: BaseTargetType {
         switch self {
         case .createPool, .postPoolNote:
             return .post
-        case .getMyPools, .getPoolTimetables, .getPoolNotes:
-            return .get
-        }
+        case .getMyPools, .getPoolTimetables, .getPoolNotes, .getAvailableTimes:
+                   return .get
+               }
     }
 
     var task: Task {
-        switch self {
-        case .createPool(let dto):
-            return .requestJSONEncodable(dto)
-        case .postPoolNote(_, let body):
-            return .requestJSONEncodable(body)
-        case .getMyPools, .getPoolTimetables, .getPoolNotes:
-            return .requestPlain
+            switch self {
+            case .createPool(let dto):
+                return .requestJSONEncodable(dto)
+            case .postPoolNote(_, let body):
+                return .requestJSONEncodable(body)
+            case .getMyPools, .getPoolTimetables, .getPoolNotes, .getAvailableTimes:
+                return .requestPlain
+            }
         }
-    }
 
 
     var headers: [String : String]? {
@@ -157,6 +160,23 @@ final class PoolService {
             }
         }
     }
+}
+extension PoolService {
+    func fetchAvailableTimes(poolId: Int, completion: @escaping (NetworkResult<AvailableTimeResponseDTO>) -> Void) {
+        provider.request(.getAvailableTimes(poolId: poolId)) { result in
+            switch result {
+            case .success(let response):
+                do {
+                    let decoded = try JSONDecoder().decode(APIResponse<AvailableTimeResponseDTO>.self, from: response.data)
+                    completion(.success(decoded.data))
+                } catch {
+                    print("❌ 디코딩 실패: \(error)")
+                    completion(.pathErr)
+                }
 
-
+            case .failure:
+                completion(.networkFail)
+            }
+        }
+    }
 }
