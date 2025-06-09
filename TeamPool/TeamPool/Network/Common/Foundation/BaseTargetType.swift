@@ -16,8 +16,8 @@ extension BaseTargetType{
     var baseURL: URL {
         /// 실제 url로 바꿔주세요.
 //        return URL(string:"http://43.201.18.0:8080")!
-       return URL(string: "http://172.30.1.56:8080")!
-        //return URL(string: "http://localhost:8080")!
+      // return URL(string: "http://172.30.1.56:8080")!
+        return URL(string: "http://localhost:8080")!
     }
 
     var headers: [String : String]? {

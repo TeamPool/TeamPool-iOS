@@ -13,6 +13,7 @@ final class HomeViewController: BaseUIViewController {
     // MARK: - Properties
 
     private var poolList: [HomeModel] = []
+    private var hasFetchedLecture = false
 
     // MARK: - UI Components
 
@@ -30,8 +31,6 @@ final class HomeViewController: BaseUIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        UserDefaultHandler.lecturesSaved = false
-
         homeView.tableView.dataSource = self
         homeView.tableView.delegate = self
         homeView.tableView.register(HomeCell.self, forCellReuseIdentifier: HomeCell.identifier)
@@ -39,7 +38,6 @@ final class HomeViewController: BaseUIViewController {
         fetchMyPools()
         checkLectureSaved()
     }
-
 
     // MARK: - Custom Method
 
@@ -59,12 +57,29 @@ final class HomeViewController: BaseUIViewController {
     }
 
     private func checkLectureSaved() {
-        if !UserDefaultHandler.lecturesSaved {
-            showLectureImportAlert()
-        }else{
-            print("저장되어있")
-        }
+        TimeTableService().getMyTimeTables { [weak self] result in
+            guard let self = self else { return }
 
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let timetableList):
+                    if timetableList.isEmpty {
+                        self.showLectureImportAlert()
+                    } else {
+                        print("✅ 시간표 저장되어 있음. 알림 안띄움.")
+                    }
+
+                case .requestErr(let msg):
+                    print("❌ 시간표 요청 오류: \(msg)")
+
+                case .networkFail:
+                    self.showAlert(title: "네트워크 오류", message: "시간표 확인에 실패했습니다.")
+
+                default:
+                    print("❌ 기타 오류 발생")
+                }
+            }
+        }
     }
 
     private func showLectureImportAlert() {
@@ -80,7 +95,7 @@ final class HomeViewController: BaseUIViewController {
                 self.navigationController?.pushViewController(loginVC, animated: true)
             },
             cancelHandler: {
-                print("취소됨")
+                print("⛔️ 시간표 불러오기 취소됨")
             }
         )
     }
@@ -114,22 +129,19 @@ final class HomeViewController: BaseUIViewController {
         present(alert, animated: true)
     }
 
-
-
     // MARK: - Action Method
 
     override func addTarget() {
         homeView.floatingButton.addTarget(self, action: #selector(didTappedFloatingButton), for: .touchUpInside)
-
     }
 
     @objc
     func didTappedFloatingButton() {
-        print("플로팅 버튼 클릭")
         let addPoolVC = AddPoolNameViewController()
         self.navigationController?.pushViewController(addPoolVC, animated: true)
     }
 }
+
 
 // MARK: - TableViewDatasource & Delegate
 

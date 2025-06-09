@@ -108,8 +108,6 @@ extension UsaintLogInViewController {
                         )
                     }
                 }
-
-                UserDefaultHandler.lecturesSaved = true
                 print("✅ 시간표 저장완료")
 
                 DispatchQueue.main.async { [weak self] in
