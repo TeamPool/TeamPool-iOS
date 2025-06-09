@@ -38,8 +38,9 @@ final class CalendarView: BaseUIView, FSCalendarDataSource, FSCalendarDelegate, 
         return calendar
     }()
 
-    private let events: [CalendarModel] = CalendarModel.dummyData()
-    
+    // ✅ 외부에서 주입받을 실제 일정 데이터
+    private var events: [CalendarModel] = []
+
     // MARK: - Init
 
     override init(frame: CGRect) {
@@ -58,7 +59,7 @@ final class CalendarView: BaseUIView, FSCalendarDataSource, FSCalendarDelegate, 
     private func setCalendar() {
         calendar.dataSource = self
         calendar.delegate = self
-        calendar.register(CalendarCell.self, forCellReuseIdentifier: "CalendarCell") // ✅ 변경된 셀 이름
+        calendar.register(CalendarCell.self, forCellReuseIdentifier: "CalendarCell")
     }
 
     override func setUI() {
@@ -72,6 +73,11 @@ final class CalendarView: BaseUIView, FSCalendarDataSource, FSCalendarDelegate, 
             $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(500)
         }
+    }
+
+    func updateEvents(_ events: [CalendarModel]) {
+        self.events = events
+        calendar.reloadData()
     }
 
     // MARK: - FSCalendar DataSource
@@ -104,11 +110,13 @@ final class CalendarView: BaseUIView, FSCalendarDataSource, FSCalendarDelegate, 
     }
 
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleSelectionColorFor date: Date) -> UIColor? {
-        return .black // 선택해도 텍스트 색 고정
+        return .black
     }
 
+    // MARK: - Modal
+
     private func presentHalfModal(for date: Date) {
-        let vc = CalendarDetailViewController(date: date)
+        let vc = CalendarDetailViewController(date: date, events: events)
         vc.modalPresentationStyle = .pageSheet
         if let sheet = vc.sheetPresentationController {
             sheet.detents = [.medium(), .large()]
@@ -124,4 +132,3 @@ final class CalendarView: BaseUIView, FSCalendarDataSource, FSCalendarDelegate, 
         }
     }
 }
-
