@@ -12,6 +12,7 @@ enum PoolAPI {
     case createPool(PoolCreateRequestDTO)
     case getMyPools
     case getPoolTimetables(poolId: Int)
+    case getPoolNotes(poolId: Int)
 }
 
 extension PoolAPI: BaseTargetType {
@@ -24,6 +25,8 @@ extension PoolAPI: BaseTargetType {
             return "/api/pools/my"
         case .getPoolTimetables(let poolId):
             return "/api/pools/\(poolId)/timetables"
+        case .getPoolNotes(let poolId):
+            return "/api/pools/\(poolId)/notes"
         }
     }
 
@@ -31,7 +34,7 @@ extension PoolAPI: BaseTargetType {
         switch self {
         case .createPool:
             return .post
-        case .getMyPools, .getPoolTimetables:
+        case .getMyPools, .getPoolTimetables, .getPoolNotes:
             return .get
         }
     }
@@ -40,7 +43,7 @@ extension PoolAPI: BaseTargetType {
         switch self {
         case .createPool(let dto):
             return .requestJSONEncodable(dto)
-        case .getMyPools, .getPoolTimetables:
+        case .getMyPools, .getPoolTimetables, .getPoolNotes:
             return .requestPlain
         }
     }
@@ -114,4 +117,23 @@ final class PoolService {
                 }
             }
         }
+
+    func fetchPoolNotes(poolId: Int, completion: @escaping (NetworkResult<[PoolNoteResponseDTO]>) -> Void) {
+        provider.request(.getPoolNotes(poolId: poolId)) { result in
+            switch result {
+            case .success(let response):
+                do {
+                    let decoded = try JSONDecoder().decode(APIResponse<[PoolNoteResponseDTO]>.self, from: response.data)
+                    completion(.success(decoded.data))
+                } catch {
+                    print("❌ 디코딩 실패:", error)
+                    completion(.pathErr)
+                }
+
+            case .failure:
+                completion(.networkFail)
+            }
+        }
+    }
+
 }

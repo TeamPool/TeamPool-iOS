@@ -30,3 +30,13 @@ struct PoolProceedingModel {
     }
 }
 
+
+extension PoolProceedingModel {
+    init(from dto: PoolNoteResponseDTO) {
+        self.title = dto.title
+        self.description = dto.summary
+        let components = DateComponents(hour: dto.time.hour, minute: dto.time.minute, second: dto.time.second, nanosecond: dto.time.nano)
+        self.date = Calendar.current.date(from: components) ?? Date()
+    }
+}
+

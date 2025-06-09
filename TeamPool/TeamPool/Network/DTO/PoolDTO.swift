@@ -40,3 +40,17 @@ struct TimetableDTO: Codable {
     let endTime: String
     let place: String
 }
+
+
+struct PoolNoteResponseDTO: Codable {
+    let title: String
+    let summary: String
+    let time: NoteTime
+
+    struct NoteTime: Codable {
+        let hour: Int
+        let minute: Int
+        let second: Int
+        let nano: Int
+    }
+}
