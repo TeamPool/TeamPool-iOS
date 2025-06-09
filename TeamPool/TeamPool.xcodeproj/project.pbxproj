@@ -100,6 +100,10 @@
 		E55D9C312DE10815000FD099 /* GenericResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55D9C1D2DE10815000FD099 /* GenericResponse.swift */; };
 		E55D9C322DE10815000FD099 /* AuthDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55D9C212DE10815000FD099 /* AuthDTO.swift */; };
 		E55D9C352DE1084E000FD099 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = E55D9C342DE1084E000FD099 /* Moya */; };
+		E5D200002DF73C9E00586C28 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D2FFFF2DF73C9E00586C28 /* AppConfig.swift */; };
+		E5D2FFFA2DF73B4E00586C28 /* SummaryAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D2FFF92DF73B4E00586C28 /* SummaryAPI.swift */; };
+		E5D2FFFC2DF73B5800586C28 /* SummaryDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D2FFFB2DF73B5800586C28 /* SummaryDTO.swift */; };
+		E5D2FFFE2DF73BE100586C28 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E5D2FFFD2DF73BE100586C28 /* Config.xcconfig */; };
 		E5DFEFF42D9B92CF00EEE36A /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = E5DFEFF32D9B92CF00EEE36A /* SnapKit */; };
 		E5DFF2B92D9C45E400EEE36A /* Rusaint in Frameworks */ = {isa = PBXBuildFile; productRef = E5DFF2B82D9C45E400EEE36A /* Rusaint */; };
 		E5DFF3792D9C866100EEE36A /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = E5DFF3782D9C866100EEE36A /* FSCalendar */; };
@@ -217,6 +221,10 @@
 		E55D9C1D2DE10815000FD099 /* GenericResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericResponse.swift; sourceTree = "<group>"; };
 		E55D9C1F2DE10815000FD099 /* MoyaLoggerPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaLoggerPlugin.swift; sourceTree = "<group>"; };
 		E55D9C212DE10815000FD099 /* AuthDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDTO.swift; sourceTree = "<group>"; };
+		E5D2FFF92DF73B4E00586C28 /* SummaryAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryAPI.swift; sourceTree = "<group>"; };
+		E5D2FFFB2DF73B5800586C28 /* SummaryDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryDTO.swift; sourceTree = "<group>"; };
+		E5D2FFFD2DF73BE100586C28 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		E5D2FFFF2DF73C9E00586C28 /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
 		F959E5192DEECCCC0050EF8B /* PoolCalendarAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolCalendarAddViewController.swift; sourceTree = "<group>"; };
 		F959E51B2DEECFA10050EF8B /* PoolCalendarAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolCalendarAddView.swift; sourceTree = "<group>"; };
 		F97358BF2DE99F39005775F6 /* PoolProceedingRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolProceedingRecordViewController.swift; sourceTree = "<group>"; };
@@ -644,6 +652,8 @@
 				E5270AF62DCB147F000D12F2 /* Resource */,
 				E5270AF72DCB147F000D12F2 /* Info.plist */,
 				E5270AF92DCB147F000D12F2 /* LaunchScreen.storyboard */,
+				E5D2FFFD2DF73BE100586C28 /* Config.xcconfig */,
+				E5D2FFFF2DF73C9E00586C28 /* AppConfig.swift */,
 			);
 			path = TeamPool;
 			sourceTree = "<group>";
@@ -715,6 +725,7 @@
 				E512B1D12DEF5CE400C509BE /* TimeTableAPI.swift */,
 				E512B1D52DEF60AE00C509BE /* PoolAPI.swift */,
 				E512B1DF2DEF726B00C509BE /* ScheduleAPI.swift */,
+				E5D2FFF92DF73B4E00586C28 /* SummaryAPI.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -748,6 +759,7 @@
 				E512B1D32DEF5CF100C509BE /* TimeTableDTO.swift */,
 				E512B1D72DEF60E500C509BE /* PoolDTO.swift */,
 				E512B1DD2DEF721500C509BE /* ScheduleDTO.swift */,
+				E5D2FFFB2DF73B5800586C28 /* SummaryDTO.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -937,6 +949,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E5270B392DCB147F000D12F2 /* Assets.xcassets in Resources */,
+				E5D2FFFE2DF73BE100586C28 /* Config.xcconfig in Resources */,
 				E5270B3B2DCB147F000D12F2 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1026,6 +1039,7 @@
 				E5270B252DCB147F000D12F2 /* TimeTableView.swift in Sources */,
 				E5270B262DCB147F000D12F2 /* TimeTableViewController.swift in Sources */,
 				F9D0447D2DE5AAEC00FC34DC /* PoolProceedingDetailView.swift in Sources */,
+				E5D2FFFA2DF73B4E00586C28 /* SummaryAPI.swift in Sources */,
 				E5270B272DCB147F000D12F2 /* PoolViewController.swift in Sources */,
 				E5270B282DCB147F000D12F2 /* LectureModel.swift in Sources */,
 				E5270B292DCB147F000D12F2 /* StudentModel.swift in Sources */,
@@ -1033,6 +1047,7 @@
 				E5270B722DCB2694000D12F2 /* PoolAvailableTimeView.swift in Sources */,
 				E5270B2B2DCB147F000D12F2 /* UsaintLogInViewController.swift in Sources */,
 				F9D0445A2DE5A1C800FC34DC /* PoolCalendarViewController.swift in Sources */,
+				E5D2FFFC2DF73B5800586C28 /* SummaryDTO.swift in Sources */,
 				E5270B2C2DCB147F000D12F2 /* UIColor+.swift in Sources */,
 				E54CDB012DEF191D00DCD48D /* FriendsDTO.swift in Sources */,
 				E5270B2D2DCB147F000D12F2 /* UIView+.swift in Sources */,
@@ -1043,6 +1058,7 @@
 				E5270B312DCB147F000D12F2 /* BaseFillButton.swift in Sources */,
 				E5270B322DCB147F000D12F2 /* BaseTabBarController.swift in Sources */,
 				E5270B3D2DCB14BD000D12F2 /* TopTabBar.swift in Sources */,
+				E5D200002DF73C9E00586C28 /* AppConfig.swift in Sources */,
 				F97358C22DE99F59005775F6 /* PoolProceedingRecordView.swift in Sources */,
 				F9D044782DE5A99C00FC34DC /* PoolProceedingModel.swift in Sources */,
 				E512B1D82DEF60E500C509BE /* PoolDTO.swift in Sources */,
@@ -1081,6 +1097,8 @@
 				DEVELOPMENT_TEAM = C9XX799UJH;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TeamPool/Info.plist;
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = TeamPool;
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = test;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -1109,6 +1127,8 @@
 				DEVELOPMENT_TEAM = C9XX799UJH;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TeamPool/Info.plist;
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = TeamPool;
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = test;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -1129,6 +1149,7 @@
 		};
 		E52A16DA2D93186300ABD739 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E5D2FFFD2DF73BE100586C28 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1192,6 +1213,7 @@
 		};
 		E52A16DB2D93186300ABD739 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E5D2FFFD2DF73BE100586C28 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;

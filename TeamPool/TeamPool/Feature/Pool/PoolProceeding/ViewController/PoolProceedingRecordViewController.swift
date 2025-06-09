@@ -70,15 +70,29 @@ final class PoolProceedingRecordViewController: BaseUIViewController {
         let alert = UIAlertController(title: "제목", message: nil, preferredStyle: .alert)
         alert.addTextField { $0.placeholder = "제목을 입력해주세요" }
 
-        let confirm = UIAlertAction(title: "확인", style: .default) { _ in
+        let confirm = UIAlertAction(title: "확인", style: .default) { [weak self] _ in
+            guard let self else { return }
+
             let title = alert.textFields?.first?.text ?? "(제목 없음)"
-            let content = self.recordModel.transcript
+            let content = self.recordView.statusLabel.text ?? "(내용 없음)"
 
-            print("📝 [회의 저장 완료]")
-            print("제목: \(title)")
-            print("내용: \(content.isEmpty ? "(내용 없음)" : content)")
+            // GPT 요약 API 호출
+            SummaryService().summarizeWithChatGPT(transcript: content) { result in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let summary):
+                        print("📝 [회의 저장 완료]")
+                        print("제목: \(title)")
+                        print("원문: \(content)")
+                        print("요약: \(summary)")
 
-            self.navigationController?.popViewController(animated: true)
+                        self.navigationController?.popViewController(animated: true)
+
+                    case .failure(let error):
+                        self.showAlert(message: "요약 실패: \(error.localizedDescription)")
+                    }
+                }
+            }
         }
 
         alert.addAction(confirm)
@@ -88,6 +102,8 @@ final class PoolProceedingRecordViewController: BaseUIViewController {
             alert.textFields?.first?.becomeFirstResponder()
         }
     }
+
+
 
     // MARK: - Alert Helper
 

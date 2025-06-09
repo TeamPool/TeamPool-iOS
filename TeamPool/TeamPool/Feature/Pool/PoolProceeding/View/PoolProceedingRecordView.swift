@@ -51,6 +51,7 @@ final class PoolProceedingRecordView: BaseUIView {
         statusLabel.snp.makeConstraints {
             $0.top.equalTo(recordButton.snp.bottom).offset(16)
             $0.centerX.equalToSuperview()
+            $0.horizontalEdges.equalToSuperview().inset(24)
         }
     }
 }
